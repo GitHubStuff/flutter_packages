@@ -1,0 +1,31 @@
+{
+  "services": [
+    {
+      "nameKey": "terms_of_service",
+      "date": "2020-01-01T00:00:00.000Z",
+      "url": "asset://onboarding/en_terms.md",
+      "title": "Terms Of Service",
+      "agreed": "I have agreed",
+      "neverRead": "Please Read And Accept",
+      "updated": "Review Updated Agreement"
+    },
+    {
+      "nameKey": "privacy",
+      "date": "2020-01-01T00:00:00.000Z",
+      "url": "asset://onboarding/en_privacy.md",
+      "title": "Privacy Notice",
+      "agreed": "I have agreed",
+      "neverRead": "Please Read And Accept",
+      "updated": "Review Updated Location Use"
+    },
+    {
+      "nameKey": "location_useage",
+      "date": "2020-01-01T00:00:00.000Z",
+      "url": "asset://onboarding/en_location.md",
+      "title": "Location Useage Policy",
+      "agreed": "I have agreed",
+      "neverRead": "Please Read And Accept",
+      "updated": "Review Updated Location Use"
+    }
+  ]
+}
