@@ -5,12 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_package/theme_package.dart';
 
+import '../app_scaffold_module/app_scaffold_module.dart';
 import 'material_app_bloc.dart';
 import 'material_app_widget.dart';
-
-import '../../modules/sql_controller_module/sql_controller_module.dart';
-import '../../modules/sql_controller_module/sql_controller_widget.dart';
-import '../app_scaffold_module/app_scaffold_module.dart';
 
 /// Per flutter_modular this is the root/top of the Module for an app.
 /// This module sets critial Binds:
@@ -40,6 +37,5 @@ class MaterialAppModule extends MainModule {
   @override
   List<ModularRouter> get routers => [
         ModularRouter(Navigator.defaultRouteName, module: AppScaffoldModule()),
-        ModularRouter(SqlControllerWidget.route, module: SqlControllerModule()),
       ];
 }

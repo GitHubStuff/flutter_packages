@@ -1,4 +1,4 @@
-import 'package:theme_package/theme_package.dart';
+import 'package:app_exception/app_exception.dart';
 
 class UnknownBrightnessType extends AppException {
   UnknownBrightnessType([String message, int code]) : super(message, 'Unknow Brightness value', code);

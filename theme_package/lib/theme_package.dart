@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 library theme_package;
 
-export 'src/app_exception/app_exception.dart';
 export 'src/cubit_theme/theme_cubit.dart';
 export 'src/helpers/colors_for_theme.dart';
 export 'src/helpers/simple_bloc_observer.dart';

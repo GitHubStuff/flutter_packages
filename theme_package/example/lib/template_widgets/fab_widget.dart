@@ -50,7 +50,7 @@ class FABWidget extends StatelessWidget {
                 content: Text('ALARM-IE'),
                 duration: Duration(milliseconds: 800),
               );
-              Scaffold.of(context).showSnackBar(snackBar);
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             },
           ),
         ),

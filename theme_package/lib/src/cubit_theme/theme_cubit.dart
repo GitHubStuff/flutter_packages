@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:meta/meta.dart';
 
-import '../../src/app_exception/app_exceptions.dart';
+import '../../src/app_exceptions/app_exceptions.dart';
 import '../../src/theme/theme_type.dart';
 import '../../theme_package.dart';
 

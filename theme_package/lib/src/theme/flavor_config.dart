@@ -5,8 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import '../../src/app_exceptions/app_exceptions.dart';
 import '../../theme_package.dart';
-import '../app_exception/app_exceptions.dart';
 import 'flavor_banner.dart';
 
 /// The [ThemeData], [theme properties], for dark/light theme are defined in [main.dart],
