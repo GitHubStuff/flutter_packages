@@ -1,0 +1,14 @@
+{
+  "about": "About",
+  "cancel": "Cancel",
+  "setTheme": "Set Theme",
+  "setThemeContent": "Set the application theme to always be dark, light, or to match the current device theme.",
+  "setThemeDark": "Application Dark",
+  "setThemeLight": "Application Light",
+  "setThemePlatform": "Match Device",
+  "themeAppDark": "Currently: Application Dark",
+  "themeAppLight": "Currently: Application Light",
+  "themeDeviceDark": "Currently: Device Dark",
+  "themeDeviceLight": "Currently: Device Light",
+  "z": ""
+}

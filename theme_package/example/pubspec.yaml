@@ -1,0 +1,42 @@
+name: template
+description: Template project that uses theme_package
+
+#publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+5
+
+environment:
+  sdk: ">=2.10.4 <3.0.0"
+  flutter: ">=1.22.5"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  sqlite_package:
+    path: ../sqlite_package
+  theme_package:
+    path: ../
+  cupertino_icons: ^1.0.0
+  enum_to_string: ^2.0.0-nullsafety.1
+  equatable: ^2.0.0
+  flutter_bloc: ^6.1.1
+  flutter_modular: ^2.0.1
+  font_awesome_flutter: ^8.11.0
+
+dependency_overrides:
+  # Contains the FontAwesome-Pro icons.
+  font_awesome_flutter:
+    path: ../../font_awesome_flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - data/
+    - images/
+    - languages/en.json
+    - languages/es.json
