@@ -58,6 +58,7 @@ class Xfer {
     this.httpGetFuture,
   });
 
+  /// GET
   Future<Either<XferFailure, XferResponse>> get(
     String url, {
     Map<String, String>? headers,
@@ -85,6 +86,7 @@ class Xfer {
     }
   }
 
+  /// POST
   Future<Either<XferFailure, XferResponse>> post(
     String url, {
     Map<String, String>? headers,
