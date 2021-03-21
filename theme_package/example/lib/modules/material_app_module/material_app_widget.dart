@@ -27,10 +27,8 @@ class MaterialAppWidget extends StatelessWidget {
         builder: (_, theme) {
           return MaterialApp(
             initialRoute: Navigator.defaultRouteName,
-            navigatorKey: Modular.navigatorKey,
             debugShowCheckedModeBanner: false,
             // add Modular to manage the routing system
-            onGenerateRoute: Modular.generateRoute,
             theme: theme,
             supportedLocales: [
               Locale('en'),
@@ -49,7 +47,7 @@ class MaterialAppWidget extends StatelessWidget {
               }
               return supportedLocales.first;
             },
-          );
+          ).modular();
         },
       ),
     );

@@ -1,6 +1,4 @@
-// Copyright 2020 LTMM. All rights reserved.
-// Uses of this source code is governed by 'The Unlicense' that can be
-// found in the LICENSE file.
+// Copyright 2021 LTMM. All rights reserved.
 part of 'theme_type.dart';
 
 /// Extend Darts [Brightness]-enum to map to ThemeType

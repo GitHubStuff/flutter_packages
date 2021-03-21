@@ -10,7 +10,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:template/main/flavor_enum.dart';
 import 'package:template/modules/material_app_module/material_app_module.dart';
+import 'package:template/modules/material_app_module/material_app_widget.dart';
 import 'package:theme_package/theme_package.dart';
+import 'package:tracers_package/tracers.dart';
 
 //import 'package:example/main.dart';
 final _banner = FlavorBanner(name: 'FHCP', color: Colors.purple);
@@ -58,7 +60,10 @@ void main() {
     final TestWidgetsFlutterBinding testBinding = tester.binding;
     testBinding.window.platformBrightnessTestValue = Brightness.light;
 
-    await tester.pumpWidget(ModularApp(module: MaterialAppModule(flavorConfig: _flavorConfig)));
+    await tester.pumpWidget(ModularApp(
+      module: MaterialAppModule(flavorConfig: _flavorConfig),
+      child: MaterialAppWidget(),
+    ));
 
 /*
     /// Verify that our counter starts at 0.
