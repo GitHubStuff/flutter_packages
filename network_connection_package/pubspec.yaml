@@ -1,0 +1,21 @@
+name: network_connection
+description: Test network connection by reaching out to 'always available' sites
+version: 0.0.1
+author: Steven Smith
+homepage: http://www.icodeforyou.com
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.22.5"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
