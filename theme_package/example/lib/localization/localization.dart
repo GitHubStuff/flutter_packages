@@ -18,7 +18,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart' as Foundation;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:theme_package/theme_package.dart';
+import 'package:tracers_package/tracers.dart';
 
 /// helper method to localize strings inline
 String localize(BuildContext context, String key) {

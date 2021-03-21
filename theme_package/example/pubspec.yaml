@@ -1,7 +1,6 @@
 name: template
 description: Template project that uses theme_package
-
-#publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+5
 
 environment:
@@ -22,9 +21,13 @@ dependencies:
   cupertino_icons: ^1.0.0
   enum_to_string: ^2.0.0-nullsafety.1
   equatable: ^2.0.0
-  flutter_bloc: ^6.1.1
-  flutter_modular: ^2.0.1
+  flutter_bloc: ^7.0.0
+  flutter_modular: ^3.0.1
   font_awesome_flutter: ^8.11.0
+  tracers_package:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: tracers_package
 
 dependency_overrides:
   # Contains the FontAwesome-Pro icons.

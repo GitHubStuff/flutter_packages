@@ -1,6 +1,4 @@
-// Copyright 2020 LTMM. All rights reserved.
-// Uses of this source code is governed by 'The Unlicense' that can be
-// found in the LICENSE file.
+// Copyright 2021 LTMM. All rights reserved.
 library theme_package;
 
 export 'src/cubit_theme/theme_cubit.dart';
@@ -11,7 +9,6 @@ export 'src/theme/flavor_banner.dart';
 export 'src/theme/flavor_config.dart';
 export 'src/theme/theme_preference.dart';
 export 'src/theme/theme_type.dart';
-export 'src/tracers/tracers.dart';
 export 'src/widgets/observing_stateful_widget.dart';
 
 /// There are four(4) types of [brightness], two(2) for the [device brightness]

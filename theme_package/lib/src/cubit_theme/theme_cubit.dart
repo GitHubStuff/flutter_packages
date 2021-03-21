@@ -1,6 +1,4 @@
-// Copyright 2020 LTMM. All rights reserved.
-// Uses of this source code is governed by 'The Unlicense' that can be
-// found in the LICENSE file.
+// Copyright 2021 LTMM. All rights reserved.
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';

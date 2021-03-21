@@ -1,11 +1,8 @@
-// Copyright 2020 LTMM. All rights reserved.
-// Uses of this source code is governed by 'The Unlicense' that can be
-// found in the LICENSE file.
+// Copyright 2021 LTMM. All rights reserved.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../theme_package.dart';
+import 'package:tracers_package/tracers.dart';
 
 /// Custom [BlocObserver] which observes all bloc and cubit instances.
 /// NOTE: [Bloc.observer = SimpleBlocObserver();] before the call to [runApp] in [main.dart]
@@ -18,7 +15,7 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
-  void onChange(Cubit cubit, Change change) {
+  void onChange(BlocBase cubit, Change change) {
     Log.M('🦺$change');
     super.onChange(cubit, change);
   }
@@ -30,7 +27,7 @@ class SimpleBlocObserver extends BlocObserver {
   }
 
   @override
-  void onError(Cubit cubit, Object error, StackTrace stackTrace) {
+  void onError(BlocBase cubit, Object error, StackTrace stackTrace) {
     Log.E('🏮 $error');
     super.onError(cubit, error, stackTrace);
   }
