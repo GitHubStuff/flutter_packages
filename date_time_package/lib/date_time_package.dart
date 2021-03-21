@@ -1,4 +1,4 @@
-library date_time_packge;
+library date_time_package;
 
 import 'package:intl/intl.dart';
 
