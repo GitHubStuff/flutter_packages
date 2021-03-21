@@ -1,6 +1,6 @@
-name: network_connection
+name: network_connection_package
 description: Test network connection by reaching out to 'always available' sites
-version: 0.0.1
+version: 0.0.1+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
