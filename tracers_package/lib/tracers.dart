@@ -48,16 +48,16 @@ enum LogLevel {
 }
 
 class Log {
-  static A(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.All, message, tag);
-  static M(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Mark, message, tag);
-  static T(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Trace, message, tag);
-  static V(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Verbose, message, tag);
-  static D(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Debug, message, tag);
-  static I(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Info, message, tag);
-  static F(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Fix, message, tag);
-  static W(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Warning, message, tag);
-  static E(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Error, message, tag);
-  static C(String message, {required String tag}) => _verifyLoggingUsingMessageLevel(LogLevel.Crash, message, tag);
+  static A(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.All, message, tag);
+  static M(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Mark, message, tag);
+  static T(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Trace, message, tag);
+  static V(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Verbose, message, tag);
+  static D(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Debug, message, tag);
+  static I(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Info, message, tag);
+  static F(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Fix, message, tag);
+  static W(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Warning, message, tag);
+  static E(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Error, message, tag);
+  static C(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Crash, message, tag);
 
   static Future setTrace({required LogLevel baseLevel}) async {
     Set<LogLevel> adjustableSetOfLogLevels = Set.from(LogLevel.values);
