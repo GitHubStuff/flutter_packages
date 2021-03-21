@@ -33,8 +33,8 @@ class SetThemeDialog {
         );
 
     /// Helper to compose [Alert response buttons]
-    FlatButton flatButton(String text, Widget icon, VoidCallback onPress) {
-      return FlatButton(
+    TextButton flatButton(String text, Widget icon, VoidCallback onPress) {
+      return TextButton(
         child: Row(
           children: [Text(localize(context, text)), Container(width: (icon == null) ? 1 : widgetHorizontalSpace), icon ?? Container(width: 1)],
           mainAxisAlignment: MainAxisAlignment.end,

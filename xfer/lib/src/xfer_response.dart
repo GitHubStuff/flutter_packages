@@ -10,6 +10,8 @@ class XferResponse {
   final Object? response;
   XferResponse(this.body, this.statusCode, {required this.protocol, this.response, required this.duration});
 
+  T data<T>() => (body as T);
+
   String toString() =>
       'XferProtocol: ${EnumToString.convertToString(protocol)}, statusCode: $statusCode, ⏱ duration: ${duration.inMilliseconds}/ms, response?: $response body: "$body"';
 }

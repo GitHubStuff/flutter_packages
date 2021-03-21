@@ -4,9 +4,9 @@
 
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:theme_package/src/app_exceptions/app_exceptions.dart';
 import 'package:theme_package/src/cubit_theme/theme_cubit.dart';
 
-import '../../src/app_exception/app_exceptions.dart';
 import '../../theme_package.dart';
 import 'flavor_config.dart';
 

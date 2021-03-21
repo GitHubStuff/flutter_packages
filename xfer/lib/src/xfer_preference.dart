@@ -23,7 +23,7 @@ Future<Either<XferFailure, XferResponse>> preferenceGet(
   try {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final result = prefs.get(key);
+    final result = prefs.get(key) ?? value;
     Duration duration = DateTime.now().toUtc().difference(startRequest);
     return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
   } on MissingPluginException {

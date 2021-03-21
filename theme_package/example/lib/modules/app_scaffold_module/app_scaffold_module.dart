@@ -4,15 +4,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
 import 'app_scaffold_widget.dart';
 
-class AppScaffoldModule extends ChildModule {
+class AppScaffoldModule extends Module {
   @override
   List<Bind> get binds => [];
 
   /// NOTE: the differences between ModularRouter(child:), and ModularRouter(module:)
   @override
-  List<ModularRouter> get routers => [
-        ModularRouter(Navigator.defaultRouteName, child: (context, args) => AppScaffoldWidget()),
+  List<ModularRoute> get routes => [
+        ChildRoute(Navigator.defaultRouteName, child: (context, args) => AppScaffoldWidget()),
       ];
 }

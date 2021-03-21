@@ -3,9 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:template/modules/sql_controller_module/sql_controller_widget.dart';
 
 import '../main/flavor_enum.dart';
 
@@ -32,7 +30,7 @@ class BodyWidget extends StatelessWidget {
         IconButton(
           icon: FaIcon(FontAwesomeIcons.database),
           onPressed: () {
-            Modular.to.pushNamed(SqlControllerWidget.route);
+            //Modular.to.pushNamed(SqlControllerWidget.route);
           },
         ),
       ],
