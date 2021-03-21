@@ -4,8 +4,8 @@ import 'dart:async';
 
 import 'package:connectivity/connectivity.dart';
 
-import '../../network_connection.dart';
-import '../network_connection_check.dart';
+import '../network_connection.dart';
+import 'network_connection_check.dart';
 
 /// Defines a class for a StreamController, that will have take care of
 /// implementation details like access to the stream, and sink.
