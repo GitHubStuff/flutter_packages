@@ -65,7 +65,7 @@ class Xfer {
     Object? value,
   }) async {
     try {
-      XferProtocol protocol = await XferProtocolExtension.protocol(url);
+      XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.asset:
           return assetGet(url, headers: headers);
@@ -95,7 +95,7 @@ class Xfer {
     Object? value,
   }) async {
     try {
-      XferProtocol protocol = await XferProtocolExtension.protocol(url);
+      XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.asset:
           return assetPost(url, headers: headers);
