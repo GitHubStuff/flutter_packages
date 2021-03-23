@@ -1,13 +1,18 @@
-// import 'package:flutter_test/flutter_test.dart';
+import 'package:date_time_package/date_time_package.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 
-// //import 'package:tracers/tracers.dart';
+void main() {
+  test('DateTime ConsoleTimeStamp', () {
+    final consoleString = consoleTimeStamp;
+    expect(consoleString, isNotNull);
+    expect(consoleString.length, 12);
+  });
 
-// void main() {
-//   test('adds one to input values', () {
-//     // final calculator = Calculator();
-//     // expect(calculator.addOne(2), 3);
-//     // expect(calculator.addOne(-7), -6);
-//     // expect(calculator.addOne(0), 1);
-//     // expect(() => calculator.addOne(null), throwsNoSuchMethodError);
-//   });
-// }
+  test('DateTime as Key', () {
+    final dt = DateTime.now().asKey();
+    final prefix = dt.substring(0, 3);
+    expect(prefix, '202');
+    debugPrint('DT: $dt');
+  });
+}
