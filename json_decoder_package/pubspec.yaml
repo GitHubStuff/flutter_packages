@@ -1,6 +1,6 @@
 name: json_decoder
 description: Json Decoder with 'Safe'-decoding and decoding time feature
-version: 1.0.1+0
+version: 1.0.2+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 
