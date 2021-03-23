@@ -86,4 +86,12 @@ Future<Either<XferFailure, XferResponse>> httpPost(
   required Post? postMethod,
   required XferProtocol protocol,
 }) async =>
-    _httpMethod(httpVerb.POST, uri, method: postMethod, protocol: protocol, body: body, encoding: encoding);
+    _httpMethod(
+      httpVerb.POST,
+      uri,
+      method: postMethod,
+      protocol: protocol,
+      body: body,
+      encoding: encoding,
+      headers: headers,
+    );
