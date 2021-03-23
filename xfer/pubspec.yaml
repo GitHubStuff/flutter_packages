@@ -1,8 +1,9 @@
 name: xfer
 description: Does http calls, and call to asset, and local files with various protocols
-version: 0.0.1+5
+version: 0.0.2+0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
+publish_to: 'none'
 
 environment:
   sdk: ">=2.12.0 <3.0.0" #dart

@@ -3,6 +3,7 @@ library xfer;
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:xfer/src/xfer_preference.dart';
 
@@ -50,13 +51,14 @@ typedef Future<Response> Post(Uri url, {Map<String, String>? headers, Object? bo
 typedef Future<Response> Get(Uri url, {Map<String, String>? headers});
 
 class Xfer {
-  final Post? httpPostFuture;
-  final Get? httpGetFuture;
+  final Post? _httpPostFuture;
+  final Get? _httpGetFuture;
+  final bool _trace;
   // NOTE: Constructor
-  const Xfer({
-    this.httpPostFuture,
-    this.httpGetFuture,
-  });
+  const Xfer({Post? httpPostFuture, Get? httpGetFuture, bool trace = false})
+      : _httpPostFuture = httpPostFuture,
+        _httpGetFuture = httpGetFuture,
+        _trace = trace;
 
   /// GET
   Future<Either<XferFailure, XferResponse>> get(
@@ -64,6 +66,11 @@ class Xfer {
     Map<String, String>? headers,
     Object? value,
   }) async {
+    if (_trace) {
+      debugPrint('🔮 url: $url');
+      if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
+      if (value != null) debugPrint('💡 value:${value.toString()}');
+    }
     try {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -74,7 +81,7 @@ class Xfer {
           return httpGet(
             Uri.parse(url),
             headers: headers,
-            getMethod: httpGetFuture,
+            getMethod: _httpGetFuture,
             protocol: protocol,
           );
         case XferProtocol.pref:
@@ -95,6 +102,13 @@ class Xfer {
     Object? value,
   }) async {
     try {
+      if (_trace) {
+        debugPrint('🔮 url: $url');
+        if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
+        if (body != null) debugPrint('📦 body:${body.toString()}');
+        if (value != null) debugPrint('💡 value:${value.toString()}');
+        if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+      }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.asset:
@@ -106,7 +120,7 @@ class Xfer {
             headers: headers,
             body: body,
             encoding: encoding,
-            postMethod: httpPostFuture,
+            postMethod: _httpPostFuture,
             protocol: protocol,
           );
         case XferProtocol.pref:
