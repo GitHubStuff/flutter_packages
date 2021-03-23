@@ -39,6 +39,7 @@ class JsonDecoded {
   }
 
   Duration? get duration => _finishDecode == null ? null : _finishDecode!.difference(_startDecode);
+  List<Map<String, dynamic>>? get jsonConvert => (result == null) ? null : (result as List).map((e) => e as Map<String, dynamic>).toList();
   Map<String, dynamic>? get jsonMap => (result == null || result is List) ? null : result as Map<String, dynamic>;
   List<Map<String, dynamic>>? get jsonList => (result is List) ? result as List<Map<String, dynamic>> : null;
   JsonDecodeType? get jsonType => (result == null)
