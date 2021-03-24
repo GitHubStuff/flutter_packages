@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:xfer/xfer.dart';
@@ -11,7 +13,7 @@ Map<String, String> get httpGetHeaders => {
       'Content-Type': 'application/json',
       'Authorization': 'Basic c3RldmVuLnNtaXRoOkZIQ1AyMDIwIQ==',
     };
-const String collectionName = 'rewardsList';
+const String collectionName = 'tutorial';
 
 void main() {
   runApp(MyApp());
@@ -89,16 +91,24 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             onPressed: () async {
               final Map<String, String> data = {'data': '${DateTime.now().toIso8601String()}'};
+              final resp = await http.post(
+                Uri.parse('https://baas.kinvey.com/appdata/kid_rk7CWpu8w/tutorial'),
+                headers: httpPostHeaders,
+                body: jsonEncode(data),
+              );
+              debugPrint('${resp.toString()}');
               String output = 'Output';
-              try {
-                final result = await Xfer(httpPostFuture: http.post).post(
-                  progressRoot + collectionName,
-                  headers: httpPostHeaders,
-                  body: data,
-                );
-                output = result.toString();
-              } catch (err) {
-                output = err.toString();
+              if (data.isEmpty) {
+                try {
+                  final result = await Xfer(httpPostFuture: http.post).post(
+                    progressRoot + collectionName,
+                    headers: httpPostHeaders,
+                    body: jsonEncode(data),
+                  );
+                  output = result.toString();
+                } catch (err) {
+                  output = err.toString();
+                }
               }
               setState(() {
                 message = output;

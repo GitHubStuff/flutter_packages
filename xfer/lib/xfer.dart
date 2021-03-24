@@ -48,15 +48,18 @@ enum XferProtocol {
 
 /// Standard http.post for actual HTTP calls (the library/package used eg: package:http/http.dart')
 typedef Future<Response> Post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
+typedef Future<Response> Put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
 typedef Future<Response> Get(Uri url, {Map<String, String>? headers});
 
 class Xfer {
   final Post? _httpPostFuture;
+  final Put? _httpPutFuture;
   final Get? _httpGetFuture;
   final bool _trace;
   // NOTE: Constructor
-  const Xfer({Post? httpPostFuture, Get? httpGetFuture, bool trace = false})
+  const Xfer({Post? httpPostFuture, Put? httpPutFuture, Get? httpGetFuture, bool trace = false})
       : _httpPostFuture = httpPostFuture,
+        _httpPutFuture = httpPutFuture,
         _httpGetFuture = httpGetFuture,
         _trace = trace;
 
@@ -79,7 +82,7 @@ class Xfer {
         case XferProtocol.http:
         case XferProtocol.https:
           return httpGet(
-            Uri.parse(url),
+            url,
             headers: headers,
             getMethod: _httpGetFuture,
             protocol: protocol,
@@ -116,11 +119,50 @@ class Xfer {
         case XferProtocol.http:
         case XferProtocol.https:
           return httpPost(
-            Uri.parse(url),
+            url,
             headers: headers,
             body: body,
             encoding: encoding,
             postMethod: _httpPostFuture,
+            protocol: protocol,
+          );
+        case XferProtocol.pref:
+        case XferProtocol.preference:
+          return preferencePost(url, value: body ?? value);
+      }
+    } catch (error) {
+      return Left(error as XferFailure);
+    }
+  }
+
+  /// POST
+  Future<Either<XferFailure, XferResponse>> put(
+    String url, {
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
+    Object? value,
+  }) async {
+    try {
+      if (_trace) {
+        debugPrint('🔮 url: $url');
+        if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
+        if (body != null) debugPrint('📦 body:${body.toString()}');
+        if (value != null) debugPrint('💡 value:${value.toString()}');
+        if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+      }
+      XferProtocol protocol = XferProtocolExtension.protocol(url);
+      switch (protocol) {
+        case XferProtocol.asset:
+          return Left(XferFailure(XferException.invalidXferRequest, code: 'Put not available for asset://'));
+        case XferProtocol.http:
+        case XferProtocol.https:
+          return httpPut(
+            url,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+            putMethod: _httpPostFuture,
             protocol: protocol,
           );
         case XferProtocol.pref:

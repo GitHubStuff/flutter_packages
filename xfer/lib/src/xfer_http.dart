@@ -16,15 +16,16 @@ enum httpVerb {
 
 Future<Either<XferFailure, XferResponse>> _httpMethod(
   httpVerb verb,
-  Uri uri, {
-  Object? body,
-  Encoding? encoding,
+  String url, {
+  required Object? body,
+  required Encoding? encoding,
   required dynamic method,
-  Map<String, String>? headers,
+  required Map<String, String>? headers,
   required XferProtocol protocol,
 }) async {
+  if (method == null) return Left(XferFailure(XferException.httpUndefinedMethod));
+  final Uri uri = Uri.parse(url);
   try {
-    if (method == null) return Left(XferFailure(XferException.httpUndefinedMethod));
     http.Response? response;
     final DateTime startRequest = DateTime.now().toUtc();
     switch (verb) {
@@ -35,7 +36,8 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         response = await (method as Post)(uri, headers: headers, body: body, encoding: encoding);
         break;
       case httpVerb.PUT:
-        return Left(XferFailure(XferException.httpUndefinedMethod, code: 'PUT not implemented'));
+        response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
+        break;
     }
     final Duration duration = DateTime.now().toUtc().difference(startRequest);
     switch (response.statusCode) {
@@ -71,25 +73,43 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
 }
 
 Future<Either<XferFailure, XferResponse>> httpGet(
-  Uri uri, {
+  String url, {
   Map<String, String>? headers,
   required Get? getMethod,
   required XferProtocol protocol,
 }) async =>
-    _httpMethod(httpVerb.GET, uri, method: getMethod, protocol: protocol, headers: headers);
+    _httpMethod(httpVerb.GET, url, method: getMethod, protocol: protocol, headers: headers, encoding: null, body: null);
 
 Future<Either<XferFailure, XferResponse>> httpPost(
-  Uri uri, {
-  Map<String, String>? headers,
-  Object? body,
-  Encoding? encoding,
+  String url, {
+  required Map<String, String>? headers,
+  required Object? body,
+  required Encoding? encoding,
   required Post? postMethod,
   required XferProtocol protocol,
 }) async =>
     _httpMethod(
       httpVerb.POST,
-      uri,
+      url,
       method: postMethod,
+      protocol: protocol,
+      body: body,
+      encoding: encoding,
+      headers: headers,
+    );
+
+Future<Either<XferFailure, XferResponse>> httpPut(
+  String url, {
+  required Map<String, String>? headers,
+  required Object? body,
+  required Encoding? encoding,
+  required Put? putMethod,
+  required XferProtocol protocol,
+}) async =>
+    _httpMethod(
+      httpVerb.PUT,
+      url,
+      method: putMethod,
       protocol: protocol,
       body: body,
       encoding: encoding,
