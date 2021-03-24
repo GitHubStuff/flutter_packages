@@ -24,7 +24,9 @@ enum XferException {
   headerUnknownContentType,
   httpArguementError,
   httpSocketException, // Device not connected to internet, or permissions not set.
-  httpUndefinedMethod,
+  httpUndefinedGETMethod,
+  httpUndefinedPOSTMethod,
+  httpUndefinedPUTMethod,
   http400BadRequest,
   http401UnauthorizedException,
   http403UnauthorizedException,
@@ -81,11 +83,11 @@ class Xfer {
           return assetGet(url, headers: headers);
         case XferProtocol.http:
         case XferProtocol.https:
-          if (_httpGetFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No GET defined"));
+          if (_httpGetFuture == null) return Left(XferFailure(XferException.httpUndefinedGETMethod, code: "No GET defined"));
           return httpGet(
             url,
             headers: headers,
-            getMethod: _httpGetFuture,
+            getMethod: _httpGetFuture!,
             protocol: protocol,
           );
         case XferProtocol.pref:
@@ -119,13 +121,13 @@ class Xfer {
           return assetPost(url, headers: headers);
         case XferProtocol.http:
         case XferProtocol.https:
-          if (_httpPostFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No POST defined"));
+          if (_httpPostFuture == null) return Left(XferFailure(XferException.httpUndefinedPOSTMethod, code: "No POST defined"));
           return httpPost(
             url,
             headers: headers,
             body: body,
             encoding: encoding,
-            postMethod: _httpPostFuture,
+            postMethod: _httpPostFuture!,
             protocol: protocol,
           );
         case XferProtocol.pref:
@@ -159,14 +161,14 @@ class Xfer {
           return Left(XferFailure(XferException.invalidXferRequest, code: 'Put not available for asset://'));
         case XferProtocol.http:
         case XferProtocol.https:
-          if (_httpPutFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No PUT defined"));
+          if (_httpPutFuture == null) return Left(XferFailure(XferException.httpUndefinedPUTMethod, code: "No PUT defined"));
 
           return httpPut(
             url,
             headers: headers,
             body: body,
             encoding: encoding,
-            putMethod: _httpPostFuture,
+            putMethod: _httpPutFuture!,
             protocol: protocol,
           );
         case XferProtocol.pref:

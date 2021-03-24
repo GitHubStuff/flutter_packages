@@ -23,7 +23,6 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
   required Map<String, String>? headers,
   required XferProtocol protocol,
 }) async {
-  if (method == null) return Left(XferFailure(XferException.httpUndefinedMethod));
   final Uri uri = Uri.parse(url);
   try {
     http.Response? response;
@@ -75,7 +74,7 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
 Future<Either<XferFailure, XferResponse>> httpGet(
   String url, {
   Map<String, String>? headers,
-  required Get? getMethod,
+  required Get getMethod,
   required XferProtocol protocol,
 }) async =>
     _httpMethod(httpVerb.GET, url, method: getMethod, protocol: protocol, headers: headers, encoding: null, body: null);
@@ -85,7 +84,7 @@ Future<Either<XferFailure, XferResponse>> httpPost(
   required Map<String, String>? headers,
   required Object? body,
   required Encoding? encoding,
-  required Post? postMethod,
+  required Post postMethod,
   required XferProtocol protocol,
 }) async =>
     _httpMethod(
@@ -103,7 +102,7 @@ Future<Either<XferFailure, XferResponse>> httpPut(
   required Map<String, String>? headers,
   required Object? body,
   required Encoding? encoding,
-  required Put? putMethod,
+  required Put putMethod,
   required XferProtocol protocol,
 }) async =>
     _httpMethod(
