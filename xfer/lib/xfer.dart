@@ -81,6 +81,7 @@ class Xfer {
           return assetGet(url, headers: headers);
         case XferProtocol.http:
         case XferProtocol.https:
+          if (_httpGetFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No GET defined"));
           return httpGet(
             url,
             headers: headers,
@@ -118,6 +119,7 @@ class Xfer {
           return assetPost(url, headers: headers);
         case XferProtocol.http:
         case XferProtocol.https:
+          if (_httpPostFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No POST defined"));
           return httpPost(
             url,
             headers: headers,
@@ -157,6 +159,8 @@ class Xfer {
           return Left(XferFailure(XferException.invalidXferRequest, code: 'Put not available for asset://'));
         case XferProtocol.http:
         case XferProtocol.https:
+          if (_httpPutFuture == null) return Left(XferFailure(XferException.httpUndefinedMethod, code: "No PUT defined"));
+
           return httpPut(
             url,
             headers: headers,
