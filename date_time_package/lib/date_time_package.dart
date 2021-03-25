@@ -43,17 +43,18 @@ extension DateTimeExtension on DateTime {
           this.millisecond,
           this.microsecond,
         );
-        return (result.day == this.day) ? result :
-          DateTime(
-            this.year,
-            this.month,
-            this.day - 1,
-            this.hour,
-            this.minute,
-            this.second,
-            this.millisecond,
-            this.microsecond,
-          ).next(element, delta);
+        return (result.day == this.day)
+            ? result
+            : DateTime(
+                this.year,
+                this.month,
+                this.day - 1,
+                this.hour,
+                this.minute,
+                this.second,
+                this.millisecond,
+                this.microsecond,
+              ).next(element, delta);
 
       case DateTimeElement.day:
         return DateTime(
@@ -66,7 +67,7 @@ extension DateTimeExtension on DateTime {
           this.millisecond,
           this.microsecond,
         );
-        
+
       case DateTimeElement.hour:
         return DateTime(
           this.year,
@@ -78,7 +79,7 @@ extension DateTimeExtension on DateTime {
           this.millisecond,
           this.microsecond,
         );
-        
+
       case DateTimeElement.minute:
         return DateTime(
           this.year,
@@ -90,7 +91,7 @@ extension DateTimeExtension on DateTime {
           this.millisecond,
           this.microsecond,
         );
-        
+
       case DateTimeElement.second:
         return DateTime(
           this.year,
@@ -102,7 +103,7 @@ extension DateTimeExtension on DateTime {
           this.millisecond,
           this.microsecond,
         );
-        
+
       case DateTimeElement.microsecond:
         return DateTime(
           this.year,
@@ -114,7 +115,6 @@ extension DateTimeExtension on DateTime {
           this.millisecond + delta,
           this.microsecond,
         );
-        
       case DateTimeElement.millisecond:
         return DateTime(
           this.year,
