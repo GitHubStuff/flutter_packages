@@ -35,7 +35,7 @@ extension DateTimeExtension on DateTime {
   DateTime next(DateTimeElement element, [int delta = 1]) {
     switch (element) {
       case DateTimeElement.year:
-        final result = DateTime.utc(
+        final result = DateTime(
           this.year + delta,
           this.month,
           this.day,
@@ -47,7 +47,7 @@ extension DateTimeExtension on DateTime {
         );
         return (result.month == this.month)
             ? result
-            : DateTime.utc(
+            : DateTime(
                 this.year,
                 this.month,
                 this.day - 1,
@@ -59,7 +59,7 @@ extension DateTimeExtension on DateTime {
               ).next(element, delta);
 
       case DateTimeElement.month:
-        final result = DateTime.utc(
+        final result = DateTime(
           this.year,
           this.month + delta,
           this.day,
@@ -71,7 +71,7 @@ extension DateTimeExtension on DateTime {
         );
         return (result.day == this.day)
             ? result
-            : DateTime.utc(
+            : DateTime(
                 this.year,
                 this.month,
                 this.day - 1,
@@ -83,7 +83,7 @@ extension DateTimeExtension on DateTime {
               ).next(element, delta);
 
       case DateTimeElement.day:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day + delta,
@@ -95,7 +95,7 @@ extension DateTimeExtension on DateTime {
         );
 
       case DateTimeElement.hour:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day,
@@ -107,7 +107,7 @@ extension DateTimeExtension on DateTime {
         );
 
       case DateTimeElement.minute:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day,
@@ -119,7 +119,7 @@ extension DateTimeExtension on DateTime {
         );
 
       case DateTimeElement.second:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day,
@@ -131,7 +131,7 @@ extension DateTimeExtension on DateTime {
         );
 
       case DateTimeElement.microsecond:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day,
@@ -142,7 +142,7 @@ extension DateTimeExtension on DateTime {
           this.microsecond,
         );
       case DateTimeElement.millisecond:
-        return DateTime.utc(
+        return DateTime(
           this.year,
           this.month,
           this.day,
@@ -158,21 +158,21 @@ extension DateTimeExtension on DateTime {
   DateTime round([DateTimeElement element = DateTimeElement.second]) {
     switch (element) {
       case DateTimeElement.year:
-        return DateTime.utc(this.year);
+        return DateTime(this.year);
       case DateTimeElement.month:
-        return DateTime.utc(this.year, this.month);
+        return DateTime(this.year, this.month);
       case DateTimeElement.day:
-        return DateTime.utc(this.year, this.month, this.day);
+        return DateTime(this.year, this.month, this.day);
       case DateTimeElement.hour:
-        return DateTime.utc(this.year, this.month, this.day, this.hour);
+        return DateTime(this.year, this.month, this.day, this.hour);
       case DateTimeElement.minute:
-        return DateTime.utc(this.year, this.month, this.day, this.hour, this.minute);
+        return DateTime(this.year, this.month, this.day, this.hour, this.minute);
       case DateTimeElement.second:
-        return DateTime.utc(this.year, this.month, this.day, this.hour, this.minute, this.second);
+        return DateTime(this.year, this.month, this.day, this.hour, this.minute, this.second);
       case DateTimeElement.millisecond:
-        return DateTime.utc(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond);
+        return DateTime(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond);
       case DateTimeElement.microsecond:
-        return DateTime.utc(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond, this.microsecond);
+        return DateTime(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond, this.microsecond);
     }
   }
 }

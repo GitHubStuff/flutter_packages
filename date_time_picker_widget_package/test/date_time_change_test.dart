@@ -1,11 +1,14 @@
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
+import 'package:flutter/material.dart';
 import 'package:test/test.dart';
 
 void main() {
   test('In/Out of leap year', () {
     final oldDateTime = DateTime(2020, 2, 29, 11, 15, 21);
     final newDateTime = DateTime(2021, 2, 28, 13, 15, 20);
+    debugPrint('OLD: $oldDateTime NEW: $newDateTime');
     final dateTimeChange = DateTimeChange(oldDateTime: oldDateTime, newDateTime: newDateTime);
+    debugPrint('old: ${dateTimeChange.oldDateTime} new: ${dateTimeChange.newDateTime}');
     expect(dateTimeChange.yearChanged, true);
     expect(dateTimeChange.monthChanged, false);
     expect(dateTimeChange.dayChanged, true);
