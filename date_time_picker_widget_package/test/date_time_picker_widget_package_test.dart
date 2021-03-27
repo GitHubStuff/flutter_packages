@@ -33,6 +33,6 @@ void main() {
     final cubit = DateTimeCubit(base);
     expect(cubit.dateTime.toIso8601String(), '2020-02-29T00:00:00.000Z');
     cubit.changeYear(2021);
-    expect(cubit.dateTime.toIso8601String(), '2021-02-29T00:00:00.000Z');
+    expect(cubit.dateTime.toIso8601String(), '2021-02-28T00:00:00.000Z');
   });
 }

@@ -15,7 +15,7 @@ class DateTimeCubit extends Cubit<DateTimeState> {
   DateTime get dateTime => _dateTime == null ? _set() : _dateTime!.toUtc();
 
   DateTime _set() {
-    _dateTime = _dateTime ?? DateTime.now().toUtc();
+    _dateTime = _dateTime?.toUtc() ?? DateTime.now().toUtc();
     return _dateTime!;
   }
 
