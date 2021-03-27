@@ -17,7 +17,7 @@ void main() {
   });
 
   test('Rounding', () {
-    DateTime zego = DateTime(2020, 12, 31, 10, 15, 20, 34, 45);
+    DateTime zego = DateTime.utc(2020, 12, 31, 10, 15, 20, 34, 45);
     expect(zego.round(DateTimeElement.second).toIso8601String(), '2020-12-31T10:15:20.000');
     expect(zego.round(DateTimeElement.hour).toIso8601String(), '2020-12-31T10:00:00.000');
     expect(zego.round(DateTimeElement.year).toIso8601String(), '2020-01-01T00:00:00.000');
