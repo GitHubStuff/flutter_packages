@@ -15,13 +15,15 @@ void main() {
     expect(dateTimeChange.hourChanged, true);
     expect(dateTimeChange.minuteChanged, false);
     expect(dateTimeChange.secondChanged, true);
+    final old = dateTimeChange.oldDateTime.second;
+    final net = dateTimeChange.newDateTime.second;
     expect(dateTimeChange.meridanChanged, true);
     expect(dateTimeChange.dayCountChanged, true);
     expect(dateTimeChange.numberOfDays, 28);
   });
   test('Jump from Oct to Dec to make sure number of days does not change', () {
-    final oldDateTime = DateTime(2020, 10, 29, 11, 15, 21);
-    final newDateTime = DateTime(2020, 12, 29, 10, 15, 21);
+    final oldDateTime = DateTime(2020, 10, 29, 9, 11, 21);
+    final newDateTime = DateTime(2020, 12, 29, 5, 11, 21);
     final dateTimeChange = DateTimeChange(oldDateTime: oldDateTime, newDateTime: newDateTime);
     expect(dateTimeChange.yearChanged, false);
     expect(dateTimeChange.monthChanged, true);

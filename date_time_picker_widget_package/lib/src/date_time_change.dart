@@ -5,8 +5,8 @@ class DateTimeChange {
   late final DateTime oldDateTime;
   late final DateTime newDateTime;
   DateTimeChange({required DateTime oldDateTime, required DateTime newDateTime}) {
-    this.oldDateTime = oldDateTime.toUtc().round(DateTimeElement.second);
-    this.newDateTime = newDateTime.toUtc().round(DateTimeElement.second);
+    this.oldDateTime = oldDateTime.round(DateTimeElement.second);
+    this.newDateTime = newDateTime.round(DateTimeElement.second);
   }
 
   bool get yearChanged => oldDateTime.year != newDateTime.year;

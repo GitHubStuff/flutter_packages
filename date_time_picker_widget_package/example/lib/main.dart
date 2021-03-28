@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
         case DateTimeStateType.ChangeYearState:
         case DateTimeStateType.DateTimeInitial:
       }
-      return Text('Built type:${state.type} => ${dateTimeCubit.dateTime}');
+      return Text('Built type:${state.type} => ${dateTimeCubit.utcDateTime}');
     });
   }
 
@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
         case DateTimeStateType.ChangeYearState:
         case DateTimeStateType.DateTimeInitial:
       }
-      return Text('Creating type:${state.type} => ${dateTimeCubit.dateTime}');
+      return Text('Creating type:${state.type} => ${dateTimeCubit.utcDateTime}');
     });
   }
 }

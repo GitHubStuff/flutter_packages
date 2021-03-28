@@ -12,10 +12,10 @@ class DateTimeCubit extends Cubit<DateTimeState> {
 
   void Function(Change<DateTimeState>)? onChangeCallback;
 
-  DateTime get dateTime => _dateTime == null ? _set() : _dateTime!.toUtc();
+  DateTime get utcDateTime => _set();
 
   DateTime _set() {
-    _dateTime = _dateTime?.toUtc() ?? DateTime.now().toUtc();
+    _dateTime = _dateTime ?? DateTime.now();
     return _dateTime!;
   }
 
