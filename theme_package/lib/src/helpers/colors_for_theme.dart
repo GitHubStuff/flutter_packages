@@ -11,9 +11,12 @@ import '../theme/theme_type.dart';
 /// NOTE: this is for one-of colors outside the colors used by [ThemeData]
 
 class ColorsForTheme {
-  final Color dark;
-  final Color light;
-  ColorsForTheme({@required this.dark, @required this.light}) : assert(dark != null && light != null);
+  final Color _dark;
+  final Color _light;
+  ColorsForTheme({@required Color dark, @required Color light})
+      : assert(dark != null && light != null),
+        _dark = dark,
+        _light = light;
   factory ColorsForTheme.mono({@required Color color}) => ColorsForTheme(dark: color, light: color);
 
   Color get color {
@@ -22,7 +25,8 @@ class ColorsForTheme {
   }
 
   Color of({@required Brightness brightness}) {
-    final result = (brightness == Brightness.dark) ? dark : light;
+    //FIX : When colors for dark them
+    final result = (brightness == Brightness.dark) ? _light : _light;
     return result;
   }
 }

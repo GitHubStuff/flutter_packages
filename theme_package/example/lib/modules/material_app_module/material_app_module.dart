@@ -29,8 +29,7 @@ class MaterialAppModule extends Module {
         Bind((i) => MaterialAppBloc()),
         Bind((i) => ThemeCubit()),
 
-        /// TODO: Additional Bind beyond the template
-      ];
+       ];
 
   @override
   List<ModuleRoute> get routes => [

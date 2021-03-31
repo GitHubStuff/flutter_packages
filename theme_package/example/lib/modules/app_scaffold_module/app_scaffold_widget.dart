@@ -14,7 +14,6 @@ import '../../template_widgets/fab_widget.dart';
 /// dynamically set the [Theme] for the app, either as the Platform theme,
 /// or an app specific theme (store/manages a preference of the theme type [see: ThemeType enum])
 /// NOTE: This is where properties of the [Scaffold] are made.
-/// TODO: Make any additions to Scaffold here
 
 class AppScaffoldWidget extends StatefulWidget {
   _AppScaffoldWidget createState() => _AppScaffoldWidget();
@@ -45,10 +44,8 @@ class _AppScaffoldWidget extends ObservingStatefulWidget<AppScaffoldWidget> {
         title: Text('App Widget!!'),
       ),
 
-      /// TODO: Change this widget to be the full screen: body_widget.dart is a good template for this
       body: BodyWidget(),
 
-      /// TODO: Create, if needed, a FloatingActionButton
       /// NOTE: This template creates a column of floating action buttons that show examples of how
       /// NOTE: colors, text, etc change be changed
       floatingActionButton: FABWidget(),

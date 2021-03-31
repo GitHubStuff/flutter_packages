@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 /// This is the template for [Localization], is does [not] need to be modified,
-/// TODO: It requires:
 /// [languages] folder, where there is an simple [.json] file with key/value pairs
 /// of a [key: language text], the helper function [localize(context, key)] is used
 /// to retrieve the correct lanuguage string. The name of a [language file] is the two(2) letter [locale]

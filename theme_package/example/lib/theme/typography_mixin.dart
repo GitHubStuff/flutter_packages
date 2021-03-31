@@ -12,7 +12,6 @@ part of 'text_themes.dart';
 /// NOTE: Can be [changed] to alter the over all look/style of the app
 
 class _TextThemeDefinations {
-  /// TODO: If desired make changes to [Typography] and [FontFamily], though iOS/SanFranciso looks best
   static Typography get _kTypography => Typography.material2018(platform: TargetPlatform.iOS);
   static String get _displayFontFamily => '.SF UI Display'; //'Roboto';
 

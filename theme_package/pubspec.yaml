@@ -1,6 +1,6 @@
 name: theme_package
 description: A new Flutter Theme package.
-version: 0.10.0+1
+version: 0.10.0+11
 author: Steven Smith
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
