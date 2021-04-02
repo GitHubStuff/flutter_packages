@@ -3,6 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('Int as Month text', () {
+    expect(1.asMonth(), 'Jan');
+    expect(2.asMonth(), 'Feb');
+    expect(3.asMonth(), 'Mar');
+    expect(4.asMonth(), 'Apr');
+    expect(5.asMonth(), 'May');
+    expect(6.asMonth(), 'Jun');
+    expect(7.asMonth(), 'Jul');
+    expect(8.asMonth(), 'Aug');
+    expect(9.asMonth(), 'Sep');
+    expect(10.asMonth(), 'Oct');
+    expect(11.asMonth(), 'Nov');
+    expect(12.asMonth(), 'Dec');
+    expect(() => 14.asMonth(), throwsA(isA<FlutterError>()));
+  });
   test('DateTime ConsoleTimeStamp', () {
     final consoleString = consoleTimeStamp;
     expect(consoleString, isNotNull);
@@ -13,7 +28,6 @@ void main() {
     final dt = DateTime.now().asKey();
     final prefix = dt.substring(0, 3);
     expect(prefix, '202');
-    debugPrint('DT: $dt');
   });
 
   test('Rounding', () {
