@@ -18,6 +18,35 @@ void main() {
     expect(12.asMonth(), 'Dec');
     expect(() => 14.asMonth(), throwsA(isA<FlutterError>()));
   });
+
+  test('Int as Meridian', () {
+    expect(0.asMeridian(), 'AM');
+    expect(1.asMeridian(), 'AM');
+    expect(2.asMeridian(), 'AM');
+    expect(3.asMeridian(), 'AM');
+    expect(4.asMeridian(), 'AM');
+    expect(5.asMeridian(), 'AM');
+    expect(6.asMeridian(), 'AM');
+    expect(7.asMeridian(), 'AM');
+    expect(8.asMeridian(), 'AM');
+    expect(9.asMeridian(), 'AM');
+    expect(10.asMeridian(), 'AM');
+    expect(11.asMeridian(), 'AM');
+    expect(12.asMeridian(), 'PM');
+    expect(13.asMeridian(), 'PM');
+    expect(14.asMeridian(), 'PM');
+    expect(15.asMeridian(), 'PM');
+    expect(16.asMeridian(), 'PM');
+    expect(17.asMeridian(), 'PM');
+    expect(18.asMeridian(), 'PM');
+    expect(19.asMeridian(), 'PM');
+    expect(20.asMeridian(), 'PM');
+    expect(21.asMeridian(), 'PM');
+    expect(22.asMeridian(), 'PM');
+    expect(23.asMeridian(), 'PM');
+    expect(() => 24.asMeridian(), throwsA(isA<FlutterError>()));
+  });
+
   test('DateTime ConsoleTimeStamp', () {
     final consoleString = consoleTimeStamp;
     expect(consoleString, isNotNull);
