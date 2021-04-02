@@ -30,6 +30,8 @@ extension DateTimeExtension on DateTime {
 
   String asKey() => this.toIso8601String().replaceAll(':', '').replaceAll('.', '').replaceAll('-', '');
 
+  String monthText([String fmt = 'MMM']) => DateFormat(fmt).format(this);
+
   int get daysInTheMonth => daysInMonth(this.month, year: this.year);
 
   DateTime next(DateTimeElement element, [int delta = 1]) {
