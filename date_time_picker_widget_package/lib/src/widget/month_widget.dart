@@ -18,7 +18,6 @@ class MonthWidget extends StatefulWidget {
 class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
   double get extent => widget.size.height / 4;
   final scrollController = FixedExtentScrollController();
-  final baseMonth = 1;
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeMonth(pos + baseMonth);
+          widget.dateTimeCubit.changeMonth(pos);
         } else {}
       });
     });

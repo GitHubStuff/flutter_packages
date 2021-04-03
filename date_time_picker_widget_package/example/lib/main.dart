@@ -6,6 +6,10 @@ void main() {
   runApp(MyApp());
 }
 
+final yearWidgetSize = Size(100, 150);
+final monthWidgetSize = Size(90, 150);
+final dayWidgetSize = Size(80, 150);
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final dateTimeCubit = DateTimeCubit(DateTime(2020, 6, 29));
+  final dateTimeCubit = DateTimeCubit(DateTime(2020, 1, 31));
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // building(),
           // creating(),
           Row(children: [
-            YearWidget(dateTimeCubit),
-            MonthWidget(dateTimeCubit),
-            DayWidget(dateTimeCubit),
+            YearWidget(dateTimeCubit, size: yearWidgetSize),
+            MonthWidget(dateTimeCubit, size: monthWidgetSize),
+            DayWidget(dateTimeCubit, size: dayWidgetSize),
           ]),
         ],
       ),

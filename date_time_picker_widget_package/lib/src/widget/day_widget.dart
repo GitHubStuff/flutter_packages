@@ -1,5 +1,6 @@
 import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
@@ -18,7 +19,6 @@ class DayWidget extends StatefulWidget {
 class _DayWidget extends ObservingStatefulWidget<DayWidget> {
   double get extent => widget.size.height / 4;
   final scrollController = FixedExtentScrollController();
-  final baseDay = 1;
 
   @override
   void initState() {
@@ -34,12 +34,13 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeMonth(pos + baseDay);
+          widget.dateTimeCubit.changeDay(pos);
         } else {}
       });
     });
     final pos = widget.dateTimeCubit.day;
     scrollController.jumpToItem(pos);
+    widget.dateTimeCubit.setScrollController(scrollController);
   }
 
   @override
@@ -47,8 +48,19 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
     return SizedBox(
       width: widget.size.width,
       height: widget.size.height,
-      child: _lws(),
+      child: _cubitBuilder(),
     );
+  }
+
+  Widget _cubitBuilder() {
+    return BlocBuilder<DateTimeCubit, DateTimeState>(
+        bloc: widget.dateTimeCubit,
+        builder: (cntxt, dateTimeState) {
+          if (dateTimeState is ChangeDateTimeState) {
+            //scrollController.jumpToItem(dateTimeState.dateTime.day);
+          }
+          return _lws();
+        });
   }
 
   Widget _lws() {
@@ -70,6 +82,7 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
+      debugPrint('Limit: ${widget.dateTimeCubit.daysInTheMonth}');
       if (index < 1 || index > widget.dateTimeCubit.daysInTheMonth) return null;
       final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, index));
       return Center(
