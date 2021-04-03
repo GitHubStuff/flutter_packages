@@ -13,7 +13,7 @@ class DateTimeCubit extends Cubit<DateTimeState> {
 
   void Function(Change<DateTimeState>)? onChangeCallback;
 
-  DateTime get utcDateTime => _set;
+  DateTime get utcDateTime => _set.toUtc();
 
   DateTime get _set => _dateTime = _dateTime ?? DateTime.now();
 
@@ -36,6 +36,14 @@ class DateTimeCubit extends Cubit<DateTimeState> {
     emit(ChangeDateTimeState(_dateTime!));
   }
 
+  void changeDay(int day) {
+    final delta = (day - _set.day);
+    _dateTime = _set.next(DateTimeElement.day, delta);
+    emit(ChangeDateTimeState(_dateTime!));
+  }
+
   int get year => _set.year;
   int get month => _set.month;
+  int get day => _set.day;
+  int get daysInTheMonth => _set.daysInTheMonth;
 }

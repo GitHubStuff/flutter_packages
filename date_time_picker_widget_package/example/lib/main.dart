@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final dateTimeCubit = DateTimeCubit(DateTime.utc(2020, 2, 29));
+  final dateTimeCubit = DateTimeCubit(DateTime(2020, 6, 29));
 
   @override
   Widget build(BuildContext context) {
@@ -66,11 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
       create: (_) => dateTimeCubit,
       child: Column(
         children: [
-          building(),
-          creating(),
+          // building(),
+          // creating(),
           Row(children: [
             YearWidget(dateTimeCubit),
             MonthWidget(dateTimeCubit),
+            DayWidget(dateTimeCubit),
           ]),
         ],
       ),

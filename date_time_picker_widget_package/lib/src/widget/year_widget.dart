@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 class YearWidget extends StatefulWidget {
-  final double height;
+  final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
 
-  const YearWidget(this.dateTimeCubit, {this.height = 100.0, this.offAxisFraction = 0.0});
+  const YearWidget(this.dateTimeCubit, {this.size = const Size(50, 100), this.offAxisFraction = 0.0});
 
   @override
   _YearWidget createState() => _YearWidget();
 }
 
 class _YearWidget extends ObservingStatefulWidget<YearWidget> {
-  double get extent => widget.height / 4;
+  double get extent => widget.size.height / 4;
   final baseYear = 1700;
   final indexLimit = 600;
   final scrollController = FixedExtentScrollController();
@@ -28,17 +28,13 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
   void afterFirstLayout(BuildContext buildContext) {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       scrollController.addListener(() {
-        debugPrint('Scrolling');
+        //debugPrint('Scrolling');
       });
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
-          print('scroll is stopped');
           final pos = scrollController.selectedItem;
           widget.dateTimeCubit.changeYear(pos + baseYear);
-          print('Stopped $pos');
-        } else {
-          print('scroll is started');
-        }
+        } else {}
       });
     });
     final pos = widget.dateTimeCubit.year - baseYear;
@@ -48,8 +44,8 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.height * 1.25,
-      height: widget.height,
+      width: widget.size.width,
+      height: widget.size.height,
       child: _lws(),
     );
   }
@@ -66,7 +62,7 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
       magnification: 1.1,
       overAndUnderCenterOpacity: 0.4,
       onSelectedItemChanged: (index) {
-        debugPrint('$index');
+        //debugPrint('$index');
       },
     );
   }
