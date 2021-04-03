@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
@@ -6,8 +7,14 @@ class YearWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
+  final TextStyle textStyle;
 
-  const YearWidget(this.dateTimeCubit, {this.size = const Size(50, 100), this.offAxisFraction = 0.0});
+  const YearWidget(
+    this.dateTimeCubit, {
+    this.size = const Size(50, 100),
+    this.offAxisFraction = 0.0,
+    this.textStyle = const TextStyle(fontSize: 400),
+  });
 
   @override
   _YearWidget createState() => _YearWidget();
@@ -70,10 +77,14 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, index) {
       if (index < 0 || index > indexLimit) return null;
+      final style = widget.textStyle.copyWith(fontSize: 400);
       return Center(
-        child: Text(
-          '${index + baseYear}',
-          style: TextStyle(fontSize: 0.8 * extent, color: (index % 2 == 0) ? Colors.green : Colors.blue),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AutoSizeText(
+            '${index + baseYear}',
+            style: style,
+          ),
         ),
       );
     });

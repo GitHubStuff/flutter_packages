@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:date_time_package/date_time_package.dart';
 import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,9 @@ class MonthWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
+  final TextStyle textStyle;
 
-  const MonthWidget(this.dateTimeCubit, {this.monthFormat = 'MMM', this.size = const Size(50, 100), this.offAxisFraction = 0.0});
+  const MonthWidget(this.dateTimeCubit, {this.monthFormat = 'MMM', this.size = const Size(50, 100), this.offAxisFraction = 0.0, this.textStyle = const TextStyle(fontSize: 400)});
 
   @override
   _MonthWidget createState() => _MonthWidget();
@@ -71,10 +73,13 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index < DateTime.january || index > DateTime.december) return null;
       final monthText = index.asMonth();
-      return Center(
-        child: Text(
-          '$monthText',
-          style: TextStyle(fontSize: 0.8 * extent, color: (index % 2 == 0) ? Colors.green : Colors.blue),
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: AutoSizeText(
+            '$monthText',
+            style: widget.textStyle.copyWith(fontSize: 400),
+          ),
         ),
       );
     });

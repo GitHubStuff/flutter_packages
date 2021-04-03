@@ -6,9 +6,9 @@ void main() {
   runApp(MyApp());
 }
 
-final yearWidgetSize = Size(100, 150);
-final monthWidgetSize = Size(90, 150);
-final dayWidgetSize = Size(80, 150);
+final yearWidgetSize = Size(50, 150);
+final monthWidgetSize = Size(50, 150);
+final dayWidgetSize = Size(50, 150);
 
 class MyApp extends StatelessWidget {
   @override
@@ -73,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // building(),
           // creating(),
           Row(children: [
-            YearWidget(dateTimeCubit, size: yearWidgetSize),
             MonthWidget(dateTimeCubit, size: monthWidgetSize),
             DayWidget(dateTimeCubit, size: dayWidgetSize),
+            YearWidget(dateTimeCubit, size: yearWidgetSize),
           ]),
         ],
       ),
