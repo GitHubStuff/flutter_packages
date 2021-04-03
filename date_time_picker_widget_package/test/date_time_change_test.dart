@@ -15,8 +15,6 @@ void main() {
     expect(dateTimeChange.hourChanged, true);
     expect(dateTimeChange.minuteChanged, false);
     expect(dateTimeChange.secondChanged, true);
-    final old = dateTimeChange.oldDateTime.second;
-    final net = dateTimeChange.newDateTime.second;
     expect(dateTimeChange.meridanChanged, true);
     expect(dateTimeChange.dayCountChanged, true);
     expect(dateTimeChange.numberOfDays, 28);

@@ -2,6 +2,7 @@ import 'dart:core';
 
 import 'package:bloc/bloc.dart';
 import 'package:date_time_package/date_time_package.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'date_time_state.dart';
@@ -12,12 +13,9 @@ class DateTimeCubit extends Cubit<DateTimeState> {
 
   void Function(Change<DateTimeState>)? onChangeCallback;
 
-  DateTime get utcDateTime => _set();
+  DateTime get utcDateTime => _set;
 
-  DateTime _set() {
-    _dateTime = _dateTime ?? DateTime.now();
-    return _dateTime!;
-  }
+  DateTime get _set => _dateTime = _dateTime ?? DateTime.now();
 
   @override
   void onChange(Change<DateTimeState> change) {
@@ -26,10 +24,18 @@ class DateTimeCubit extends Cubit<DateTimeState> {
   }
 
   void changeYear(int year) {
-    final delta = (year - _set().year);
-    final currentDay = _dateTime!.day;
-    _dateTime = _set().next(DateTimeElement.year, delta);
-    emit(ChangeYearState(_dateTime!));
-    if (currentDay != _dateTime!.day) emit(ChangeDayState(_dateTime!));
+    final delta = (year - _set.year);
+    _dateTime = _set.next(DateTimeElement.year, delta);
+    debugPrint('CUBIT: $_dateTime');
+    emit(ChangeDateTimeState(_dateTime!));
   }
+
+  void changeMonth(int month) {
+    final delta = (month - _set.month);
+    _dateTime = _set.next(DateTimeElement.month, delta);
+    emit(ChangeDateTimeState(_dateTime!));
+  }
+
+  int get year => _set.year;
+  int get month => _set.month;
 }

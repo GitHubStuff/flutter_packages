@@ -68,6 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           building(),
           creating(),
+          Row(children: [
+            YearWidget(dateTimeCubit),
+            MonthWidget(dateTimeCubit),
+          ]),
         ],
       ),
     );
@@ -76,25 +80,15 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget building() {
     return BlocBuilder<DateTimeCubit, DateTimeState>(builder: (cntx, state) {
       debugPrint('state: $state');
-      switch (state.type) {
-        case DateTimeStateType.ChangeDayState:
-        case DateTimeStateType.ChangeYearState:
-        case DateTimeStateType.DateTimeInitial:
-      }
-      return Text('Built type:${state.type} => ${dateTimeCubit.utcDateTime}');
+
+      return Text('Built type:${state.toString()} => ${dateTimeCubit.utcDateTime}');
     });
   }
 
   Widget creating() {
     return BlocBuilder<DateTimeCubit, DateTimeState>(builder: (cntx, state) {
       debugPrint('state: $state');
-      switch (state.type) {
-        case DateTimeStateType.ChangeDayState:
-          return Text('Changed Day');
-        case DateTimeStateType.ChangeYearState:
-        case DateTimeStateType.DateTimeInitial:
-      }
-      return Text('Creating type:${state.type} => ${dateTimeCubit.utcDateTime}');
+      return Text('Creating type:${state.toString()} => ${dateTimeCubit.utcDateTime}');
     });
   }
 }
