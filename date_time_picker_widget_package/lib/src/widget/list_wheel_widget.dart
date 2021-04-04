@@ -1,3 +1,6 @@
+// Copyright 2021, LTMM LLC
+// Single source for ListWheelScroll view used by the individual pickers
+
 import 'package:flutter/material.dart';
 
 class ListWheelWidget extends StatefulWidget {

@@ -12,4 +12,4 @@ export 'src/time_picker/meridian_widget.dart';
 export 'src/time_picker/minute_widget.dart';
 export 'src/time_picker/second_widget.dart';
 export 'src/time_picker/time_picker_widget.dart';
-export 'src/widget/seperator_widget.dart';
+export 'src/time_picker/seperator_widget.dart';

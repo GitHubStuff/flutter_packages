@@ -1,5 +1,6 @@
-import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
+
+import '../../date_time_picker_widget_package.dart';
 
 class TimePickerWidget extends StatelessWidget {
   final Size size;

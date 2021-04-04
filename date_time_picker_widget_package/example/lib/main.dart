@@ -1,3 +1,4 @@
+import 'package:date_time_package/date_time_package.dart';
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,13 +7,13 @@ void main() {
   runApp(MyApp());
 }
 
-final w = 280.0;
-final h = 150.0;
-final yearWidgetSize = Size(w / 3.6, h);
-final monthWidgetSize = Size(w / 2.1, h);
-final dayWidgetSize = Size(w / 4.6, h);
-final timeWidgetSize = Size(w * 0.2258064516, h);
-final seperatorSize = Size(w * 0.03225806452, h);
+// final w = 280.0;
+// final h = 150.0;
+// final yearWidgetSize = Size(w / 3.6, h);
+// final monthWidgetSize = Size(w / 2.1, h);
+// final dayWidgetSize = Size(w / 4.6, h);
+// final timeWidgetSize = Size(w * 0.2258064516, h);
+// final seperatorSize = Size(w * 0.03225806452, h);
 
 class MyApp extends StatelessWidget {
   @override
@@ -79,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
           DatePickerWidget(
             size: Size(280, 150),
             dateTimeCubit: dateTimeCubit,
+            ordering: [DateTimeElement.day, DateTimeElement.month, DateTimeElement.year],
           ),
           TimePickerWidget(
             size: Size(280, 150),

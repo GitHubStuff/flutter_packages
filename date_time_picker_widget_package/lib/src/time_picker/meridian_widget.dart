@@ -1,8 +1,8 @@
 import 'package:date_time_package/date_time_package.dart';
-import 'package:date_time_picker_widget_package/src/widget/const.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
+import '../../src/widget/const.dart';
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
@@ -44,7 +44,6 @@ class _MeridianWidget extends ObservingStatefulWidget<MeridianWidget> {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
           widget.dateTimeCubit.changeMeridian(index: pos);
-          
         } else {}
       });
     });
