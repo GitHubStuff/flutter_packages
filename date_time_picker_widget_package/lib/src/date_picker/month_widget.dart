@@ -13,9 +13,14 @@ class MonthWidget extends StatefulWidget {
   final DateTimeCubit dateTimeCubit;
   final TextStyle textStyle;
 
-  const MonthWidget(this.dateTimeCubit,
-      {Key? key, this.monthFormat = 'MMM', this.size = const Size(50, 100), this.offAxisFraction = 0.0, this.textStyle = const TextStyle(fontSize: 400)})
-      : super(key: key);
+  const MonthWidget(
+    this.dateTimeCubit, {
+    Key? key,
+    this.monthFormat = 'MMM',
+    required this.size,
+    this.offAxisFraction = 0.0,
+    this.textStyle = const TextStyle(fontSize: 400),
+  }) : super(key: key);
 
   @override
   _MonthWidget createState() => _MonthWidget();

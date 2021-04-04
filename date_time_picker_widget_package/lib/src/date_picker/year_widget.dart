@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 import '../cubit/date_time_cubit.dart';
-import '../widget/picker_text_widget.dart';
 import '../widget/const.dart';
 import '../widget/list_wheel_widget.dart';
+import '../widget/picker_text_widget.dart';
 
 class YearWidget extends StatefulWidget {
   final Size size;
@@ -15,7 +15,7 @@ class YearWidget extends StatefulWidget {
   const YearWidget(
     this.dateTimeCubit, {
     Key? key,
-    this.size = const Size(50, 100),
+    required this.size,
     this.offAxisFraction = 0.0,
     this.textStyle = const TextStyle(fontSize: Const.fontSize),
   }) : super(key: key);

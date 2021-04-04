@@ -11,8 +11,8 @@ class SeperatorWidget extends StatefulWidget {
   final TextStyle textStyle;
 
   const SeperatorWidget({
-    this.seperator = '-',
-    this.size = const Size(10, 100),
+    required this.seperator,
+    required this.size,
     this.offAxisFraction = 0.0,
     this.textStyle = const TextStyle(fontSize: Const.fontSize, fontWeight: FontWeight.bold),
   });

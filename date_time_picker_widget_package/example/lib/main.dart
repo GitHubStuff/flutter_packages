@@ -1,4 +1,3 @@
-import 'package:date_time_package/date_time_package.dart';
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +11,7 @@ final h = 150.0;
 final yearWidgetSize = Size(w * 0.4117647059, h);
 final monthWidgetSize = Size(w * 0.2941176471, h);
 final dayWidgetSize = Size(w * 0.2941176471, h);
-final seperatorSize = Size(20, h);
+final seperatorSize = Size(10, h);
 
 class MyApp extends StatelessWidget {
   @override
@@ -36,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final dateTimeCubit = DateTimeCubit(DateTime(2020, 1, 31));
+  final dateTimeCubit = DateTimeCubit(DateTime(2020, 1, 31, 19, 20, 23));
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +75,30 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           // building(),
           // creating(),
-          Row(children: [
-            MonthWidget(dateTimeCubit, size: monthWidgetSize),
-            DayWidget(dateTimeCubit, size: dayWidgetSize),
-            YearWidget(dateTimeCubit, size: yearWidgetSize),
-            SixtyWidget(dateTimeCubit, timeElement: DateTimeElement.minute),
-            SixtyWidget(dateTimeCubit, timeElement: DateTimeElement.second),
-          ]),
+          Container(
+            margin: const EdgeInsets.all(1.0),
+            decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+            child: Row(mainAxisSize: MainAxisSize.min, children: [
+              MonthWidget(dateTimeCubit, size: monthWidgetSize),
+              DayWidget(dateTimeCubit, size: dayWidgetSize),
+              YearWidget(dateTimeCubit, size: yearWidgetSize),
+            ]),
+          ),
+          Container(
+            margin: const EdgeInsets.all(1.0),
+            decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                HourWidget(dateTimeCubit, size: dayWidgetSize),
+                SeperatorWidget(seperator: ':', size: seperatorSize),
+                MinuteWidget(dateTimeCubit, size: dayWidgetSize),
+                SeperatorWidget(seperator: ':', size: seperatorSize),
+                SecondWidget(dateTimeCubit, size: dayWidgetSize),
+                MeridianWidget(dateTimeCubit, size: dayWidgetSize),
+              ],
+            ),
+          ),
         ],
       ),
     );

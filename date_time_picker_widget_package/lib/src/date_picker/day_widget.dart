@@ -18,7 +18,7 @@ class DayWidget extends StatefulWidget {
     this.dateTimeCubit, {
     Key? key,
     this.dayFormat = 'dd',
-    this.size = const Size(50, 100),
+    required this.size,
     this.offAxisFraction = 0.0,
     this.textStyle: const TextStyle(fontSize: 400),
   }) : super(key: key);
@@ -67,9 +67,6 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
     return BlocBuilder<DateTimeCubit, DateTimeState>(
         bloc: widget.dateTimeCubit,
         builder: (cntxt, dateTimeState) {
-          if (dateTimeState is ChangeDateTimeState) {
-            //scrollController.jumpToItem(dateTimeState.dateTime.day);
-          }
           return _listWheelWidget();
         });
   }
@@ -83,7 +80,6 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      debugPrint('Limit: ${widget.dateTimeCubit.daysInTheMonth}');
       if (index < 1 || index > widget.dateTimeCubit.daysInTheMonth) return null;
       final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, index));
       return PickerTextWidget(text: dayText, style: widget.textStyle);

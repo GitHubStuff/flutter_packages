@@ -6,27 +6,25 @@ import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
 
-abstract class SixtyWidget extends StatefulWidget {
+class HourWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
   final TextStyle textStyle;
-  final DateTimeElement timeElement;
 
-  const SixtyWidget(
+  const HourWidget(
     this.dateTimeCubit, {
     Key? key,
-    required this.timeElement,
     required this.size,
     this.offAxisFraction = 0.0,
     this.textStyle = const TextStyle(fontSize: 400),
   }) : super(key: key);
 
   @override
-  _SixtyWidget createState() => _SixtyWidget();
+  _HourWidget createState() => _HourWidget();
 }
 
-class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
+class _HourWidget extends ObservingStatefulWidget<HourWidget> {
   double get extent => widget.size.height / 4;
   final scrollController = FixedExtentScrollController();
 
@@ -44,11 +42,11 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.change(widget.timeElement, to: pos);
+          widget.dateTimeCubit.change(DateTimeElement.hour, to: pos);
         } else {}
       });
     });
-    final pos = widget.dateTimeCubit.fetch(widget.timeElement);
+    final pos = widget.dateTimeCubit.hour12;
     scrollController.jumpToItem(pos);
   }
 
@@ -70,7 +68,7 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < 0 || index > 59) return null;
+      if (index < 1 || index > 12) return null;
       final text = index.toString().padLeft(2, '0');
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
