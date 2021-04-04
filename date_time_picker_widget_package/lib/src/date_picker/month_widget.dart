@@ -70,7 +70,6 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      debugPrint('Index: $index');
       if (index < DateTime.january) return null;
       int offset = (index % 12) == 0 ? 12 : (index % 12);
       final monthText = offset.asMonth(format: widget.monthFormat);

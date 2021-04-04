@@ -67,9 +67,9 @@ class _HourWidget extends ObservingStatefulWidget<HourWidget> {
       );
 
   ListWheelChildBuilderDelegate _delegate() {
-    return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < 1) return null;
-      int offset = (index % 12) == 0 ? 12 : (index % 12);
+    return ListWheelChildBuilderDelegate(builder: (context, int hourIndex) {
+      if (hourIndex < 1) return null;
+      int offset = (hourIndex % 12) == 0 ? 12 : (hourIndex % 12);
       final text = offset.toString().padLeft(2, '0');
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
