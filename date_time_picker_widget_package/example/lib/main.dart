@@ -1,3 +1,4 @@
+import 'package:date_time_package/date_time_package.dart';
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,6 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
             MonthWidget(dateTimeCubit, size: monthWidgetSize),
             DayWidget(dateTimeCubit, size: dayWidgetSize),
             YearWidget(dateTimeCubit, size: yearWidgetSize),
+            SixtyWidget(dateTimeCubit, timeElement: DateTimeElement.minute),
+            SixtyWidget(dateTimeCubit, timeElement: DateTimeElement.second),
           ]),
         ],
       ),

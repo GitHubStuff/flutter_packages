@@ -44,11 +44,11 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeMonth(pos);
+          widget.dateTimeCubit.change(widget.timeElement, to: pos);
         } else {}
       });
     });
-    final pos = widget.dateTimeCubit.month;
+    final pos = widget.dateTimeCubit.fetch(widget.timeElement);
     scrollController.jumpToItem(pos);
   }
 
@@ -70,9 +70,9 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < DateTime.january || index > DateTime.december) return null;
-      final monthText = index.asMonth();
-      return PickerTextWidget(text: monthText, style: widget.textStyle);
+      if (index < 0 || index > 59) return null;
+      final text = index.toString().padLeft(1, '0');
+      return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }
 }

@@ -82,6 +82,12 @@ void main() {
     expect(zego.daysInTheMonth, 28);
   });
 
+  test('Update of hour', () {
+    DateTime zego = DateTime(2020, 2, 29, 0, 0, 0, 0, 0).next(DateTimeElement.year, 1);
+    DateTime up = zego.update(DateTimeElement.hour, to: 1);
+    expect(up.hour, 1);
+  });
+
   test('DateTime leap year oddities', () {
     // Feb 29th of a leap year then advance a year => Feb 28th {not a leap year}
     DateTime zego = DateTime(2020, 2, 29, 0, 0, 0, 0, 0).next(DateTimeElement.year, 1);

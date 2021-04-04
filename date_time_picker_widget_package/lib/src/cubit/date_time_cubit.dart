@@ -49,7 +49,7 @@ class DateTimeCubit extends Cubit<DateTimeState> {
   void change(DateTimeElement element, {required int to}) {
     switch (element) {
       case DateTimeElement.minute:
-      
+
       case DateTimeElement.second:
       default:
         throw FlutterError('Can not change ${element.toString()} with this method');
@@ -71,8 +71,29 @@ class DateTimeCubit extends Cubit<DateTimeState> {
 
   void setScrollController(FixedExtentScrollController scrollController) => _dayScroller = scrollController;
 
-  int get year => _set.year;
-  int get month => _set.month;
-  int get day => _set.day;
+  int get year => fetch(DateTimeElement.year);
+  int get month => fetch(DateTimeElement.month);
+  int get day => fetch(DateTimeElement.day);
   int get daysInTheMonth => _set.daysInTheMonth;
+
+  int fetch(DateTimeElement element) {
+    switch (element) {
+      case DateTimeElement.year:
+        return _set.year;
+      case DateTimeElement.month:
+        return _set.month;
+      case DateTimeElement.day:
+        return _set.day;
+      case DateTimeElement.hour:
+        return _set.hour;
+      case DateTimeElement.minute:
+        return _set.minute;
+      case DateTimeElement.second:
+        return _set.second;
+      case DateTimeElement.millisecond:
+        return _set.millisecond;
+      case DateTimeElement.microsecond:
+        return _set.microsecond;
+    }
+  }
 }
