@@ -42,12 +42,12 @@ class _HourWidget extends ObservingStatefulWidget<HourWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.change(DateTimeElement.hour, to: pos);
+          widget.dateTimeCubit.change(DateTimeElement.hour, to: (pos % 12) == 0 ? 12 : (pos % 12));
         } else {}
       });
     });
     final pos = widget.dateTimeCubit.hour12;
-    scrollController.jumpToItem(pos);
+    scrollController.jumpToItem(pos + 360);
   }
 
   @override
@@ -68,8 +68,9 @@ class _HourWidget extends ObservingStatefulWidget<HourWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < 1 || index > 12) return null;
-      final text = index.toString().padLeft(2, '0');
+      if (index < 1) return null;
+      int offset = (index % 12) == 0 ? 12 : (index % 12);
+      final text = offset.toString().padLeft(2, '0');
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }

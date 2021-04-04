@@ -73,7 +73,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       debugPrint('Index: $index');
       if (index < DateTime.january) return null;
       int offset = (index % 12) == 0 ? 12 : (index % 12);
-      final monthText = (offset).asMonth(format: widget.monthFormat);
+      final monthText = offset.asMonth(format: widget.monthFormat);
       return PickerTextWidget(text: monthText, style: widget.textStyle);
     });
   }
