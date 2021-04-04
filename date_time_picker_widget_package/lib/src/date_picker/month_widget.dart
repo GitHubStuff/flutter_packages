@@ -49,7 +49,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       });
     });
     final pos = widget.dateTimeCubit.month;
-    scrollController.jumpToItem(pos);
+    scrollController.jumpToItem(pos + 24);
   }
 
   @override
@@ -70,8 +70,10 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < DateTime.january || index > DateTime.december) return null;
-      final monthText = index.asMonth(format: widget.monthFormat);
+      debugPrint('Index: $index');
+      if (index < DateTime.january || index > (DateTime.december * 5)) return null;
+      int offset = (index % 12) == 0 ? 12 : (index % 12);
+      final monthText = (offset).asMonth(format: widget.monthFormat);
       return PickerTextWidget(text: monthText, style: widget.textStyle);
     });
   }
