@@ -46,6 +46,16 @@ class DateTimeCubit extends Cubit<DateTimeState> {
     _updateDay();
   }
 
+  void change(DateTimeElement element, {required int to}) {
+    switch (element) {
+      case DateTimeElement.minute:
+      
+      case DateTimeElement.second:
+      default:
+        throw FlutterError('Can not change ${element.toString()} with this method');
+    }
+  }
+
   void _updateDay() async {
     bool refresh = _oldDayCount != _set.daysInTheMonth;
     _oldDayCount = _set.daysInTheMonth;

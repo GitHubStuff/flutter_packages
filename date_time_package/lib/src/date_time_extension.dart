@@ -4,7 +4,7 @@ import '../date_time_package.dart';
 
 extension DateTimeExtension on DateTime {
   static int daysInMonth(int month, {required int year}) {
-    if (!(month >= 1 && month <= 12)) throw ArgumentError('Months 1-12 .. value passed $month');
+    if (!(month >= DateTime.january && month <= DateTime.december)) throw ArgumentError('Months 1-12 .. value passed $month');
     return (isLeapYear(year) && month == 2) ? 29 : [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
   }
 
@@ -19,6 +19,19 @@ extension DateTimeExtension on DateTime {
   String monthText([String fmt = 'MMM']) => DateFormat(fmt).format(this);
 
   int get daysInTheMonth => daysInMonth(this.month, year: this.year);
+
+  DateTime update(DateTimeElement element, {required int to}) {
+    return DateTime(
+      (element == DateTimeElement.year ? to : this.year),
+      (element == DateTimeElement.month ? to : this.month),
+      (element == DateTimeElement.day ? to : this.day),
+      (element == DateTimeElement.hour ? to : this.hour),
+      (element == DateTimeElement.minute ? to : this.minute),
+      (element == DateTimeElement.second ? to : this.second),
+      (element == DateTimeElement.millisecond ? to : this.millisecond),
+      (element == DateTimeElement.microsecond ? to : this.microsecond),
+    );
+  }
 
   DateTime next(DateTimeElement element, [int delta = 1]) {
     switch (element) {

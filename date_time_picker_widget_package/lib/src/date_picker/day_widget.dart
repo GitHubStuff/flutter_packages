@@ -1,9 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+
+import '../cubit/date_time_cubit.dart';
+import '../widget/list_wheel_widget.dart';
+import '../widget/picker_text_widget.dart';
 
 class DayWidget extends StatefulWidget {
   final String dayFormat;
@@ -14,11 +16,12 @@ class DayWidget extends StatefulWidget {
 
   const DayWidget(
     this.dateTimeCubit, {
+    Key? key,
     this.dayFormat = 'dd',
     this.size = const Size(50, 100),
     this.offAxisFraction = 0.0,
     this.textStyle: const TextStyle(fontSize: 400),
-  });
+  }) : super(key: key);
 
   @override
   _DayWidget createState() => _DayWidget();
@@ -67,41 +70,23 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
           if (dateTimeState is ChangeDateTimeState) {
             //scrollController.jumpToItem(dateTimeState.dateTime.day);
           }
-          return _lws();
+          return _listWheelWidget();
         });
   }
 
-  Widget _lws() {
-    return ListWheelScrollView.useDelegate(
-      childDelegate: _delegate(),
-      itemExtent: extent,
-      controller: scrollController,
-      offAxisFraction: widget.offAxisFraction,
-      physics: FixedExtentScrollPhysics(),
-      perspective: 0.0001,
-      useMagnifier: true,
-      magnification: 1.1,
-      overAndUnderCenterOpacity: 0.4,
-      onSelectedItemChanged: (index) {
-        //debugPrint('$index');
-      },
-    );
-  }
+  Widget _listWheelWidget() => ListWheelWidget(
+        scrollController: scrollController,
+        extent: extent,
+        delegate: _delegate(),
+        offAxisFraction: widget.offAxisFraction,
+      );
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       debugPrint('Limit: ${widget.dateTimeCubit.daysInTheMonth}');
       if (index < 1 || index > widget.dateTimeCubit.daysInTheMonth) return null;
       final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, index));
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: AutoSizeText(
-            '$dayText',
-            style: widget.textStyle.copyWith(fontSize: 400),
-          ),
-        ),
-      );
+      return PickerTextWidget(text: dayText, style: widget.textStyle);
     });
   }
 }

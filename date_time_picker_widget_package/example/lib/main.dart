@@ -6,9 +6,12 @@ void main() {
   runApp(MyApp());
 }
 
-final yearWidgetSize = Size(50, 150);
-final monthWidgetSize = Size(50, 150);
-final dayWidgetSize = Size(50, 150);
+final w = 170.0;
+final h = 150.0;
+final yearWidgetSize = Size(w * 0.4117647059, h);
+final monthWidgetSize = Size(w * 0.2941176471, h);
+final dayWidgetSize = Size(w * 0.2941176471, h);
+final seperatorSize = Size(20, h);
 
 class MyApp extends StatelessWidget {
   @override

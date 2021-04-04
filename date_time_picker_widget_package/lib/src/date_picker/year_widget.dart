@@ -1,7 +1,10 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+
+import '../cubit/date_time_cubit.dart';
+import '../widget/picker_text_widget.dart';
+import '../widget/const.dart';
+import '../widget/list_wheel_widget.dart';
 
 class YearWidget extends StatefulWidget {
   final Size size;
@@ -11,10 +14,11 @@ class YearWidget extends StatefulWidget {
 
   const YearWidget(
     this.dateTimeCubit, {
+    Key? key,
     this.size = const Size(50, 100),
     this.offAxisFraction = 0.0,
-    this.textStyle = const TextStyle(fontSize: 400),
-  });
+    this.textStyle = const TextStyle(fontSize: Const.fontSize),
+  }) : super(key: key);
 
   @override
   _YearWidget createState() => _YearWidget();
@@ -53,40 +57,22 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
     return SizedBox(
       width: widget.size.width,
       height: widget.size.height,
-      child: _lws(),
+      child: _listWheelWidget(),
     );
   }
 
-  Widget _lws() {
-    return ListWheelScrollView.useDelegate(
-      childDelegate: _delegate(),
-      itemExtent: extent,
-      controller: scrollController,
-      offAxisFraction: widget.offAxisFraction,
-      physics: FixedExtentScrollPhysics(),
-      perspective: 0.0001,
-      useMagnifier: true,
-      magnification: 1.1,
-      overAndUnderCenterOpacity: 0.4,
-      onSelectedItemChanged: (index) {
-        //debugPrint('$index');
-      },
-    );
-  }
+  Widget _listWheelWidget() => ListWheelWidget(
+        scrollController: scrollController,
+        extent: extent,
+        delegate: _delegate(),
+        offAxisFraction: widget.offAxisFraction,
+      );
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, index) {
       if (index < 0 || index > indexLimit) return null;
-      final style = widget.textStyle.copyWith(fontSize: 400);
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: AutoSizeText(
-            '${index + baseYear}',
-            style: style,
-          ),
-        ),
-      );
+      final text = '${index + baseYear}';
+      return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }
 }
