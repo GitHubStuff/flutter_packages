@@ -49,7 +49,7 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
       });
     });
     final pos = widget.dateTimeCubit.fetch(widget.timeElement);
-    scrollController.jumpToItem(pos);
+    scrollController.jumpToItem(pos + 300);
   }
 
   @override
@@ -70,8 +70,8 @@ class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < 0 || index > 59) return null;
-      final text = index.toString().padLeft(2, '0');
+      if (index < 0) return null;
+      final text = (index % 60).toString().padLeft(2, '0');
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }
