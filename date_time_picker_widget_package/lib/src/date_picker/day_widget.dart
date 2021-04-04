@@ -45,7 +45,9 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeDay(pos);
+          final daysInMonth = widget.dateTimeCubit.daysInTheMonth;
+          int offset = (pos % daysInMonth) == 0 ? daysInMonth : (pos % daysInMonth);
+          widget.dateTimeCubit.changeDay(offset);
         } else {}
       });
     });
@@ -79,9 +81,11 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
       );
 
   ListWheelChildBuilderDelegate _delegate() {
-    return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index < 1 || index > widget.dateTimeCubit.daysInTheMonth) return null;
-      final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, index));
+    return ListWheelChildBuilderDelegate(builder: (context, int dayIndex) {
+      if (dayIndex < 1) return null;
+      final daysInMonth = widget.dateTimeCubit.daysInTheMonth;
+      int offset = (dayIndex % daysInMonth) == 0 ? daysInMonth : (dayIndex % daysInMonth);
+      final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, offset));
       return PickerTextWidget(text: dayText, style: widget.textStyle);
     });
   }
