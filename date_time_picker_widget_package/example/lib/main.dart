@@ -6,12 +6,13 @@ void main() {
   runApp(MyApp());
 }
 
-final w = 170.0;
+final w = 280.0;
 final h = 150.0;
-final yearWidgetSize = Size(w * 0.4117647059, h);
-final monthWidgetSize = Size(w * 0.2941176471, h);
-final dayWidgetSize = Size(w * 0.2941176471, h);
-final seperatorSize = Size(10, h);
+final yearWidgetSize = Size(w / 3.6, h);
+final monthWidgetSize = Size(w / 2.1, h);
+final dayWidgetSize = Size(w / 4.6, h);
+final timeWidgetSize = Size(w * 0.2258064516, h);
+final seperatorSize = Size(w * 0.03225806452, h);
 
 class MyApp extends StatelessWidget {
   @override
@@ -35,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final dateTimeCubit = DateTimeCubit(DateTime(2020, 1, 31, 19, 20, 23));
+  final dateTimeCubit = DateTimeCubit(DateTime(2020, 12, 31, 19, 20, 23));
 
   @override
   Widget build(BuildContext context) {
@@ -75,29 +76,13 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           // building(),
           // creating(),
-          Container(
-            margin: const EdgeInsets.all(1.0),
-            decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-            child: Row(mainAxisSize: MainAxisSize.min, children: [
-              MonthWidget(dateTimeCubit, size: monthWidgetSize),
-              DayWidget(dateTimeCubit, size: dayWidgetSize),
-              YearWidget(dateTimeCubit, size: yearWidgetSize),
-            ]),
+          DatePickerWidget(
+            size: Size(280, 150),
+            dateTimeCubit: dateTimeCubit,
           ),
-          Container(
-            margin: const EdgeInsets.all(1.0),
-            decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                HourWidget(dateTimeCubit, size: dayWidgetSize),
-                SeperatorWidget(seperator: ':', size: seperatorSize),
-                MinuteWidget(dateTimeCubit, size: dayWidgetSize),
-                SeperatorWidget(seperator: ':', size: seperatorSize),
-                SecondWidget(dateTimeCubit, size: dayWidgetSize),
-                MeridianWidget(dateTimeCubit, size: dayWidgetSize),
-              ],
-            ),
+          TimePickerWidget(
+            size: Size(280, 150),
+            dateTimeCubit: dateTimeCubit,
           ),
         ],
       ),

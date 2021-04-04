@@ -21,6 +21,7 @@ class PickerTextWidget extends StatelessWidget {
         child: AutoSizeText(
           '$text',
           style: style.copyWith(fontSize: Const.fontSize),
+          maxLines: 1,
         ),
       ),
     );

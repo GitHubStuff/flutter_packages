@@ -71,7 +71,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index < DateTime.january || index > DateTime.december) return null;
-      final monthText = index.asMonth();
+      final monthText = index.asMonth(format: widget.monthFormat);
       return PickerTextWidget(text: monthText, style: widget.textStyle);
     });
   }

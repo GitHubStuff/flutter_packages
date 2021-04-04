@@ -69,6 +69,7 @@ class _SeperatorWidget extends ObservingStatefulWidget<SeperatorWidget> {
           child: AutoSizeText(
             '${widget.seperator}',
             style: widget.textStyle.copyWith(fontSize: Const.fontSize),
+            maxLines: 1,
           ),
         ),
       );

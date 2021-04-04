@@ -84,11 +84,11 @@ class DateTimeCubit extends Cubit<DateTimeState> {
     _oldDayCount = _set.daysInTheMonth;
 
     if (refresh && _dayScroller != null) {
-      _dayScroller!.jumpToItem(max(_set.day - 1, 1));
-      await Future.delayed(Duration(microseconds: 1), () {
-        _dayScroller!.jumpToItem(_set.day);
-        emit(ChangeDateTimeState(_dateTime!));
-      });
+      _dayScroller!.animateToItem(max(_set.day - 1, 1), duration: Duration(microseconds: 1), curve: Curves.bounceOut);
+      //await Future.delayed(Duration(microseconds: 0), () {
+      _dayScroller!.animateToItem(_set.day, duration: Duration(microseconds: 1), curve: Curves.bounceIn);
+      emit(ChangeDateTimeState(_dateTime!));
+      //});
     }
     debugPrint('UpdateDay => $_set');
   }
