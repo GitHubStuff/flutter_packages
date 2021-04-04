@@ -20,6 +20,12 @@ extension DateTimeExtension on DateTime {
 
   int get daysInTheMonth => daysInMonth(this.month, year: this.year);
 
+  int get hour12 => (this.hour == 0)
+      ? 12
+      : (this.hour < 13)
+          ? this.hour
+          : this.hour - 12;
+
   DateTime update(DateTimeElement element, {required int to}) {
     return DateTime(
       (element == DateTimeElement.year ? to : this.year),
