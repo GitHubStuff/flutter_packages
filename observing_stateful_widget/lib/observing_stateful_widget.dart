@@ -13,16 +13,13 @@ abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T
   }
 
   // Called after layout
+  @mustCallSuper
   void afterFirstLayout(BuildContext context);
 
-  void reportTextScaleFactor(double? textScaleFactor) {
-    debugPrint('🎈 TextScaleFactor: $textScaleFactor');
-  }
+  void reportTextScaleFactor(double? textScaleFactor);
 
-  @override
-  void didChangePlatformBrightness() {
-    super.didChangePlatformBrightness();
-  }
+  @mustCallSuper
+  void didChangePlatformBrightness();
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {}
@@ -33,6 +30,7 @@ abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T
     reportTextScaleFactor(textScalceFactor);
   }
 
+  @mustCallSuper
   @override
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
