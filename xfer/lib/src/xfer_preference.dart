@@ -6,7 +6,7 @@ import '../xfer.dart';
 
 enum PreferenceDataType {
   boolean,
-  float,
+  double,
   integer,
   string,
 }
@@ -44,11 +44,6 @@ Future<Either<XferFailure, XferResponse>> preferencePost(
 
   final DateTime startRequest = DateTime.now().toUtc();
   PreferenceDataType? type = _getType(value);
-  if (value is bool) type = PreferenceDataType.boolean;
-  if (value is double) type = PreferenceDataType.float;
-  if (value is int) type = PreferenceDataType.integer;
-  if (value is String) type = PreferenceDataType.string;
-  if (type == null) return Left(XferFailure(XferException.preferenceUnknownDataType, code: 'body: ${value.toString()}'));
 
   bool isSet = false;
   try {
@@ -58,7 +53,7 @@ Future<Either<XferFailure, XferResponse>> preferencePost(
       case PreferenceDataType.boolean:
         isSet = await prefs.setBool(key, value as bool);
         break;
-      case PreferenceDataType.float:
+      case PreferenceDataType.double:
         isSet = await prefs.setDouble(key, value as double);
         break;
       case PreferenceDataType.integer:
@@ -67,6 +62,8 @@ Future<Either<XferFailure, XferResponse>> preferencePost(
       case PreferenceDataType.string:
         isSet = await prefs.setString(key, value as String);
         break;
+      default:
+        return Left(XferFailure(XferException.preferenceUnknownDataType, code: 'body: ${value.toString()}'));
     }
   } on MissingPluginException {
     _privatePref[key] = value;
@@ -84,7 +81,7 @@ Future<Either<XferFailure, XferResponse>> preferencePost(
 
 PreferenceDataType? _getType(Object value) {
   if (value is bool) return PreferenceDataType.boolean;
-  if (value is double) return PreferenceDataType.float;
+  if (value is double) return PreferenceDataType.double;
   if (value is int) return PreferenceDataType.integer;
   if (value is String) return PreferenceDataType.string;
   return null;

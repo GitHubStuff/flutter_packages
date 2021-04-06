@@ -66,6 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+              onPressed: () async {
+                final result = Xfer().post('pref://myKey', body: 11);
+                debugPrint('$result');
+              },
+              child: Text('P')),
+              FloatingActionButton(
+              onPressed: () async {
+                final result = Xfer().get('pref://myKey');
+                debugPrint('$result');
+              },
+              child: Text('G')),
+          FloatingActionButton(
             onPressed: () {
               setState(() {
                 message = "Cleared";

@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:xfer/src/xfer_hive.dart';
 import 'package:xfer/src/xfer_preference.dart';
 
 import 'src/xfer_asset.dart';
@@ -92,7 +93,7 @@ class Xfer {
           );
         case XferProtocol.pref:
         case XferProtocol.preference:
-          return preferenceGet(url, value: value);
+          return hiveGet(url, value: value);
       }
     } catch (error) {
       return Left(error as XferFailure);
@@ -132,7 +133,7 @@ class Xfer {
           );
         case XferProtocol.pref:
         case XferProtocol.preference:
-          return preferencePost(url, value: body ?? value);
+          return hivePost(url, value: body ?? value);
       }
     } catch (error) {
       return Left(error as XferFailure);
