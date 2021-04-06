@@ -3,6 +3,7 @@ library observing_stateful_widget;
 import 'package:flutter/material.dart';
 
 abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T> with WidgetsBindingObserver {
+  @mustCallSuper
   @override
   void initState() {
     super.initState();
@@ -15,14 +16,14 @@ abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T
   // Called after layout
   void afterFirstLayout(BuildContext context) {}
 
-  void reportTextScaleFactor(double? textScaleFactor);
+  void reportTextScaleFactor(double? textScaleFactor) {}
 
-  @mustCallSuper
-  void didChangePlatformBrightness();
+  void didChangePlatformBrightness() {}
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {}
 
+  @mustCallSuper
   @override
   void didChangeTextScaleFactor() {
     final textScalceFactor = WidgetsBinding.instance?.window.textScaleFactor;
