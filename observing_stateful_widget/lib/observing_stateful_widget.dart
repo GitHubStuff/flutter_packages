@@ -13,8 +13,7 @@ abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T
   }
 
   // Called after layout
-  @mustCallSuper
-  void afterFirstLayout(BuildContext context);
+  void afterFirstLayout(BuildContext context) {}
 
   void reportTextScaleFactor(double? textScaleFactor);
 
