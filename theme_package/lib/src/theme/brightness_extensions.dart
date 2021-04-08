@@ -1,5 +1,5 @@
 // Copyright 2021 LTMM. All rights reserved.
-part of 'theme_type.dart';
+part of 'theme_type_extension.dart';
 
 /// Extend Darts [Brightness]-enum to map to ThemeType
 extension BrightnessThemeType on Brightness {

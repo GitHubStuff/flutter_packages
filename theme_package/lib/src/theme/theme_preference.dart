@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../theme_package.dart';
-import 'theme_type.dart';
+import 'theme_type_extension.dart';
 
 /// Stores/Manages the theme mode (bright/dark) using preferences.
 /// The values stored are strings derived from the flutter enum 'ThemeMode'

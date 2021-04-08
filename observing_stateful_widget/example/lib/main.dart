@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends ObservingStatefulWidget<MyHomePage> {
   void afterFirstLayout(BuildContext context) {}
 
+  @override
   void reportTextScaleFactor(double? textScaleFactor) {
     debugPrint('🎈 TextScaleFactor: $textScaleFactor');
   }
@@ -40,12 +41,6 @@ class _MyHomePageState extends ObservingStatefulWidget<MyHomePage> {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {}
-
-  @override
-  void didChangeTextScaleFactor() {
-    final textScalceFactor = WidgetsBinding.instance?.window.textScaleFactor;
-    reportTextScaleFactor(textScalceFactor);
-  }
 
   @override
   void dispose() {

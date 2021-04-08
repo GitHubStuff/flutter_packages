@@ -8,7 +8,7 @@ export 'src/helpers/theme_text_style.dart';
 export 'src/theme/flavor_banner.dart';
 export 'src/theme/flavor_config.dart';
 export 'src/theme/theme_preference.dart';
-export 'src/theme/theme_type.dart';
+export 'src/theme/theme_type_extension.dart';
 export 'src/widgets/observing_stateful_widget.dart';
 
 /// There are four(4) types of [brightness], two(2) for the [device brightness]

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme_package.dart';
-import '../theme/theme_type.dart';
+import '../theme/theme_type_extension.dart';
 
 /// Stores colors for dark/light modes. The color of the current theme is
 /// returned by [color] inline method that gets the current mode and returns
