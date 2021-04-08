@@ -13,7 +13,6 @@ abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T
     reportTextScaleFactor(instance?.window.textScaleFactor);
   }
 
-  // Called after layout
   void afterFirstLayout(BuildContext context) {}
 
   void reportTextScaleFactor(double? textScaleFactor) {}
