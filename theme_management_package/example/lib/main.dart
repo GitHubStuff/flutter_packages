@@ -21,7 +21,19 @@ final ThemeCubit themeCubit = ThemeCubit();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ThemeCubit.setup();
-  runApp(MyApp());
+  runApp(SetUpWidget());
+}
+
+class SetUpWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    CustomColor.add(
+      key: 'Alert',
+      dark: Colors.red[900]!,
+      light: Colors.greenAccent,
+    );
+    return MyApp();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -65,8 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 12),
             child: GestureDetector(
-              onTap: () {},
-              child: themeCubit.themeModeIcon(context),
+              onTap: () => SetThemeDialog.show(context: context, themeCubit: themeCubit),
+              child: themeCubit.themeModeIcon(context: context),
             ),
           ),
         ],
@@ -76,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Generic header',
+              'I Use Custom Colors',
+              style: TextStyle(fontSize: 20, color: CustomColor.by(key: 'alert', themeMode: themeCubit.themeMode, using: context)),
             ),
             Text(
               'Text without context',
@@ -97,20 +110,27 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          /*
           FloatingActionButton(
             onPressed: () {
-              themeCubit.setThemeMode(ThemeMode.dark);
+              themeCubit.setThemeMode(ThemeMode.system);
             },
-            tooltip: 'Increment',
-            child: Icon(Icons.add),
+            tooltip: 'system',
+            child: (MediaQuery.of(context).platformBrightness == Brightness.dark) ? themeCubit.themeIcons.platformDark : themeCubit.themeIcons.platformLight,
           ),
           FloatingActionButton(
-            onPressed: () {
-              themeCubit.setThemeMode(ThemeMode.light);
-            },
-            tooltip: 'Increment',
-            child: Icon(Icons.lightbulb),
-          ),
+              onPressed: () {
+                themeCubit.setThemeMode(ThemeMode.light);
+              },
+              tooltip: 'app light',
+              child: themeCubit.themeIcons.applicationLight),
+          FloatingActionButton(
+              onPressed: () {
+                themeCubit.setThemeMode(ThemeMode.dark);
+              },
+              tooltip: 'app dark',
+              child: themeCubit.themeIcons.applicationDark),
+          */
         ],
       ),
     );

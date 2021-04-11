@@ -31,19 +31,11 @@ class ThemeCubit extends Cubit<ThemeCubitState> {
 
   ThemeData get darkTheme => _darkTheme;
   ThemeData get lightTheme => _lightTheme;
+  ThemeIcons get themeIcons => _themeIcons;
 
   ThemeMode get themeMode => _Hive.getThemeMode();
-  Widget themeModeIcon(BuildContext context) {
-    switch (themeMode) {
-      case ThemeMode.dark:
-        return _themeIcons.applicationDark;
-      case ThemeMode.light:
-        return _themeIcons.applicationLight;
-      case ThemeMode.system:
-        final brightness = MediaQuery.of(context).platformBrightness;
-        return (brightness == Brightness.dark) ? _themeIcons.platformDark : _themeIcons.platformLight;
-    }
-  }
+
+  Widget themeModeIcon({required BuildContext context}) => themeMode.getIcon(context: context, usingThemeIcons: _themeIcons);
 
   void setThemeMode(ThemeMode themeMode) {
     _Hive.setThemeMode(themeMode);

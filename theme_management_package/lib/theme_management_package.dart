@@ -1,16 +1,9 @@
 library theme_management_package;
 
+export 'src/app_exceptions.dart';
+export 'src/colors/custom_colors.dart';
 export 'src/cubit/theme_cubit.dart';
-export 'src/exceptions.dart';
-export 'src/extensions/theme_type_extension.dart';
+export 'src/extensions/text_keys_extension.dart';
 export 'src/theme/text_keys.dart';
-export 'src/theme/text_keys.dart';
+export 'src/widgets/theme_dialog.dart';
 export 'src/widgets/theme_icons.dart';
-
-// enum ThemeType {
-//   applicationDark,
-//   applicationLight,
-//   platformDark,
-//   platformLight,
-//   unknown,
-// }
