@@ -74,21 +74,21 @@ themeCubit.setThemeMode(ThemeMode.system);
 
 Collection of methods and classes to help with theme identification, management, and settings.
 
-### Class CustomColor
+### Class CustomColorManager
 
 A repository of colors that can be access by a **key** to return a color for theme mode (light/dark/system).
 
 ```dart
 // The BuildContext is needed to return colors for ThemeMode.system
-Color c = CustomColor.by({required String key, required ThemeMode themeMode, required BuildContext? using});
+Color c = CustomColorManager.by({required String key, required ThemeMode themeMode, required BuildContext? using});
 
-Color c = CustomColor.of(String key, {required Brightness brightness});
+Color c = CustomColorManager.of(String key, {required Brightness brightness});
 
-Color c = CustomColor.ofPlatformBrightness({required String key, required BuildContext context});
+Color c = CustomColorManager.ofPlatformBrightness({required String key, required BuildContext context});
 
-CustomColor.add({required String key, required Color dark, required Color light});
+CustomColorManager.add({required String key, required Color dark, required Color light});
 
-CustomColor.addMono({required Color color, required String key});
+CustomColorManager.addMono({required Color color, required String key});
 ```
 
 ### String Extension
