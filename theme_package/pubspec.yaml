@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   enum_to_string: ^2.0.1
-  equatable: ^2.0.0
   flutter_bloc: ^7.0.0
   flutter_modular: ^3.0.3
   intl: ^0.17.0
@@ -32,6 +31,9 @@ dependency_overrides:
   font_awesome_flutter:
     git:
       url: https://github.com/GitHubStuff/font_awesome_flutter.git
+  equatable:
+    git:
+      url: https://github.com/GitHubStuff/equtable.git
 
 dev_dependencies:
   flutter_test:
