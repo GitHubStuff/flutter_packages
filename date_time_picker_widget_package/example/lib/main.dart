@@ -1,7 +1,7 @@
-import 'package:date_time_package/date_time_package.dart';
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:theme_management_package/theme_management_package.dart';
 
 void main() {
   runApp(MyApp());
@@ -77,15 +77,22 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           // building(),
           // creating(),
-          DatePickerWidget(
+          DateTimeStack(
             size: Size(280, 150),
+            brightness: Brightness.light,
             dateTimeCubit: dateTimeCubit,
-            ordering: [DateTimeElement.day, DateTimeElement.month, DateTimeElement.year],
+            datePickerColor: CustomColor(dark: Colors.purple.shade100, light: Colors.amber.shade900),
+            timePickerColor: CustomColor(dark: Colors.red.shade100, light: Colors.limeAccent),
           ),
-          TimePickerWidget(
-            size: Size(280, 150),
-            dateTimeCubit: dateTimeCubit,
-          ),
+          // DatePickerWidget(
+          //   size: Size(280, 150),
+          //   dateTimeCubit: dateTimeCubit,
+          //   ordering: [DateTimeElement.day, DateTimeElement.month, DateTimeElement.year],
+          // ),
+          // TimePickerWidget(
+          //   size: Size(280, 150),
+          //   dateTimeCubit: dateTimeCubit,
+          // ),
         ],
       ),
     );

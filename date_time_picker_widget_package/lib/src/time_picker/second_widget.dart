@@ -2,15 +2,15 @@ import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 
 import '../../date_time_picker_widget_package.dart';
-import 'sixty_widget.dart';
+import 'minute_or_second_template_widget.dart';
 
-class SecondWidget extends SixtyWidget {
+class SecondWidget extends MinuteOrSecondTemplateWidget {
   SecondWidget(
     DateTimeCubit cubit, {
     Key? key,
     required Size size,
     double offAxis = 0.0,
-    TextStyle style = const TextStyle(fontSize: 400),
+    TextStyle? style,
   }) : super(
           cubit,
           key: key,

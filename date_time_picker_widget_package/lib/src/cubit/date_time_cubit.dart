@@ -12,9 +12,11 @@ part 'date_time_state.dart';
 
 class DateTimeCubit extends Cubit<DateTimeState> {
   DateTime? _dateTime;
-  FixedExtentScrollController? _dayScroller;
 
+  /// Constructor
   DateTimeCubit([this._dateTime]) : super(DateTimeInitial());
+
+  FixedExtentScrollController? _dayScroller;
 
   void Function(Change<DateTimeState>)? onChangeCallback;
 
@@ -30,16 +32,21 @@ class DateTimeCubit extends Cubit<DateTimeState> {
     onChangeCallback?.call(change);
   }
 
-  void changeYear(int year) {
-    final delta = (year - _set.year);
-    _dateTime = _set.next(DateTimeElement.year, delta);
-    _updateDay();
-  }
+  void change(DateTimeElement element, {required int to}) {
+    switch (element) {
+      case DateTimeElement.hour:
+        int newHour = (to == 12) ? (meridianIndex == Const.amIndex ? 0 : 12) : (meridianIndex == Const.amIndex ? to : to + 12);
+        _dateTime = _set.update(element, to: newHour);
+        break;
+      case DateTimeElement.minute:
+      case DateTimeElement.second:
+        _dateTime = _set.update(element, to: to);
+        break;
 
-  void changeMonth(int month) {
-    final delta = (month - _set.month);
-    _dateTime = _set.next(DateTimeElement.month, delta);
-    _updateDay();
+      default:
+        throw FlutterError('Can not change ${element.toString()} with this method');
+    }
+    //debugPrint('Element: $element => $_set');
   }
 
   void changeDay(int day) {
@@ -59,24 +66,19 @@ class DateTimeCubit extends Cubit<DateTimeState> {
       default:
         throw Exception('Unknown meridian index $index');
     }
-    debugPrint('Meridian: $index => $_set');
+    //debugPrint('Meridian: $index => $_set');
   }
 
-  void change(DateTimeElement element, {required int to}) {
-    switch (element) {
-      case DateTimeElement.hour:
-        int newHour = (to == 12) ? (meridianIndex == Const.amIndex ? 0 : 12) : (meridianIndex == Const.amIndex ? to : to + 12);
-        _dateTime = _set.update(element, to: newHour);
-        break;
-      case DateTimeElement.minute:
-      case DateTimeElement.second:
-        _dateTime = _set.update(element, to: to);
-        break;
+  void changeMonth(int month) {
+    final delta = (month - _set.month);
+    _dateTime = _set.next(DateTimeElement.month, delta);
+    _updateDay();
+  }
 
-      default:
-        throw FlutterError('Can not change ${element.toString()} with this method');
-    }
-    debugPrint('Element: $element => $_set');
+  void changeYear(int year) {
+    final delta = (year - _set.year);
+    _dateTime = _set.next(DateTimeElement.year, delta);
+    _updateDay();
   }
 
   void _updateDay() async {
@@ -88,18 +90,17 @@ class DateTimeCubit extends Cubit<DateTimeState> {
       _dayScroller!.animateToItem(_set.day + (10 * _set.daysInTheMonth), duration: Duration(microseconds: 1), curve: Curves.bounceIn);
       emit(ChangeDateTimeState(_dateTime!));
     }
-    debugPrint('UpdateDay => $_set');
+    //debugPrint('UpdateDay => $_set');
   }
 
-  void setScrollController(FixedExtentScrollController scrollController) => _dayScroller = scrollController;
-
-  int get year => fetch(DateTimeElement.year);
-  int get month => fetch(DateTimeElement.month);
   int get day => fetch(DateTimeElement.day);
   int get daysInTheMonth => _set.daysInTheMonth;
   int get meridianIndex => _set.hour < 12 ? Const.amIndex : Const.pmIndex;
   int get hour24 => _set.hour;
   int get hour12 => _set.hour12;
+  int get month => fetch(DateTimeElement.month);
+  int get year => fetch(DateTimeElement.year);
+  void setScrollController(FixedExtentScrollController scrollController) => _dayScroller = scrollController;
 
   int fetch(DateTimeElement element) {
     switch (element) {

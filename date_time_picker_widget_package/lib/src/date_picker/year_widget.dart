@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 import '../cubit/date_time_cubit.dart';
-import '../widget/const.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
 
@@ -10,15 +9,16 @@ class YearWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
-  final TextStyle textStyle;
+  late final TextStyle textStyle;
 
-  const YearWidget(
+  YearWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.size,
     this.offAxisFraction = 0.0,
-    this.textStyle = const TextStyle(fontSize: Const.fontSize),
-  }) : super(key: key);
+    TextStyle? textStyle,
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+        super(key: key);
 
   @override
   _YearWidget createState() => _YearWidget();

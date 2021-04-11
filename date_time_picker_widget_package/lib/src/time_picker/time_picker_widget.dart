@@ -1,3 +1,5 @@
+// Copyright 2021, LTMM LLC
+// Creates a widget with Hours, Minutes, Seconds, and Merdian Pickers
 import 'package:flutter/material.dart';
 
 import '../../date_time_picker_widget_package.dart';
@@ -14,9 +16,9 @@ class TimePickerWidget extends StatelessWidget {
     final seperatorSize = Size(size.width * 0.03225806452, size.height);
     return Container(
       margin: const EdgeInsets.all(1.0),
-      decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+      //decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         children: [
           HourWidget(dateTimeCubit, size: timeWidgetSize),
           SeperatorWidget(seperator: ':', size: seperatorSize),

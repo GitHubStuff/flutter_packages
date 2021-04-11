@@ -47,8 +47,8 @@ class DatePickerWidget extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(1.0),
-      decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-      child: Row(mainAxisSize: MainAxisSize.min, children: children),
+      // decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+      child: Row(mainAxisSize: MainAxisSize.max, children: children),
     );
   }
 }

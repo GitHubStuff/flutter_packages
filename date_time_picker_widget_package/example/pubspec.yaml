@@ -9,15 +9,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  bloc: ^7.0.0
-  flutter_bloc: ^7.0.0
   date_time_picker_widget_package:
     path: ../
   date_time_package:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: date_time_package
+  theme_management_package:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: theme_management_package
+  bloc: ^7.0.0
+  cupertino_icons: ^1.0.2
+  flutter_bloc: ^7.0.0
 
 dev_dependencies:
   test: ^1.16.8

@@ -12,16 +12,17 @@ class DayWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
-  final TextStyle textStyle;
+  late final TextStyle textStyle;
 
-  const DayWidget(
+  DayWidget(
     this.dateTimeCubit, {
     Key? key,
     this.dayFormat = 'dd',
     required this.size,
     this.offAxisFraction = 0.0,
-    this.textStyle: const TextStyle(fontSize: 400),
-  }) : super(key: key);
+    TextStyle? textStyle,
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+        super(key: key);
 
   @override
   _DayWidget createState() => _DayWidget();

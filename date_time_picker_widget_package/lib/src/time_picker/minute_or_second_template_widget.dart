@@ -6,27 +6,28 @@ import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
 
-abstract class SixtyWidget extends StatefulWidget {
+abstract class MinuteOrSecondTemplateWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
-  final TextStyle textStyle;
+  late final TextStyle textStyle;
   final DateTimeElement timeElement;
 
-  const SixtyWidget(
+  MinuteOrSecondTemplateWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.timeElement,
     required this.size,
     this.offAxisFraction = 0.0,
-    this.textStyle = const TextStyle(fontSize: 400),
-  }) : super(key: key);
+    TextStyle? textStyle,
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+        super(key: key);
 
   @override
-  _SixtyWidget createState() => _SixtyWidget();
+  _MinutesOrSecondTemplateWidget createState() => _MinutesOrSecondTemplateWidget();
 }
 
-class _SixtyWidget extends ObservingStatefulWidget<SixtyWidget> {
+class _MinutesOrSecondTemplateWidget extends ObservingStatefulWidget<MinuteOrSecondTemplateWidget> {
   double get extent => widget.size.height / 4;
   final scrollController = FixedExtentScrollController();
 
