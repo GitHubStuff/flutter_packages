@@ -1,6 +1,6 @@
 name: app_exception
 description: Template for Flutter Package project.
-version: 0.0.2
+version: 0.0.3+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 
@@ -11,7 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.0
+
+dependency_overrides:
+  equatable:
+    git:
+      url: https://github.com/GitHubStuff/equtable.git
 
 dev_dependencies:
   flutter_test:
