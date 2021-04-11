@@ -5,6 +5,7 @@ import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 import 'package:theme_management_package/theme_management_package.dart';
 
 import '../../date_time_picker_widget_package.dart';
+import '../../src/picker_stack/picker_set_widget.dart';
 
 class DateTimeStack extends StatefulWidget {
   final Size size;
@@ -69,6 +70,11 @@ class _DateTimeStack extends ObservingStatefulWidget<DateTimeStack> {
   Widget _pickerWidgetColums() {
     return Column(
       children: [
+        PickerSetWidget(
+          size: widget.size,
+          dateTimeCubit: widget.dateTimeCubit,
+          brightness: widget.brightness,
+        ),
         _buttons(),
         _stack(),
       ],

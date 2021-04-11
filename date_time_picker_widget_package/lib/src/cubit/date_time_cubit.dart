@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import '../../src/widget/const.dart';
@@ -46,6 +47,7 @@ class DateTimeCubit extends Cubit<DateTimeState> {
       default:
         throw FlutterError('Can not change ${element.toString()} with this method');
     }
+    emit(ChangeDateTimeState(_dateTime!));
     //debugPrint('Element: $element => $_set');
   }
 
@@ -66,6 +68,7 @@ class DateTimeCubit extends Cubit<DateTimeState> {
       default:
         throw Exception('Unknown meridian index $index');
     }
+    emit(ChangeDateTimeState(_dateTime!));
     //debugPrint('Meridian: $index => $_set');
   }
 
@@ -88,11 +91,12 @@ class DateTimeCubit extends Cubit<DateTimeState> {
     if (refresh && _dayScroller != null) {
       _dayScroller!.animateToItem(max(_set.day + ((10 * _set.daysInTheMonth) - 1), 1), duration: Duration(microseconds: 1), curve: Curves.bounceOut);
       _dayScroller!.animateToItem(_set.day + (10 * _set.daysInTheMonth), duration: Duration(microseconds: 1), curve: Curves.bounceIn);
-      emit(ChangeDateTimeState(_dateTime!));
     }
+    emit(ChangeDateTimeState(_dateTime!));
     //debugPrint('UpdateDay => $_set');
   }
 
+  String dateTime({String formatted = 'EEE, MMM d, yyyy h:mm:ss a'}) => DateFormat(formatted).format(_set);
   int get day => fetch(DateTimeElement.day);
   int get daysInTheMonth => _set.daysInTheMonth;
   int get meridianIndex => _set.hour < 12 ? Const.amIndex : Const.pmIndex;
