@@ -1,10 +1,13 @@
+//Copyright 2021, LTMM LLC
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:theme_management_package/theme_management_package.dart';
 
 import '../../date_time_picker_widget_package.dart';
+import '../constants/constants.dart' as K;
 
+/// Widget that shows the date/time as it is updated by the pickers, and the 'Set'-button
 class PickerSetWidget extends StatelessWidget {
   final DateTimeCubit dateTimeCubit;
   final CustomColor backgroundColors;
@@ -12,13 +15,15 @@ class PickerSetWidget extends StatelessWidget {
   final String dateFormat;
   final String timeFormat;
   final Widget setButtonWidget;
+  final TextStyle dateTimeStyle;
   const PickerSetWidget({
     required this.dateTimeCubit,
     required this.brightness,
-    this.dateFormat = 'EEE, MMM d, yyyy',
-    this.timeFormat = 'h:mm:ss a',
-    this.backgroundColors = const CustomColor(light: Colors.black12, dark: Colors.white12),
-    this.setButtonWidget = const AutoSizeText('SET'),
+    this.dateFormat = K.dateFormatString,
+    this.timeFormat = K.timeFormatString,
+    this.backgroundColors = K.pickerColor,
+    this.setButtonWidget = K.setWidget,
+    required this.dateTimeStyle,
   });
 
   @override
@@ -29,6 +34,7 @@ class PickerSetWidget extends StatelessWidget {
           final dateText = dateTimeCubit.formattedDateTime(dateFormat);
           final timeText = dateTimeCubit.formattedDateTime(timeFormat);
           return Container(
+            color: backgroundColors.of(brightness),
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Row(mainAxisSize: MainAxisSize.max, children: [
@@ -39,16 +45,16 @@ class PickerSetWidget extends StatelessWidget {
                     children: [
                       AutoSizeText(
                         '$dateText',
-                        maxFontSize: 400,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        minFontSize: 18.0,
+                        maxFontSize: K.fontSize,
+                        style: dateTimeStyle,
+                        minFontSize: K.headerFontSize,
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         '$timeText',
-                        maxFontSize: 400,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        minFontSize: 18.0,
+                        maxFontSize: K.fontSize,
+                        style: dateTimeStyle,
+                        minFontSize: K.headerFontSize,
                         maxLines: 1,
                       ),
                     ],
@@ -65,7 +71,6 @@ class PickerSetWidget extends StatelessWidget {
                 ),
               ]),
             ),
-            color: backgroundColors.of(brightness),
           );
         });
   }

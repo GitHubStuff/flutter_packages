@@ -1,3 +1,4 @@
+//Copyright 2021, LTMM LLC
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +23,7 @@ class DayWidget extends StatefulWidget {
     required this.size,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
-  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
         super(key: key);
 
   @override
@@ -87,7 +88,7 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
       if (dayIndex < 1) return null;
       final daysInMonth = widget.dateTimeCubit.daysInTheMonth;
       int offset = (dayIndex % daysInMonth) == 0 ? daysInMonth : (dayIndex % daysInMonth);
-      final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, 1, offset));
+      final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, DateTime.january, offset));
       return PickerTextWidget(text: dayText, style: widget.textStyle);
     });
   }

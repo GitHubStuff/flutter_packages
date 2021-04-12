@@ -1,3 +1,4 @@
+// Copyright 2021, LTMM LLC
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../src/cubit/date_time_cubit.dart';

@@ -1,9 +1,11 @@
+//Copyright 2021, LTMM LLC
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
+import '../constants/constants.dart' as K;
 
 class YearWidget extends StatefulWidget {
   final Size size;
@@ -17,7 +19,7 @@ class YearWidget extends StatefulWidget {
     required this.size,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
-  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
         super(key: key);
 
   @override
@@ -25,9 +27,7 @@ class YearWidget extends StatefulWidget {
 }
 
 class _YearWidget extends ObservingStatefulWidget<YearWidget> {
-  double get extent => widget.size.height / 4;
-  final baseYear = 1700;
-  final indexLimit = 600;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override
@@ -44,11 +44,11 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeYear(pos + baseYear);
+          widget.dateTimeCubit.changeYear(pos + K.baseYear);
         } else {}
       });
     });
-    final pos = widget.dateTimeCubit.year - baseYear;
+    final pos = widget.dateTimeCubit.year - K.baseYear;
     scrollController.jumpToItem(pos);
   }
 
@@ -70,8 +70,8 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, index) {
-      if (index < 0 || index > indexLimit) return null;
-      final text = '${index + baseYear}';
+      if (index < 0 || index > K.yearLimit) return null;
+      final text = '${index + K.baseYear}';
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }

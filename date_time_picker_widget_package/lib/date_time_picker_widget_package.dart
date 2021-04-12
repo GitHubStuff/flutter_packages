@@ -1,3 +1,4 @@
+// Copyright 2021, LTMM LLC
 library date_time_picker_widget_package;
 
 export 'src/cubit/date_time_cubit.dart';
@@ -6,7 +7,7 @@ export 'src/date_picker/date_picker_widget.dart';
 export 'src/date_picker/day_widget.dart';
 export 'src/date_picker/month_widget.dart';
 export 'src/date_picker/year_widget.dart';
-export 'src/picker_stack/date_time_stack.dart';
+export 'src/picker_stack/picker_widget.dart';
 export 'src/picker_stack/popover_picker_widget.dart';
 export 'src/time_picker/hour_widget.dart';
 export 'src/time_picker/meridian_widget.dart';

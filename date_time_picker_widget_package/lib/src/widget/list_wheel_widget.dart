@@ -3,6 +3,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../constants/constants.dart' as K;
+
 class ListWheelWidget extends StatefulWidget {
   late final FixedExtentScrollController scrollController;
   late final double offAxisFraction;
@@ -32,8 +34,8 @@ class _ListWheelWidget extends State<ListWheelWidget> {
       physics: FixedExtentScrollPhysics(),
       perspective: 0.0001,
       useMagnifier: true,
-      magnification: 1.1,
-      overAndUnderCenterOpacity: 0.4,
+      magnification: K.scrollWidgetMagnification,
+      overAndUnderCenterOpacity: K.overUnderOpacity,
       onSelectedItemChanged: (index) {
         //debugPrint('$index');
       },

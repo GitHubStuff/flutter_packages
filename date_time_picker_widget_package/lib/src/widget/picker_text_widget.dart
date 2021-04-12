@@ -1,5 +1,5 @@
 // Copyright 2021, LTMM LLC
-// Single source to display text in a picker
+// Single source to display text in a picker widget
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 

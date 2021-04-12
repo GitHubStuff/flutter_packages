@@ -18,17 +18,17 @@ class TimePickerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeWidgetSize = Size(size.width * 0.2258064516, size.height);
-    final seperatorSize = Size(size.width * 0.03225806452, size.height);
+    final timeWidgetSize = Size(size.width * K.timeWidgetWidthFactor, size.height);
+    final seperatorSize = Size(size.width * K.timeSeperatorWidthFactor, size.height);
     return Container(
       margin: const EdgeInsets.all(1.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
           HourWidget(dateTimeCubit, size: timeWidgetSize),
-          SeperatorWidget(seperator: ':', size: seperatorSize),
+          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
           MinuteWidget(dateTimeCubit, size: timeWidgetSize),
-          SeperatorWidget(seperator: ':', size: seperatorSize),
+          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
           SecondWidget(dateTimeCubit, size: timeWidgetSize),
           MeridianWidget(dateTimeCubit, size: timeWidgetSize),
         ],

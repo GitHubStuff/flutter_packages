@@ -1,64 +1,73 @@
+// Copyright 2021, LTMM LLC
 import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 import 'package:popover/popover.dart';
 import 'package:theme_management_package/theme_management_package.dart';
 
 import '../../date_time_picker_widget_package.dart';
+import '../constants/constants.dart' as K;
 
 typedef void DateTimeCallback(DateTime dateTime);
 
-const double _arrowHeight = 10.0;
-const Size _popoverSize = Size(280.0, 237.5);
-
-class PopoverPickerWidget extends StatelessWidget {
+/// Wraps the host widget in a container so the Popover package will appear by the widget.
+class PopoverPickerWidget extends StatefulWidget {
   final Widget onWidget;
   final DateTime? initalDateTime;
   final DateTimeCallback callback;
+  final Brightness brightness;
+  final CustomColor datePickerColor;
+  final CustomColor timePickerColor;
+  final CustomColor pickerColor;
+  late final TextStyle? headerTextStyle;
 
   PopoverPickerWidget({
     Key? key,
     required this.onWidget,
-    this.initalDateTime,
+    required this.brightness,
     required this.callback,
-  }) : super(key: key);
+    this.initalDateTime,
+    this.datePickerColor = K.datePickerColor,
+    this.timePickerColor = K.timePickerColor,
+    this.pickerColor = K.pickerColor,
+    TextStyle? headerTextStyle,
+  }) : super(key: key) {
+    this.headerTextStyle = (headerTextStyle ?? K.headerTextStyle(brightness));
+  }
 
   @override
-  Widget build(BuildContext context) {
-    DateTimeCubit dateTimeCubit = DateTimeCubit(initalDateTime);
-    return BlocProvider<DateTimeCubit>(
-      create: (_) => dateTimeCubit,
-      child: _GestureWidget(onWidget, dateTimeCubit, this.callback),
-    );
-  }
+  _PopoverPickerWidget createState() => _PopoverPickerWidget();
 }
 
-class _GestureWidget extends StatelessWidget {
-  final Widget wrappedWidget;
-  final DateTimeCubit dateTimeCubit;
-  final DateTimeCallback callback;
-  const _GestureWidget(this.wrappedWidget, this.dateTimeCubit, this.callback);
+class _PopoverPickerWidget extends ObservingStatefulWidget<PopoverPickerWidget> {
+  late DateTimeCubit dateTimeCubit;
+
+  @override
+  void afterFirstLayout(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
+    dateTimeCubit = DateTimeCubit(widget.initalDateTime);
     return BlocBuilder<DateTimeCubit, DateTimeState>(
+      bloc: dateTimeCubit,
       builder: (context, state) {
-        debugPrint('Popoverpicker state: $state');
         if (state is SetDateTimeState) {
-          callback(state.dateTime);
+          widget.callback(state.dateTime);
           Navigator.of(context).pop();
         }
         return GestureDetector(
-          child: wrappedWidget,
+          child: widget.onWidget,
           onTap: () {
             showPopover(
+              backgroundColor: widget.pickerColor.of(widget.brightness),
               context: context,
               bodyBuilder: (context) => _picker(),
               onPop: () {},
-              width: _popoverSize.width,
-              height: _popoverSize.height,
-              arrowHeight: _arrowHeight,
-              arrowWidth: 30,
+              width: K.minimalPopoverSize.width,
+              height: K.minimalPopoverSize.height,
+              arrowHeight: K.popoverArrowHeight,
+              arrowWidth: K.popoverArrowWidth,
             );
           },
         );
@@ -67,11 +76,12 @@ class _GestureWidget extends StatelessWidget {
   }
 
   Widget _picker() {
-    return DateTimeStack(
-      brightness: Brightness.light,
+    return PickerWidget(
+      brightness: widget.brightness,
       dateTimeCubit: dateTimeCubit,
-      datePickerColor: CustomColor(dark: Colors.purple.shade100, light: Colors.amber.shade900),
-      timePickerColor: CustomColor(dark: Colors.red.shade100, light: Colors.purple.shade400),
+      datePickerColor: widget.datePickerColor,
+      timePickerColor: widget.timePickerColor,
+      headerTextStyle: widget.headerTextStyle!,
     );
   }
 }

@@ -1,5 +1,5 @@
 // Copyright 2021, LTMM LLC.
-// Creates widget with year, month, day pickers
+// Creates widget with year, month, day scroll pickers
 import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 

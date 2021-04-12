@@ -1,7 +1,9 @@
+// Copyright 2021, LTMM LLC
 import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
+import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
@@ -16,11 +18,11 @@ class MonthWidget extends StatefulWidget {
   MonthWidget(
     this.dateTimeCubit, {
     Key? key,
-    this.monthFormat = 'MMM',
+    this.monthFormat = K.monthDisplayFormat,
     required this.size,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
-  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
         super(key: key);
 
   @override
@@ -28,7 +30,7 @@ class MonthWidget extends StatefulWidget {
 }
 
 class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
-  double get extent => widget.size.height / 4;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override
@@ -45,12 +47,12 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       scrollController.position.isScrollingNotifier.addListener(() {
         if (!scrollController.position.isScrollingNotifier.value) {
           final pos = scrollController.selectedItem;
-          widget.dateTimeCubit.changeMonth((pos % 12) == 0 ? 12 : (pos % 12));
+          widget.dateTimeCubit.changeMonth((pos % K.monthsInYear) == 0 ? K.monthsInYear : (pos % K.monthsInYear));
         } else {}
       });
     });
     final pos = widget.dateTimeCubit.month;
-    scrollController.jumpToItem(pos + 120);
+    scrollController.jumpToItem(pos + K.monthInfiniteWheelOffset);
   }
 
   @override
@@ -72,7 +74,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index < DateTime.january) return null;
-      int offset = (index % 12) == 0 ? 12 : (index % 12);
+      int offset = (index % K.monthsInYear) == 0 ? K.monthsInYear : (index % K.monthsInYear);
       final monthText = offset.asMonth(format: widget.monthFormat);
       return PickerTextWidget(text: monthText, style: widget.textStyle);
     });

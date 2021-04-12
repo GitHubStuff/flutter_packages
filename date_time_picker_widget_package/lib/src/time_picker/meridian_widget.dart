@@ -1,3 +1,4 @@
+// Copyright 2021, LTMM LLC
 import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
@@ -18,7 +19,7 @@ class MeridianWidget extends StatefulWidget {
     Key? key,
     required this.size,
     this.offAxisFraction = 0.0,
-    this.textStyle = const TextStyle(fontSize: 400),
+    this.textStyle = const TextStyle(fontSize: K.fontSize),
   }) : super(key: key);
 
   @override
@@ -26,7 +27,7 @@ class MeridianWidget extends StatefulWidget {
 }
 
 class _MeridianWidget extends ObservingStatefulWidget<MeridianWidget> {
-  double get extent => widget.size.height / 4;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override

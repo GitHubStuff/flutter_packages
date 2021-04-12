@@ -1,7 +1,9 @@
+// Copyright 2021, LTMM LLC
 import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
+import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
@@ -20,7 +22,7 @@ abstract class MinuteOrSecondTemplateWidget extends StatefulWidget {
     required this.size,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
-  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: 400),
+  })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
         super(key: key);
 
   @override
@@ -28,7 +30,7 @@ abstract class MinuteOrSecondTemplateWidget extends StatefulWidget {
 }
 
 class _MinutesOrSecondTemplateWidget extends ObservingStatefulWidget<MinuteOrSecondTemplateWidget> {
-  double get extent => widget.size.height / 4;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override
@@ -50,7 +52,7 @@ class _MinutesOrSecondTemplateWidget extends ObservingStatefulWidget<MinuteOrSec
       });
     });
     final pos = widget.dateTimeCubit.fetch(widget.timeElement);
-    scrollController.jumpToItem(pos + 300);
+    scrollController.jumpToItem(pos + K.minutesSecondsInfiniteWheelOffset);
   }
 
   @override

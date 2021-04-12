@@ -1,11 +1,13 @@
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 void main() {
   runApp(MyApp());
 }
+
+Brightness theBrightness = Brightness.dark;
 
 // final w = 280.0;
 // final h = 150.0;
@@ -36,8 +38,10 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ObservingStatefulWidget<MyHomePage> {
   final dateTimeCubit = DateTimeCubit(DateTime(2020, 12, 31, 19, 20, 23));
+
+  void afterFirstLayout(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Text(
-            'Generic header',
-          ),
+          Text('Generic header', style: Theme.of(context).textTheme.headline3),
+          _justPicker(),
           Text(
             'Text without context',
             style: Theme.of(context).textTheme.headline4,
@@ -59,23 +62,38 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          setState(() {
+            theBrightness = (theBrightness == Brightness.dark) ? Brightness.light : Brightness.dark;
+          });
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
   }
 
+  Widget _justPicker() {
+    return PickerWidget(
+      brightness: theBrightness,
+      dateTimeCubit: DateTimeCubit(DateTime(2020, 2, 27, 13, 17, 19)),
+    );
+  }
+
   Widget body() {
-    return BlocProvider<DateTimeCubit>(
-      create: (_) => dateTimeCubit,
-      child: Column(
-        children: [
-          _Button(
-            dateTimeCubit: dateTimeCubit,
-          ),
-        ],
-      ),
+    String message = 'Kiss Me!';
+    return Column(
+      children: [
+        PopoverPickerWidget(
+            brightness: theBrightness,
+            onWidget: Text(message, style: TextStyle(fontSize: 56.0, fontWeight: FontWeight.bold)),
+            callback: (dateTime) {
+              debugPrint('Returned: $dateTime');
+            }),
+        // _Button(
+        //   dateTimeCubit: dateTimeCubit,
+        // ),
+      ],
     );
   }
 
@@ -92,51 +110,5 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint('state: $state');
       return Text('Creating type:${state.toString()} => ${dateTimeCubit.utcDateTime}');
     });
-  }
-}
-
-class _Button extends StatelessWidget {
-  final DateTimeCubit dateTimeCubit;
-  const _Button({Key? key, required this.dateTimeCubit}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return PopoverPickerWidget(
-        onWidget: Text('PRESS ME!', style: TextStyle(fontSize: 56.0)),
-        callback: (dateTime) {
-          debugPrint('Returned: $dateTime');
-        });
-  }
-
-  Widget _picker() {
-    return DateTimeStack(
-      size: Size(280, 150),
-      brightness: Brightness.light,
-      dateTimeCubit: dateTimeCubit,
-      datePickerColor: CustomColor(dark: Colors.purple.shade100, light: Colors.amber.shade900),
-      timePickerColor: CustomColor(dark: Colors.red.shade100, light: Colors.purple.shade400),
-    );
-  }
-}
-
-class _ListItems extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      'Zippy',
-      style: TextStyle(fontSize: 56.0, color: Colors.purple),
-    );
-    return Scrollbar(
-        child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListView(
-        padding: const EdgeInsets.all(8.0),
-        children: [
-          Text(
-            'BURRPY',
-            style: TextStyle(fontSize: 56.0, color: Colors.purple),
-          )
-        ],
-      ),
-    ));
   }
 }

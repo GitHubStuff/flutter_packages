@@ -25,7 +25,7 @@ class SeperatorWidget extends StatefulWidget {
 }
 
 class _SeperatorWidget extends ObservingStatefulWidget<SeperatorWidget> {
-  double get extent => widget.size.height / 4;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override
