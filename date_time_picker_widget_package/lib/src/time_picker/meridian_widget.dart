@@ -2,7 +2,7 @@ import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
-import '../../src/widget/const.dart';
+import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
@@ -69,8 +69,8 @@ class _MeridianWidget extends ObservingStatefulWidget<MeridianWidget> {
 
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
-      if (index != Const.amIndex && index != Const.pmIndex) return null;
-      final text = (index == Const.amIndex ? 0 : 23).asMeridian();
+      if (index != K.amIndex && index != K.pmIndex) return null;
+      final text = (index == K.amIndex ? K.midnight : K.noon).asMeridian();
       return PickerTextWidget(text: text, style: widget.textStyle);
     });
   }

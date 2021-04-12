@@ -19,3 +19,8 @@ class ChangeDateTimeState extends DateTimeState {
   final DateTime dateTime;
   const ChangeDateTimeState(this.dateTime);
 }
+
+class SetDateTimeState extends DateTimeState {
+  final DateTime dateTime;
+  const SetDateTimeState(this.dateTime);
+}

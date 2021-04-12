@@ -47,7 +47,6 @@ class _DateTimeStack extends ObservingStatefulWidget<DateTimeStack> {
   double _timeOpacity = 0.0;
   late final TimePickerWidget _timePickerWidget;
   late final DatePickerWidget _datePickerWidget;
-  late final double _subheight;
 
   final _duration = Duration(milliseconds: 400);
 
@@ -56,7 +55,6 @@ class _DateTimeStack extends ObservingStatefulWidget<DateTimeStack> {
     super.initState();
     _timePickerWidget = TimePickerWidget(dateTimeCubit: widget.dateTimeCubit, size: widget.size);
     _datePickerWidget = DatePickerWidget(dateTimeCubit: widget.dateTimeCubit, size: widget.size);
-    _subheight = widget.size.height / 4.0;
   }
 
   @override
@@ -64,98 +62,83 @@ class _DateTimeStack extends ObservingStatefulWidget<DateTimeStack> {
 
   @override
   Widget build(BuildContext context) {
-    return _pickerWidgetColums();
-  }
-
-  Widget _pickerWidgetColums() {
-    return Column(
-      children: [
-        PickerSetWidget(
-          size: widget.size,
-          dateTimeCubit: widget.dateTimeCubit,
-          brightness: widget.brightness,
-        ),
-        _buttons(),
-        _stack(),
-      ],
+    return SizedBox(
+      width: widget.size.width,
+      child: Column(
+        children: [
+          SizedBox(height: widget.size.height / 3, child: _dateTimeAndSetButton()),
+          SizedBox(height: widget.size.height / 4.0, child: _dateTimeHeaderButtons()),
+          SizedBox(height: widget.size.height, child: _stackOfDateAndTimeScrollWidgets()),
+        ],
+      ),
     );
   }
 
-  Widget _buttons() {
-    return SizedBox(
-      height: _subheight,
-      width: widget.size.width,
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                if (_dateOpacity != 1.0) {
-                  setState(() {
-                    HapticFeedback.selectionClick();
-                    _dateOpacity = 1.0;
-                    _timeOpacity = 0.0;
-                  });
-                }
-              },
-              child: Container(
-                color: widget.datePickerColor.of(widget.brightness),
-                child: Center(child: widget.dateHeaderWidget),
-              ),
-            ),
+  /// Displays the date/time matching the values in the pickers, with a "set"-button
+  Widget _dateTimeAndSetButton() => PickerSetWidget(dateTimeCubit: widget.dateTimeCubit, brightness: widget.brightness);
+
+  /// Button to control if the DatePicker or TimePicker is displayed (aka which Widget in the Stack Widget is visible)
+  Widget _dateTimeHeaderButtons() {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: widget.datePickerColor.of(widget.brightness)),
+            onPressed: () {
+              if (_dateOpacity != 1.0) {
+                setState(() {
+                  _dateOpacity = 1.0;
+                  _timeOpacity = 0.0;
+                });
+              }
+            },
+            child: widget.dateHeaderWidget,
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
+        ),
+        Expanded(
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: widget.timePickerColor.of(widget.brightness)),
+              onPressed: () {
                 if (_timeOpacity != 1.0) {
                   setState(() {
-                    HapticFeedback.selectionClick();
                     _dateOpacity = 0.0;
                     _timeOpacity = 1.0;
                   });
                 }
               },
-              child: Container(
-                color: widget.timePickerColor.of(widget.brightness),
-                child: Center(child: widget.timeHeaderWidget),
-              ),
-            ),
-          )
-        ],
-      ),
+              child: widget.timeHeaderWidget),
+        )
+      ],
     );
   }
 
-  Widget _stack() {
-    return SizedBox(
-      width: widget.size.width,
-      height: widget.size.height,
-      child: Stack(
-        children: [
-          AnimatedOpacity(
-            opacity: _dateOpacity,
-            duration: _duration,
-            child: IgnorePointer(
-              ignoring: _dateOpacity != 1.0,
-              child: Container(
-                color: widget.datePickerColor.of(widget.brightness),
-                child: _datePickerWidget,
-              ),
+  /// Stack with DatePicker atop TimePicker
+  Widget _stackOfDateAndTimeScrollWidgets() {
+    return Stack(
+      children: [
+        AnimatedOpacity(
+          opacity: _dateOpacity,
+          duration: _duration,
+          child: IgnorePointer(
+            ignoring: _dateOpacity != 1.0,
+            child: Container(
+              color: widget.datePickerColor.of(widget.brightness),
+              child: _datePickerWidget,
             ),
           ),
-          AnimatedOpacity(
-            opacity: _timeOpacity,
-            duration: _duration,
-            child: IgnorePointer(
-              ignoring: _timeOpacity != 1.0,
-              child: Container(
-                color: widget.timePickerColor.of(widget.brightness),
-                child: _timePickerWidget,
-              ),
+        ),
+        AnimatedOpacity(
+          opacity: _timeOpacity,
+          duration: _duration,
+          child: IgnorePointer(
+            ignoring: _timeOpacity != 1.0,
+            child: Container(
+              color: widget.timePickerColor.of(widget.brightness),
+              child: _timePickerWidget,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

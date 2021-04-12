@@ -45,25 +45,21 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Generic header',
-            ),
-            Text(
-              'Text without context',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            body(),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            'Generic header',
+          ),
+          Text(
+            'Text without context',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+          body(),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          dateTimeCubit.changeYear(2022);
-        },
+        onPressed: null,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
@@ -75,24 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
       create: (_) => dateTimeCubit,
       child: Column(
         children: [
-          // building(),
-          // creating(),
-          DateTimeStack(
-            size: Size(280, 150),
-            brightness: Brightness.light,
+          _Button(
             dateTimeCubit: dateTimeCubit,
-            datePickerColor: CustomColor(dark: Colors.purple.shade100, light: Colors.amber.shade900),
-            timePickerColor: CustomColor(dark: Colors.red.shade100, light: Colors.limeAccent),
           ),
-          // DatePickerWidget(
-          //   size: Size(280, 150),
-          //   dateTimeCubit: dateTimeCubit,
-          //   ordering: [DateTimeElement.day, DateTimeElement.month, DateTimeElement.year],
-          // ),
-          // TimePickerWidget(
-          //   size: Size(280, 150),
-          //   dateTimeCubit: dateTimeCubit,
-          // ),
         ],
       ),
     );
@@ -111,5 +92,51 @@ class _MyHomePageState extends State<MyHomePage> {
       debugPrint('state: $state');
       return Text('Creating type:${state.toString()} => ${dateTimeCubit.utcDateTime}');
     });
+  }
+}
+
+class _Button extends StatelessWidget {
+  final DateTimeCubit dateTimeCubit;
+  const _Button({Key? key, required this.dateTimeCubit}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return PopoverPickerWidget(
+        onWidget: Text('PRESS ME!', style: TextStyle(fontSize: 56.0)),
+        callback: (dateTime) {
+          debugPrint('Returned: $dateTime');
+        });
+  }
+
+  Widget _picker() {
+    return DateTimeStack(
+      size: Size(280, 150),
+      brightness: Brightness.light,
+      dateTimeCubit: dateTimeCubit,
+      datePickerColor: CustomColor(dark: Colors.purple.shade100, light: Colors.amber.shade900),
+      timePickerColor: CustomColor(dark: Colors.red.shade100, light: Colors.purple.shade400),
+    );
+  }
+}
+
+class _ListItems extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'Zippy',
+      style: TextStyle(fontSize: 56.0, color: Colors.purple),
+    );
+    return Scrollbar(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListView(
+        padding: const EdgeInsets.all(8.0),
+        children: [
+          Text(
+            'BURRPY',
+            style: TextStyle(fontSize: 56.0, color: Colors.purple),
+          )
+        ],
+      ),
+    ));
   }
 }

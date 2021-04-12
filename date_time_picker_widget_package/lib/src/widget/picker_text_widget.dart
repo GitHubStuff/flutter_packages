@@ -3,7 +3,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import 'const.dart';
+import '../constants/constants.dart' as K;
 
 class PickerTextWidget extends StatelessWidget {
   const PickerTextWidget({
@@ -18,11 +18,11 @@ class PickerTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: Const.padding,
+      padding: K.padding,
       child: Center(
         child: AutoSizeText(
           '$text',
-          style: style.copyWith(fontSize: Const.fontSize),
+          style: style.copyWith(fontSize: K.fontSize),
           maxLines: 1,
         ),
       ),

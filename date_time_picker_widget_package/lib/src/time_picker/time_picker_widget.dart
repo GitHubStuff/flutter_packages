@@ -3,12 +3,18 @@
 import 'package:flutter/material.dart';
 
 import '../../date_time_picker_widget_package.dart';
+import '../constants/constants.dart' as K;
 
 class TimePickerWidget extends StatelessWidget {
   final Size size;
   final DateTimeCubit dateTimeCubit;
 
-  const TimePickerWidget({Key? key, required this.dateTimeCubit, required this.size}) : super(key: key);
+  TimePickerWidget({Key? key, required this.dateTimeCubit, this.size = K.minimalPickerSize})
+      : assert(
+          size.width >= K.minimalPickerSize.width && size.height >= K.minimalPickerSize.height,
+          'Minimal Size ${K.minimalPickerSize}',
+        ),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,6 @@ class TimePickerWidget extends StatelessWidget {
     final seperatorSize = Size(size.width * 0.03225806452, size.height);
     return Container(
       margin: const EdgeInsets.all(1.0),
-      //decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [

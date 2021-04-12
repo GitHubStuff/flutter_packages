@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+
+const Size minimalPickerSize = const Size(280.0, 150.0);
+const Size minimalPopoverSize = const Size(280.0, 237.5);
+const int noonOrMidnight = 12;
+const int noon = 12;
+const int midnight = 0;
+const EdgeInsets padding = EdgeInsets.all(4.0);
+const EdgeInsets seperatorPadding = EdgeInsets.only(top: 4, bottom: 4);
+const double fontSize = 400.0;
+const int amIndex = 0;
+const int pmIndex = 1;
+const int infiniteWheelFactor = 10;
+const String dateTimeFormatString = 'EEE, MMM d, yyyy h:mm:ss a';
+const double yearWidgetFactor = 3.6;
+const double monthWidgetFactor = 2.1;
+const double dayWidgetFactor = 4.6;
+const String monthDisplayFormat = 'MMMM';
+const String dayDisplayFormat = 'dd';
+const double scrollWheelExtent = 0.25;

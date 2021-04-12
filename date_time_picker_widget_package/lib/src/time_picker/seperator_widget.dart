@@ -5,7 +5,7 @@ import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
 import '../../src/widget/list_wheel_widget.dart';
 import '../../src/widget/picker_text_widget.dart';
-import '../widget/const.dart';
+import '../constants/constants.dart' as K;
 
 class SeperatorWidget extends StatefulWidget {
   final String seperator;
@@ -17,7 +17,7 @@ class SeperatorWidget extends StatefulWidget {
     required this.seperator,
     required this.size,
     this.offAxisFraction = 0.0,
-    this.textStyle = const TextStyle(fontSize: Const.fontSize, fontWeight: FontWeight.bold),
+    this.textStyle = const TextStyle(fontSize: K.fontSize, fontWeight: FontWeight.bold),
   });
 
   @override

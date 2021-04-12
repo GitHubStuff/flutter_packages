@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
+import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
@@ -17,7 +18,7 @@ class DayWidget extends StatefulWidget {
   DayWidget(
     this.dateTimeCubit, {
     Key? key,
-    this.dayFormat = 'dd',
+    this.dayFormat = K.dayDisplayFormat,
     required this.size,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
@@ -29,7 +30,7 @@ class DayWidget extends StatefulWidget {
 }
 
 class _DayWidget extends ObservingStatefulWidget<DayWidget> {
-  double get extent => widget.size.height / 4;
+  double get extent => widget.size.height * K.scrollWheelExtent;
   final scrollController = FixedExtentScrollController();
 
   @override
