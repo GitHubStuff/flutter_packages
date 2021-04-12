@@ -14,12 +14,14 @@ abstract class MinuteOrSecondTemplateWidget extends StatefulWidget {
   final DateTimeCubit dateTimeCubit;
   late final TextStyle textStyle;
   final DateTimeElement timeElement;
+  final Color textColor;
 
   MinuteOrSecondTemplateWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.timeElement,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
   })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
@@ -75,7 +77,11 @@ class _MinutesOrSecondTemplateWidget extends ObservingStatefulWidget<MinuteOrSec
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index < 0) return null;
       final text = (index % 60).toString().padLeft(2, '0');
-      return PickerTextWidget(text: text, style: widget.textStyle);
+      return PickerTextWidget(
+        text: text,
+        style: widget.textStyle,
+        textColor: widget.textColor,
+      );
     });
   }
 }

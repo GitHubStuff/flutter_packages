@@ -11,6 +11,7 @@ import '../constants/constants.dart' as K;
 class PickerSetWidget extends StatelessWidget {
   final DateTimeCubit dateTimeCubit;
   final CustomColor backgroundColors;
+  final CustomColor setButtonColors;
   final Brightness brightness;
   final String dateFormat;
   final String timeFormat;
@@ -19,9 +20,10 @@ class PickerSetWidget extends StatelessWidget {
   const PickerSetWidget({
     required this.dateTimeCubit,
     required this.brightness,
+    this.setButtonColors = K.setButtonColors,
     this.dateFormat = K.dateFormatString,
     this.timeFormat = K.timeFormatString,
-    this.backgroundColors = K.pickerColor,
+    this.backgroundColors = K.pickerColors,
     this.setButtonWidget = K.setWidget,
     required this.dateTimeStyle,
   });
@@ -60,18 +62,34 @@ class PickerSetWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 6, bottom: 6, right: 0, left: 0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      dateTimeCubit.dateTimeSelected();
-                    },
-                    child: setButtonWidget,
-                  ),
-                ),
+                _setButton(),
               ]),
             ),
           );
         });
+  }
+
+  Widget _setButton() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6, bottom: 6, right: 0, left: 0),
+      child: ElevatedButton(
+        style: _buttonStyle(),
+        onPressed: () {
+          dateTimeCubit.dateTimeSelected();
+        },
+        child: setButtonWidget,
+      ),
+    );
+  }
+
+  ButtonStyle _buttonStyle() {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          //if (states.contains(MaterialState.pressed)) return Colors.green;
+          return setButtonColors.of(brightness); // Use the component's default.
+        },
+      ),
+    );
   }
 }

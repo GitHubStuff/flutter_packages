@@ -8,13 +8,16 @@ import '../constants/constants.dart' as K;
 
 class DatePickerWidget extends StatelessWidget {
   final Size size;
+
   final DateTimeCubit dateTimeCubit;
   final List<DateTimeElement> ordering;
   final String monthDisplayFormat;
+  final Color pickerTextColor;
   DatePickerWidget({
     Key? key,
     this.size = K.minimalPickerSize,
     required this.dateTimeCubit,
+    required this.pickerTextColor,
     this.monthDisplayFormat = K.monthDisplayFormat,
     this.ordering = const [DateTimeElement.day, DateTimeElement.month, DateTimeElement.year],
   })  : assert(
@@ -32,17 +35,26 @@ class DatePickerWidget extends StatelessWidget {
     for (DateTimeElement element in ordering) {
       switch (element) {
         case DateTimeElement.year:
-          children.add(YearWidget(dateTimeCubit, size: yearWidgetSize));
+          children.add(YearWidget(
+            dateTimeCubit,
+            size: yearWidgetSize,
+            textColor: pickerTextColor,
+          ));
           break;
         case DateTimeElement.month:
           children.add(MonthWidget(
             dateTimeCubit,
+            textColor: pickerTextColor,
             size: monthWidgetSize,
             monthFormat: monthDisplayFormat,
           ));
           break;
         case DateTimeElement.day:
-          children.add(DayWidget(dateTimeCubit, size: dayWidgetSize));
+          children.add(DayWidget(
+            dateTimeCubit,
+            size: dayWidgetSize,
+            textColor: pickerTextColor,
+          ));
           break;
         default:
           throw Exception('Cannot have $element in date picker');

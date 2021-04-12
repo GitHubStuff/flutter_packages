@@ -14,6 +14,7 @@ class DayWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
+  final Color textColor;
   late final TextStyle textStyle;
 
   DayWidget(
@@ -21,6 +22,7 @@ class DayWidget extends StatefulWidget {
     Key? key,
     this.dayFormat = K.dayDisplayFormat,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
   })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
@@ -89,7 +91,11 @@ class _DayWidget extends ObservingStatefulWidget<DayWidget> {
       final daysInMonth = widget.dateTimeCubit.daysInTheMonth;
       int offset = (dayIndex % daysInMonth) == 0 ? daysInMonth : (dayIndex % daysInMonth);
       final dayText = DateFormat(widget.dayFormat).format(DateTime(2000, DateTime.january, offset));
-      return PickerTextWidget(text: dayText, style: widget.textStyle);
+      return PickerTextWidget(
+        text: dayText,
+        style: widget.textStyle,
+        textColor: widget.textColor,
+      );
     });
   }
 }

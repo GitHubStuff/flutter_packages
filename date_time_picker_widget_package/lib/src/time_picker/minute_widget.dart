@@ -10,6 +10,7 @@ class MinuteWidget extends MinuteOrSecondTemplateWidget {
     DateTimeCubit cubit, {
     Key? key,
     required Size size,
+    required Color textColor,
     double offAxis = 0.0,
     TextStyle? style,
   }) : super(
@@ -19,5 +20,6 @@ class MinuteWidget extends MinuteOrSecondTemplateWidget {
           size: size,
           offAxisFraction: offAxis,
           textStyle: style,
+          textColor: textColor,
         );
 }

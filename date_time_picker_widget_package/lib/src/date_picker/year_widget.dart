@@ -2,21 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:observing_stateful_widget/observing_stateful_widget.dart';
 
+import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
 import '../widget/list_wheel_widget.dart';
 import '../widget/picker_text_widget.dart';
-import '../constants/constants.dart' as K;
 
 class YearWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
   late final TextStyle textStyle;
+  final Color textColor;
 
   YearWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
   })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
@@ -72,7 +74,11 @@ class _YearWidget extends ObservingStatefulWidget<YearWidget> {
     return ListWheelChildBuilderDelegate(builder: (context, index) {
       if (index < 0 || index > K.yearLimit) return null;
       final text = '${index + K.baseYear}';
-      return PickerTextWidget(text: text, style: widget.textStyle);
+      return PickerTextWidget(
+        text: text,
+        style: widget.textStyle,
+        textColor: widget.textColor,
+      );
     });
   }
 }

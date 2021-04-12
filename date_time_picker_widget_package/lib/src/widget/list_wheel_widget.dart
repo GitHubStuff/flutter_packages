@@ -1,10 +1,10 @@
 // Copyright 2021, LTMM LLC
-// Single source for ListWheelScroll view used by the individual pickers
 
 import 'package:flutter/material.dart';
 
 import '../constants/constants.dart' as K;
 
+/// Source for ListWheelScroll view used by the individual pickers
 class ListWheelWidget extends StatefulWidget {
   late final FixedExtentScrollController scrollController;
   late final double offAxisFraction;

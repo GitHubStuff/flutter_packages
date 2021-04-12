@@ -8,9 +8,14 @@ import '../constants/constants.dart' as K;
 class TimePickerWidget extends StatelessWidget {
   final Size size;
   final DateTimeCubit dateTimeCubit;
+  final Color textColor;
 
-  TimePickerWidget({Key? key, required this.dateTimeCubit, this.size = K.minimalPickerSize})
-      : assert(
+  TimePickerWidget({
+    Key? key,
+    required this.dateTimeCubit,
+    this.size = K.minimalPickerSize,
+    required this.textColor,
+  })   : assert(
           size.width >= K.minimalPickerSize.width && size.height >= K.minimalPickerSize.height,
           'Minimal Size ${K.minimalPickerSize}',
         ),
@@ -25,12 +30,12 @@ class TimePickerWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
-          HourWidget(dateTimeCubit, size: timeWidgetSize),
-          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
-          MinuteWidget(dateTimeCubit, size: timeWidgetSize),
-          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
-          SecondWidget(dateTimeCubit, size: timeWidgetSize),
-          MeridianWidget(dateTimeCubit, size: timeWidgetSize),
+          HourWidget(dateTimeCubit, size: timeWidgetSize, textColor: textColor),
+          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize, textColor: textColor),
+          MinuteWidget(dateTimeCubit, size: timeWidgetSize, textColor: textColor),
+          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize, textColor: textColor),
+          SecondWidget(dateTimeCubit, size: timeWidgetSize, textColor: textColor),
+          MeridianWidget(dateTimeCubit, size: timeWidgetSize, textColor: textColor),
         ],
       ),
     );

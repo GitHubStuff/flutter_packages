@@ -8,6 +8,7 @@ void main() {
 }
 
 Brightness theBrightness = Brightness.dark;
+String message = 'Kiss Me!';
 
 // final w = 280.0;
 // final h = 150.0;
@@ -74,20 +75,23 @@ class _MyHomePageState extends ObservingStatefulWidget<MyHomePage> {
   }
 
   Widget _justPicker() {
-    return PickerWidget(
-      brightness: theBrightness,
-      dateTimeCubit: DateTimeCubit(DateTime(2020, 2, 27, 13, 17, 19)),
+    return Container(
+      decoration: BoxDecoration(border: Border.all(color: Colors.blueGrey)),
+      child: PickerWidget(
+        brightness: theBrightness,
+        dateTimeCubit: DateTimeCubit(DateTime(2020, 2, 27, 13, 17, 19)),
+      ),
     );
   }
 
   Widget body() {
-    String message = 'Kiss Me!';
     return Column(
       children: [
         PopoverPickerWidget(
             brightness: theBrightness,
             onWidget: Text(message, style: TextStyle(fontSize: 56.0, fontWeight: FontWeight.bold)),
             callback: (dateTime) {
+              message = dateTime.toLocal().toIso8601String();
               debugPrint('Returned: $dateTime');
             }),
         // _Button(

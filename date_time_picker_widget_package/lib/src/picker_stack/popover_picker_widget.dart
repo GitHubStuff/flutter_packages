@@ -20,6 +20,8 @@ class PopoverPickerWidget extends StatefulWidget {
   final CustomColor datePickerColor;
   final CustomColor timePickerColor;
   final CustomColor pickerColor;
+  final CustomColor setButtonColors;
+  final CustomColor pickerTextColors;
   late final TextStyle? headerTextStyle;
 
   PopoverPickerWidget({
@@ -27,10 +29,12 @@ class PopoverPickerWidget extends StatefulWidget {
     required this.onWidget,
     required this.brightness,
     required this.callback,
+    this.setButtonColors = K.setButtonColors,
     this.initalDateTime,
-    this.datePickerColor = K.datePickerColor,
-    this.timePickerColor = K.timePickerColor,
-    this.pickerColor = K.pickerColor,
+    this.datePickerColor = K.datePickerColors,
+    this.timePickerColor = K.timePickerColors,
+    this.pickerColor = K.pickerColors,
+    this.pickerTextColors = K.pickerTextColors,
     TextStyle? headerTextStyle,
   }) : super(key: key) {
     this.headerTextStyle = (headerTextStyle ?? K.headerTextStyle(brightness));
@@ -78,10 +82,12 @@ class _PopoverPickerWidget extends ObservingStatefulWidget<PopoverPickerWidget> 
   Widget _picker() {
     return PickerWidget(
       brightness: widget.brightness,
+      setButtonColors: widget.setButtonColors,
       dateTimeCubit: dateTimeCubit,
       datePickerColor: widget.datePickerColor,
       timePickerColor: widget.timePickerColor,
       headerTextStyle: widget.headerTextStyle!,
+      pickerTextColors: widget.pickerTextColors,
     );
   }
 }

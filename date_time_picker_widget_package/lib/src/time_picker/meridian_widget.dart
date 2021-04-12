@@ -13,11 +13,13 @@ class MeridianWidget extends StatefulWidget {
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
   final TextStyle textStyle;
+  final Color textColor;
 
   const MeridianWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     this.textStyle = const TextStyle(fontSize: K.fontSize),
   }) : super(key: key);
@@ -72,7 +74,7 @@ class _MeridianWidget extends ObservingStatefulWidget<MeridianWidget> {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index != K.amIndex && index != K.pmIndex) return null;
       final text = (index == K.amIndex ? K.midnight : K.noon).asMeridian();
-      return PickerTextWidget(text: text, style: widget.textStyle);
+      return PickerTextWidget(text: text, style: widget.textStyle, textColor: widget.textColor,);
     });
   }
 }

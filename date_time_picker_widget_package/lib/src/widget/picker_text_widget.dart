@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import '../constants/constants.dart' as K;
 
 class PickerTextWidget extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final Color textColor;
+
   const PickerTextWidget({
     Key? key,
     required this.text,
     required this.style,
+    required this.textColor,
   }) : super(key: key);
-
-  final String text;
-  final TextStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class PickerTextWidget extends StatelessWidget {
       child: Center(
         child: AutoSizeText(
           '$text',
-          style: style.copyWith(fontSize: K.fontSize),
+          style: style.copyWith(fontSize: K.fontSize, color: textColor),
           maxLines: 1,
         ),
       ),

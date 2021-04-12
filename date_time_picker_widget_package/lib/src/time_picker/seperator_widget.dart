@@ -12,10 +12,12 @@ class SeperatorWidget extends StatefulWidget {
   final Size size;
   final double offAxisFraction;
   final TextStyle textStyle;
+  final Color textColor;
 
   const SeperatorWidget({
     required this.seperator,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     this.textStyle = const TextStyle(fontSize: K.fontSize, fontWeight: FontWeight.bold),
   });
@@ -53,7 +55,11 @@ class _SeperatorWidget extends ObservingStatefulWidget<SeperatorWidget> {
   ListWheelChildBuilderDelegate _delegate() {
     return ListWheelChildBuilderDelegate(builder: (context, int index) {
       if (index < 0 || index > 0) return null;
-      return PickerTextWidget(text: '${widget.seperator}', style: widget.textStyle);
+      return PickerTextWidget(
+        text: '${widget.seperator}',
+        style: widget.textStyle,
+        textColor: widget.textColor,
+      );
     });
   }
 }

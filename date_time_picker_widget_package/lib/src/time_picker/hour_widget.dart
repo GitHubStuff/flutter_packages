@@ -13,11 +13,13 @@ class HourWidget extends StatefulWidget {
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
   late final TextStyle textStyle;
+  final Color textColor;
 
   HourWidget(
     this.dateTimeCubit, {
     Key? key,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
   })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
@@ -74,7 +76,7 @@ class _HourWidget extends ObservingStatefulWidget<HourWidget> {
       if (hourIndex < 1) return null;
       int offset = (hourIndex % K.noonOrMidnight) == K.midnight ? K.noon : (hourIndex % K.noonOrMidnight);
       final text = offset.toString().padLeft(2, '0');
-      return PickerTextWidget(text: text, style: widget.textStyle);
+      return PickerTextWidget(text: text, style: widget.textStyle, textColor: widget.textColor,);
     });
   }
 }

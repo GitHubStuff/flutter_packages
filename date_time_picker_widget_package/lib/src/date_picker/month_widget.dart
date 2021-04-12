@@ -14,12 +14,14 @@ class MonthWidget extends StatefulWidget {
   final double offAxisFraction;
   final DateTimeCubit dateTimeCubit;
   late final TextStyle textStyle;
+  final Color textColor;
 
   MonthWidget(
     this.dateTimeCubit, {
     Key? key,
     this.monthFormat = K.monthDisplayFormat,
     required this.size,
+    required this.textColor,
     this.offAxisFraction = 0.0,
     TextStyle? textStyle,
   })  : this.textStyle = (textStyle ?? TextStyle()).copyWith(fontSize: K.fontSize),
@@ -76,7 +78,7 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       if (index < DateTime.january) return null;
       int offset = (index % K.monthsInYear) == 0 ? K.monthsInYear : (index % K.monthsInYear);
       final monthText = offset.asMonth(format: widget.monthFormat);
-      return PickerTextWidget(text: monthText, style: widget.textStyle);
+      return PickerTextWidget(text: monthText, style: widget.textStyle, textColor: widget.textColor,);
     });
   }
 }

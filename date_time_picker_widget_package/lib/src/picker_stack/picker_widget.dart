@@ -9,8 +9,9 @@ import '../../date_time_picker_widget_package.dart';
 import '../constants/constants.dart' as K;
 import 'picker_set_widget.dart';
 
-/// The whole widget except for the popover
+/// NOTE: The [whole widget] except for the popover
 class PickerWidget extends StatefulWidget {
+  final CustomColor pickerTextColors;
   final DateTimeCubit dateTimeCubit;
   final Size size;
   final Widget dateHeaderWidget;
@@ -18,11 +19,14 @@ class PickerWidget extends StatefulWidget {
   late final CustomColor datePickerColor;
   late final CustomColor timePickerColor;
   late final CustomColor pickerColor;
+  final CustomColor setButtonColors;
   final Brightness brightness;
   late final TextStyle? headerTextStyle;
   PickerWidget({
     Key? key,
     required this.dateTimeCubit,
+    this.pickerTextColors = K.pickerTextColors,
+    this.setButtonColors = K.setButtonColors,
     TextStyle? headerTextStyle,
     this.size = K.minimalPickerSize,
     CustomColor? datePickerColor,
@@ -41,9 +45,9 @@ class PickerWidget extends StatefulWidget {
       maxLines: 1,
     ),
     required this.brightness,
-  })   : this.datePickerColor = (datePickerColor ?? K.datePickerColor),
-        this.timePickerColor = (timePickerColor ?? K.timePickerColor),
-        this.pickerColor = (pickerColor ?? K.pickerColor),
+  })   : this.datePickerColor = (datePickerColor ?? K.datePickerColors),
+        this.timePickerColor = (timePickerColor ?? K.timePickerColors),
+        this.pickerColor = (pickerColor ?? K.pickerColors),
         super(key: key) {
     this.headerTextStyle = (headerTextStyle ?? K.headerTextStyle(brightness));
   }
@@ -55,27 +59,30 @@ class PickerWidget extends StatefulWidget {
 class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
   double _dateOpacity = K.fullOpacity;
   double _timeOpacity = K.emptyOpacity;
-  late final TimePickerWidget _timePickerWidget;
-  late final DatePickerWidget _datePickerWidget;
-
-  @override
-  void initState() {
-    super.initState();
-    _timePickerWidget = TimePickerWidget(dateTimeCubit: widget.dateTimeCubit, size: widget.size);
-    _datePickerWidget = DatePickerWidget(dateTimeCubit: widget.dateTimeCubit, size: widget.size);
-  }
+  late TimePickerWidget _timePickerWidget;
+  late DatePickerWidget _datePickerWidget;
 
   @override
   void afterFirstLayout(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
+    _timePickerWidget = TimePickerWidget(
+      dateTimeCubit: widget.dateTimeCubit,
+      size: widget.size,
+      textColor: widget.pickerTextColors.of(widget.brightness),
+    );
+    _datePickerWidget = DatePickerWidget(
+      dateTimeCubit: widget.dateTimeCubit,
+      size: widget.size,
+      pickerTextColor: widget.pickerTextColors.of(widget.brightness),
+    );
     return SizedBox(
       width: widget.size.width,
       child: Column(
         children: [
           SizedBox(height: widget.size.height / K.headerWidgetFactor, child: _dateTimeAndSetButton()),
-          SizedBox(height: widget.size.height / K.segmentButtonFactor, child: _dateTimeHeaderButtons()),
+          SizedBox(height: widget.size.height / K.segmentButtonFactor, child: _segmentButtonsOfDateTime()),
           SizedBox(height: widget.size.height, child: _stackOfDateAndTimeScrollWidgets()),
         ],
       ),
@@ -84,43 +91,47 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
 
   /// Displays the date/time matching the values in the pickers, with a "set"-button
   Widget _dateTimeAndSetButton() => PickerSetWidget(
-        dateTimeCubit: widget.dateTimeCubit,
         brightness: widget.brightness,
+        dateTimeCubit: widget.dateTimeCubit,
         dateTimeStyle: widget.headerTextStyle!,
+        setButtonColors: widget.setButtonColors,
       );
 
   /// Button to control if the DatePicker or TimePicker is displayed (aka which Widget in the Stack Widget is visible)
-  Widget _dateTimeHeaderButtons() {
-    return Row(
-      children: [
-        Expanded(
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: widget.datePickerColor.of(widget.brightness)),
-            onPressed: () {
-              if (_dateOpacity != K.fullOpacity) {
-                setState(() {
-                  _dateOpacity = K.fullOpacity;
-                  _timeOpacity = K.emptyOpacity;
-                });
-              }
-            },
-            child: widget.dateHeaderWidget,
-          ),
-        ),
-        Expanded(
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: widget.timePickerColor.of(widget.brightness)),
+  Widget _segmentButtonsOfDateTime() {
+    return Container(
+      color: K.pickerColors.of(widget.brightness),
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: widget.datePickerColor.of(widget.brightness)),
               onPressed: () {
-                if (_timeOpacity != K.fullOpacity) {
+                if (_dateOpacity != K.fullOpacity) {
                   setState(() {
-                    _dateOpacity = K.emptyOpacity;
-                    _timeOpacity = K.fullOpacity;
+                    _dateOpacity = K.fullOpacity;
+                    _timeOpacity = K.emptyOpacity;
                   });
                 }
               },
-              child: widget.timeHeaderWidget),
-        )
-      ],
+              child: widget.dateHeaderWidget,
+            ),
+          ),
+          Expanded(
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: widget.timePickerColor.of(widget.brightness)),
+                onPressed: () {
+                  if (_timeOpacity != K.fullOpacity) {
+                    setState(() {
+                      _dateOpacity = K.emptyOpacity;
+                      _timeOpacity = K.fullOpacity;
+                    });
+                  }
+                },
+                child: widget.timeHeaderWidget),
+          )
+        ],
+      ),
     );
   }
 
