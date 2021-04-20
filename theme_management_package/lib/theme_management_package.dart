@@ -4,6 +4,7 @@ export 'src/app_exceptions.dart';
 export 'src/colors/custom_colors.dart';
 export 'src/cubit/theme_cubit.dart';
 export 'src/extensions/text_keys_extension.dart';
+export 'src/extensions/theme_mode_extensions.dart';
 export 'src/theme/text_keys.dart';
 export 'src/widgets/theme_dialog.dart';
 export 'src/widgets/theme_icons.dart';
