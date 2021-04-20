@@ -10,6 +10,7 @@ class CustomColor {
   final Color light;
   const CustomColor({required this.dark, required this.light});
   Color of(Brightness brightness) => (Brightness.dark == brightness) ? dark : light;
+  factory CustomColor.mono({required Color color}) => CustomColor(dark: color, light: color);
 }
 
 class CustomColorManager {
