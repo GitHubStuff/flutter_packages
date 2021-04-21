@@ -27,7 +27,7 @@ void main() async {
 class SetUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    CustomColorManager.add(
+    ThemeColorsManager.add(
       key: 'Alert',
       dark: Colors.red[900]!,
       light: Colors.greenAccent,
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'I Use Custom Colors',
-              style: TextStyle(fontSize: 20, color: CustomColorManager.by(key: 'alert', themeMode: themeCubit.themeMode, using: context)),
+              style: TextStyle(fontSize: 20, color: ThemeColorsManager.by(key: 'alert', themeMode: themeCubit.themeMode, using: context)),
             ),
             Text(
               'Text without context',

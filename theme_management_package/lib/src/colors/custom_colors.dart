@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import '../app_exceptions.dart';
 import '../extensions/theme_mode_extensions.dart';
 
-class CustomColor {
+class ThemeColors {
   final Color dark;
   final Color light;
-  const CustomColor({required this.dark, required this.light});
+  const ThemeColors({required this.dark, required this.light});
   Color of(Brightness brightness) => (Brightness.dark == brightness) ? dark : light;
-  factory CustomColor.mono({required Color color}) => CustomColor(dark: color, light: color);
+  factory ThemeColors.mono({required Color color}) => ThemeColors(dark: color, light: color);
 }
 
-class CustomColorManager {
-  static Map<String, CustomColor> _repository = {};
+class ThemeColorsManager {
+  static Map<String, ThemeColors> _repository = {};
 
   static Color by({required String key, required ThemeMode themeMode, required BuildContext? using}) => of(
         key,
@@ -31,7 +31,7 @@ class CustomColorManager {
         brightness: MediaQuery.of(context).platformBrightness,
       );
 
-  static void add({required String key, required Color dark, required Color light}) => _repository[key.toLowerCase()] = CustomColor(
+  static void add({required String key, required Color dark, required Color light}) => _repository[key.toLowerCase()] = ThemeColors(
         dark: dark,
         light: light,
       );
