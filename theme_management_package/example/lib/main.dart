@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
       bloc: themeCubit,
       builder: (_, state) {
-        ThemeMode themeMode = themeCubit.themeMode;
+        ThemeMode themeMode = ThemeCubit.themeMode;
         if (state is UpdateThemeMode) {
           themeMode = state.themeMode;
         }
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(right: 20, top: 12),
             child: GestureDetector(
               onTap: () => SetThemeDialog.show(context: context, themeCubit: themeCubit),
-              child: themeCubit.themeModeIcon(context: context),
+              child: ThemeCubit.themeModeIcon(context: context),
             ),
           ),
         ],
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'I Use Custom Colors',
-              style: TextStyle(fontSize: 20, color: ThemeColorsManager.by(key: 'alert', themeMode: themeCubit.themeMode, using: context)),
+              style: TextStyle(fontSize: 20, color: ThemeColorsManager.by(key: 'alert', themeMode: ThemeCubit.themeMode, using: context)),
             ),
             Text(
               'Text without context',

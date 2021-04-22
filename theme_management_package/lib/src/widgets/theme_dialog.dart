@@ -12,8 +12,8 @@ const _widgetHorizontalSpace = 8.0;
 
 class SetThemeDialog {
   static void show({required BuildContext context, required ThemeCubit themeCubit}) {
-    final _style = TextKey.headline6.asTextStyleOf(context: context, themeMode: themeCubit.themeMode);
-    final _title = TextKey.headline5.asTextStyleOf(context: context, themeMode: themeCubit.themeMode);
+    final _style = TextKey.headline6.asTextStyleOf(context: context, themeMode: ThemeCubit.themeMode);
+    final _title = TextKey.headline5.asTextStyleOf(context: context, themeMode: ThemeCubit.themeMode);
 
     /// [Column] of widgets that appear as the [Alert content], it shows the [title], current [theme], and [user instructions]
     Column alertContent(String message) => Column(
@@ -33,7 +33,7 @@ class SetThemeDialog {
                     style: _style,
                   ),
                 ),
-                themeCubit.themeModeIcon(context: context), // Icon of the current theme
+                ThemeCubit.themeModeIcon(context: context), // Icon of the current theme
               ],
             ),
             Container(height: _widgetHorizontalSpace),
@@ -66,7 +66,7 @@ class SetThemeDialog {
     }
 
     Column alertContentColumns;
-    switch (themeCubit.themeMode) {
+    switch (ThemeCubit.themeMode) {
       case ThemeMode.dark:
         alertContentColumns = alertContent('Application Dark');
         break;

@@ -19,9 +19,13 @@ class ThemeCubit extends Cubit<ThemeCubitState> {
     await _Hive.setup();
   }
 
+  static ThemeIcons _themeIcons = DefaultThemeIcons();
+  static ThemeMode get themeMode => _Hive.getThemeMode();
+  static Brightness brightness({required BuildContext? context}) => themeMode.asBrightness(context: context);
+  static Widget themeModeIcon({required BuildContext context}) => themeMode.getIcon(context: context, usingThemeIcons: _themeIcons);
+
   late ThemeData _darkTheme;
   late ThemeData _lightTheme;
-  late ThemeIcons _themeIcons;
 
   ThemeCubit({ThemeData? darkTheme, ThemeData? lightTheme, ThemeIcons? themeIcons}) : super(ThemeCubitInitial()) {
     _darkTheme = darkTheme ?? DefaultThemes.defaultDarkThemeData;
@@ -32,10 +36,6 @@ class ThemeCubit extends Cubit<ThemeCubitState> {
   ThemeData get darkTheme => _darkTheme;
   ThemeData get lightTheme => _lightTheme;
   ThemeIcons get themeIcons => _themeIcons;
-
-  ThemeMode get themeMode => _Hive.getThemeMode();
-
-  Widget themeModeIcon({required BuildContext context}) => themeMode.getIcon(context: context, usingThemeIcons: _themeIcons);
 
   void setThemeMode(ThemeMode themeMode) {
     _Hive.setThemeMode(themeMode);
