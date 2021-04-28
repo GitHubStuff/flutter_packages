@@ -1,0 +1,34 @@
+name: location_package
+description: Template for Flutter Location Package.
+version: 0.0.1
+author: Steven Smith
+homepage: http://www.icodeforyou.com
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.22.5"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  app_exception:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: app_exception
+  observing_stateful_widget:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: observing_stateful_widget
+  flutter_bloc: ^7.0.0
+  geolocator: ^7.0.3
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+
+dev_dependencies:
+  test: ^1.16.8
+  hive_generator: ^1.1.0
+  build_runner: ^2.0.1
+
+flutter:
+  uses-material-design: true
