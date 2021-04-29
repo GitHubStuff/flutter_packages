@@ -1,41 +1,16 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:location_package/location_package.dart';
 
 import 'location_data.dart';
 import 'location_service_status.dart';
 
 abstract class LocationService {
-  LocationServiceStatus getStatus();
+  LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
+  PersistedData _persistedData;
+  Future<LocationServiceStatus> getStatus();
   Future<LocationData?> getCurrentLocation();
-  LocationData getSavedLocation({required String key});
-  void saveLocation({required String key, required LocationData locationData});
-}
-
-class GeolocatorWrapper implements LocationService {
-  @override
-  Future<LocationData?> getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    LocationData result = LocationData(
-      latitude: position.latitude,
-      longitude: position.longitude,
-      dateTimestamp: position.timestamp ?? DateTime.now(),
-    );
-    return result;
-  }
-
-  @override
-  LocationData getSavedLocation({required String key}) {
-    // TODO: implement getSavedLocation
-    throw UnimplementedError();
-  }
-
-  @override
-  LocationServiceStatus getStatus() {
-    // TODO: implement getStatus
-    throw UnimplementedError();
-  }
-
-  @override
-  void saveLocation({required String key, required LocationData locationData}) {
-    // TODO: implement saveLocation
-  }
+  LocationData? getSavedLocation({required String key}) => _persistedData.getLocationData(usingKey: key);
+  void saveLocation({required String key, required LocationData locationData}) => _persistedData.setLocationData(
+        locationData,
+        usingKey: key,
+      );
 }

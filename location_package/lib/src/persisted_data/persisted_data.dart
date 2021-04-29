@@ -4,6 +4,6 @@ bool persistedDataSetupComplete = false;
 
 abstract class PersistedData {
   Future<bool> setup();
-  LocationData? getLocationData();
-  void setLocationData(LocationData value);
+  LocationData? getLocationData({required String usingKey});
+  void setLocationData(LocationData value, {required String usingKey});
 }

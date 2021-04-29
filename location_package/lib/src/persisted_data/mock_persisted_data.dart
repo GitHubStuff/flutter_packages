@@ -1,6 +1,5 @@
 import '../../src/location/location_data.dart';
 import '../app_exceptions.dart';
-import '../constants.dart' as K;
 import 'persisted_data.dart';
 
 class MockPersistedData implements PersistedData {
@@ -13,10 +12,13 @@ class MockPersistedData implements PersistedData {
 
   void overridePersistedData(bool newValue) => persistedDataSetupComplete = newValue;
 
-  LocationData? getLocationData() {
+  LocationData? getLocationData({required String usingKey}) {
     if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
-    return (_data.isEmpty) ? null : _data[K.locationStorageKey];
+    return (_data.isEmpty) ? null : _data[usingKey];
   }
 
-  void setLocationData(LocationData value) => (persistedDataSetupComplete) ? _data[K.locationStorageKey] = value : throw PersistedStorageNotSetup();
+  void setLocationData(LocationData value, {required String usingKey}) {
+    if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
+    _data[usingKey] = value;
+  }
 }

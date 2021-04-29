@@ -14,6 +14,7 @@ class HivePersistedData implements PersistedData {
   Future<bool> setup() async {
     try {
       await Hive.initFlutter();
+      Hive.registerAdapter(LocationDataAdapter());
       _box = await Hive.openBox(K.hiveBoxName);
       persistedDataSetupComplete = true;
       return true;
@@ -24,13 +25,13 @@ class HivePersistedData implements PersistedData {
   }
 
   @override
-  LocationData? getLocationData() {
-    // TODO: implement getLocationData
-    throw UnimplementedError();
+  LocationData? getLocationData({required String usingKey}) {
+    final locationData = _box.get(usingKey) as LocationData;
+    return locationData;
   }
 
   @override
-  void setLocationData(LocationData value) {
-    // TODO: implement setLocationData
+  void setLocationData(LocationData value, {required String usingKey}) {
+    _box.put(usingKey, value);
   }
 }

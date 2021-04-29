@@ -1,6 +1,16 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:location_package/location_package.dart';
+
+const String key = 'LocData';
+late PersistedData hiveData;
+var random = Random();
+late LocationData locationData;
+
+void main() async {
+  hiveData = HivePersistedData();
+  await hiveData.setup();
   runApp(MyApp());
 }
 
@@ -26,6 +36,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String message = 'Result';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,12 +48,26 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Generic header',
-            ),
-            Text(
-              'Text without context',
+              'Set a Location',
               style: Theme.of(context).textTheme.headline4,
             ),
+            TextButton(
+                onPressed: _putLocationTest,
+                child: Text(
+                  'Press Me',
+                  style: Theme.of(context).textTheme.headline5,
+                )),
+            Text(
+              'GET Location',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            TextButton(
+                onPressed: _getLocationTest,
+                child: Text(
+                  'Press Me',
+                  style: Theme.of(context).textTheme.headline5,
+                )),
+            Text(message, style: Theme.of(context).textTheme.headline6),
           ],
         ),
       ),
@@ -53,4 +78,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  _putLocationTest() {
+    double lat = _doubleInRange(random, 50, 100);
+    double lng = _doubleInRange(random, 10, 80) * -1.0;
+    locationData = LocationData(latitude: lat, longitude: lng, dateTimestamp: DateTime.now());
+    hiveData.setLocationData(locationData, usingKey: key);
+    setState(() {
+      message = 'PUT ${locationData.toString()}';
+    });
+  }
+
+  _getLocationTest() {
+    final result = hiveData.getLocationData(usingKey: key);
+    setState(() {
+      message = 'L${locationData.toString()}\nR${result.toString()}';
+    });
+  }
+
+  double _doubleInRange(Random source, num start, num end) => source.nextDouble() * (end - start) + start;
 }

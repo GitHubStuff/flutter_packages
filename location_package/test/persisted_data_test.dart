@@ -15,7 +15,7 @@ void main() {
     MockPersistedData mockPersistedData = MockPersistedData();
     bool result = await mockPersistedData.setup();
     expect(result, true);
-    LocationData? value = mockPersistedData.getLocationData();
+    LocationData? value = mockPersistedData.getLocationData(usingKey: 'X');
     expect(value, null);
   });
 
@@ -24,8 +24,8 @@ void main() {
     bool result = await mockPersistedData.setup();
     expect(result, true);
     final LocationData data = LocationData(latitude: 100.0, longitude: -50.0, dateTimestamp: DateTime.now());
-    mockPersistedData.setLocationData(data);
-    LocationData? value = mockPersistedData.getLocationData();
+    mockPersistedData.setLocationData(data, usingKey: 'zz');
+    LocationData? value = mockPersistedData.getLocationData(usingKey: 'zz');
     print('VALUE:${value?.toString()}');
     expect(value, data);
   });
@@ -40,7 +40,7 @@ void main() {
     MockPersistedData mockPersistedData = MockPersistedData();
     final LocationData data = LocationData(latitude: 100.0, longitude: -50.0, dateTimestamp: DateTime.now());
     expect(
-      () => mockPersistedData.setLocationData(data),
+      () => mockPersistedData.setLocationData(data, usingKey: 'X'),
       throwsA(isA<PersistedStorageNotSetup>()),
     );
   });
@@ -48,7 +48,7 @@ void main() {
   test('PersistedStorageNotSetup setup not called throws exception on getValue', () async {
     MockPersistedData mockPersistedData = MockPersistedData();
     expect(
-      () => mockPersistedData.getLocationData(),
+      () => mockPersistedData.getLocationData(usingKey: 'Y'),
       throwsA(isA<PersistedStorageNotSetup>()),
     );
   });
