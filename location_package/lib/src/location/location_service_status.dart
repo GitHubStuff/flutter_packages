@@ -3,4 +3,5 @@ enum LocationServiceStatus {
   denied,
   deniedForever,
   disabled,
+  missingPermission,
 }

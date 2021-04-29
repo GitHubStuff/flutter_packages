@@ -1,6 +1,6 @@
 name: location_package
 description: Template for Flutter Location Package.
-version: 0.0.1+2
+version: 0.0.1+3
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'

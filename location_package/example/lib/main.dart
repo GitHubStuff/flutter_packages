@@ -7,10 +7,12 @@ const String key = 'LocData';
 late PersistedData hiveData;
 var random = Random();
 late LocationData locationData;
+late GeolocatorWrapper geolocatorWrapper;
 
 void main() async {
   hiveData = HivePersistedData();
   await hiveData.setup();
+  geolocatorWrapper = GeolocatorWrapper(persistedData: hiveData);
   runApp(MyApp());
 }
 
@@ -37,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String message = 'Result';
+  String status = 'Status';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +71,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: Theme.of(context).textTheme.headline5,
                 )),
             Text(message, style: Theme.of(context).textTheme.headline6),
+            TextButton(
+              onPressed: _locationStatus,
+              child: Text('Location Status', style: Theme.of(context).textTheme.headline5),
+            ),
+            Text(status, style: Theme.of(context).textTheme.headline6),
           ],
         ),
       ),
@@ -77,6 +85,26 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  _locationStatus() async {
+    try {
+      final stat = await geolocatorWrapper.getStatus();
+      if (stat == LocationServiceStatus.enabled) {
+        LocationData? location = await geolocatorWrapper.getCurrentLocation();
+        setState(() {
+          status = '$location';
+        });
+      } else {
+        setState(() {
+          status = '$stat';
+        });
+      }
+    } on MissingLocationPermission {
+      setState(() {
+        status = 'MissingLocationPermission!';
+      });
+    }
   }
 
   _putLocationTest() {

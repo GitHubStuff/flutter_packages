@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 
 import '../../location_package.dart';
+import '../app_exceptions.dart';
 import 'location_service.dart';
 import 'location_service_status.dart';
 
@@ -22,18 +23,22 @@ class GeolocatorWrapper extends LocationService {
 
   @override
   Future<LocationServiceStatus> getStatus() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) return LocationServiceStatus.disabled;
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) return LocationServiceStatus.disabled;
       if (permission == LocationPermission.denied) {
-        return LocationServiceStatus.denied;
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          return LocationServiceStatus.denied;
+        }
       }
+      if (permission == LocationPermission.deniedForever) {
+        return LocationServiceStatus.deniedForever;
+      }
+      return LocationServiceStatus.enabled;
+    } on PermissionDefinitionsNotFoundException {
+      throw MissingLocationPermission();
     }
-    if (permission == LocationPermission.deniedForever) {
-      return LocationServiceStatus.deniedForever;
-    }
-    return LocationServiceStatus.enabled;
   }
 }
