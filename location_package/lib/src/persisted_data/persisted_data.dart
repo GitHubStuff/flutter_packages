@@ -1,5 +1,6 @@
 import '../../src/location/location_data.dart';
 
+// Global value that can be used to indicate  'Future<bool>setup()' was called.
 bool persistedDataSetupComplete = false;
 
 abstract class PersistedData {

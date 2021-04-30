@@ -1,15 +1,30 @@
 part of 'location_cubit.dart';
 
-class LocationInitial extends LocationState {}
+abstract class LocationState {
+  final LocationServiceStatus locationServiceStatus;
+  LocationState(this.locationServiceStatus);
+}
 
-class LocationServiceNotEnabled extends LocationState {}
+class LocationInitial extends LocationState {
+  LocationInitial() : super(LocationServiceStatus.initial);
+}
 
-class LocationServicePermissionDenied extends LocationState {}
+class LocationServiceDisabled extends LocationState {
+  LocationServiceDisabled() : super(LocationServiceStatus.disabled);
+}
 
-class LocationServicePermissionDeniendForever extends LocationState {}
+class LocationServiceDenied extends LocationState {
+  LocationServiceDenied() : super(LocationServiceStatus.denied);
+}
 
-class LocationServiceServiceReady extends LocationState {}
+class LocationServiceDeniendForever extends LocationState {
+  LocationServiceDeniendForever() : super(LocationServiceStatus.deniedForever);
+}
 
+class LocationServiceServiceEnabled extends LocationState {
+  LocationServiceServiceEnabled() : super(LocationServiceStatus.enabled);
+}
 
-@immutable
-abstract class LocationState {}
+class SetupComplete extends LocationState {
+  SetupComplete() : super(LocationServiceStatus.setupComplete);
+}

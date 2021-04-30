@@ -5,7 +5,7 @@ import 'package:location_package/src/location/location_data.dart';
 import 'package:location_package/src/persisted_data/persisted_data.dart';
 
 import '../app_exceptions.dart';
-import '../constants.dart' as K;
+import '../private_constants.dart' as K;
 
 class HivePersistedData implements PersistedData {
   static late Box _box;
@@ -26,12 +26,14 @@ class HivePersistedData implements PersistedData {
 
   @override
   LocationData? getLocationData({required String usingKey}) {
+    if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
     final locationData = _box.get(usingKey) as LocationData;
     return locationData;
   }
 
   @override
   void setLocationData(LocationData value, {required String usingKey}) {
+    if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
     _box.put(usingKey, value);
   }
 }

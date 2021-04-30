@@ -2,8 +2,8 @@ import 'package:geolocator/geolocator.dart';
 
 import '../../location_package.dart';
 import '../app_exceptions.dart';
+import '../public_constants.dart';
 import 'location_service.dart';
-import 'location_service_status.dart';
 
 class GeolocatorWrapper extends LocationService {
   GeolocatorWrapper({required PersistedData persistedData}) : super(persistedData: persistedData);

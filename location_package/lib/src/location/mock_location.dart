@@ -1,7 +1,7 @@
 import 'package:location_package/src/location/location_data.dart';
-import 'package:location_package/src/location/location_service_status.dart';
 
 import '../../location_package.dart';
+import '../public_constants.dart';
 import 'location_service.dart';
 
 class MockLocation extends LocationService {
