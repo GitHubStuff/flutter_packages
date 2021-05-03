@@ -1,6 +1,6 @@
 name: location_package
 description: BLoC design for getting/persisting/comparing location data
-version: 0.0.1+5
+version: 0.0.1+6
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -20,15 +20,16 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: observing_stateful_widget
+  dartz: ^0.10.0-nullsafety.1
   flutter_bloc: ^7.0.0
   geolocator: ^7.0.3
   hive: ^2.0.4
   hive_flutter: ^1.0.0
 
 dev_dependencies:
-  test: ^1.16.8
-  hive_generator: ^1.1.0
   build_runner: ^2.0.1
+  hive_generator: ^1.1.0
+  test: ^1.16.8
 
 flutter:
   uses-material-design: true

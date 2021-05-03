@@ -13,6 +13,7 @@ class HivePersistedData implements PersistedData {
   @override
   Future<bool> setup() async {
     try {
+      if (persistedDataSetupComplete) return true;
       await Hive.initFlutter();
       Hive.registerAdapter(LocationDataAdapter());
       _box = await Hive.openBox(K.hiveBoxName);

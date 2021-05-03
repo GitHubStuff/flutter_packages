@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 
 import '../../location_package.dart';
 import '../../src/location/location_service.dart';
@@ -19,5 +20,27 @@ class LocationCubit extends Cubit<LocationState> {
     _setupComplete = persistedDataSetupComplete;
     if (!_setupComplete) throw PersistedStorageNotSetup();
     emit(SetupComplete());
+  }
+
+  void getCurrentLocation() async {
+    Either<LocationServiceStatus, LocationData?> result = await _locationService.getCurrentLocation();
+    result.fold((left) {
+      switch (left) {
+        case LocationServiceStatus.denied:
+          emit(LocationServiceDenied());
+          break;
+        case LocationServiceStatus.deniedForever:
+          emit(LocationServiceDeniendForever());
+          break;
+        case LocationServiceStatus.disabled:
+          emit(LocationServiceDisabled());
+          break;
+        default:
+          throw UnknownLocationPermissionException('$left');
+      }
+    }, (right) {
+      if (right == null) throw UnknownLocationPermissionException('Returned NULL location data');
+      emit(LocationDataReturned(right));
+    });
   }
 }

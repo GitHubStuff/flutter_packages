@@ -4,6 +4,7 @@ enum LocationServiceStatus {
   disabled,
   enabled,
   initial,
+  locationData,
   missingPermission,
   setupComplete,
 }

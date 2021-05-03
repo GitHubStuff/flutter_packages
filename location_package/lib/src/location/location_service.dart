@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:location_package/location_package.dart';
 
 import '../public_constants.dart';
@@ -8,7 +9,7 @@ abstract class LocationService {
   bool _setupComplete = false;
   LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
   Future<LocationServiceStatus> getStatus();
-  Future<LocationData?> getCurrentLocation();
+  Future<Either<LocationServiceStatus, LocationData?>> getCurrentLocation();
   LocationData? getSavedLocation({required String key}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     _persistedData.getLocationData(usingKey: key);

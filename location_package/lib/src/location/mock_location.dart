@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:location_package/src/location/location_data.dart';
 
 import '../../location_package.dart';
@@ -11,7 +12,7 @@ class MockLocation extends LocationService {
   MockLocation({required PersistedData persistedData, this.locationData, required this.locationServiceStatus}) : super(persistedData: persistedData);
 
   @override
-  Future<LocationData?> getCurrentLocation() async => locationData;
+  Future<Either<LocationServiceStatus, LocationData?>> getCurrentLocation() async => locationData == null ? Left(LocationServiceStatus.denied) : Right(locationData);
 
   @override
   Future<LocationServiceStatus> getStatus() async => locationServiceStatus;

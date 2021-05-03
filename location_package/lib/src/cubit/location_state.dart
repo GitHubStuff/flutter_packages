@@ -9,10 +9,6 @@ class LocationInitial extends LocationState {
   LocationInitial() : super(LocationServiceStatus.initial);
 }
 
-class LocationServiceDisabled extends LocationState {
-  LocationServiceDisabled() : super(LocationServiceStatus.disabled);
-}
-
 class LocationServiceDenied extends LocationState {
   LocationServiceDenied() : super(LocationServiceStatus.denied);
 }
@@ -21,10 +17,19 @@ class LocationServiceDeniendForever extends LocationState {
   LocationServiceDeniendForever() : super(LocationServiceStatus.deniedForever);
 }
 
+class LocationServiceDisabled extends LocationState {
+  LocationServiceDisabled() : super(LocationServiceStatus.disabled);
+}
+
 class LocationServiceServiceEnabled extends LocationState {
   LocationServiceServiceEnabled() : super(LocationServiceStatus.enabled);
 }
 
 class SetupComplete extends LocationState {
   SetupComplete() : super(LocationServiceStatus.setupComplete);
+}
+
+class LocationDataReturned extends LocationState {
+  final LocationData locationData;
+  LocationDataReturned(this.locationData) : super(LocationServiceStatus.locationData);
 }
