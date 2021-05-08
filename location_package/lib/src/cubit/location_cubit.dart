@@ -1,7 +1,7 @@
 // Copyright 2021
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:location_package/src/location/location_data.dart';
+import 'package:location_package/src/location/user_location_data.dart';
 
 import '../../src/app_exceptions.dart';
 import '../../src/location/location_service.dart';
@@ -27,7 +27,7 @@ class LocationCubit extends Cubit<LocationState> {
   }
 
   void getCurrentLocation() async {
-    Either<LocationServiceStatus, LocationData?> result = await _locationService.getCurrentLocation();
+    Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
     result.fold((left) {
       switch (left) {
         case LocationServiceStatus.denied:

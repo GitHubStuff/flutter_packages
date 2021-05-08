@@ -5,6 +5,7 @@ import '../app_exceptions.dart';
 import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
 import 'location_data.dart';
+import 'user_location_data.dart';
 
 /// Abstact class that any GeoLocation service {eg geolocator} must be wrapped in so
 /// that implementation details are abstracted away allow for any location service to be used
@@ -13,13 +14,13 @@ abstract class LocationService {
   bool _setupComplete = false;
   LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
   Future<LocationServiceStatus> getStatus();
-  Future<Either<LocationServiceStatus, LocationData?>> getCurrentLocation();
+  Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation();
   LocationData? getSavedLocation({required String key}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     _persistedData.getLocationData(usingKey: key);
   }
 
-  void saveLocation({required String key, required LocationData locationData}) {
+  void saveLocation({required String key, required UserLocationData locationData}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     _persistedData.setLocationData(
       locationData,

@@ -22,23 +22,21 @@ class _LocationWidget extends State<LocationWidget> {
   }
 
   Widget _body() {
-    final LocationCubit blck = Modular.get<LocationCubit>();
+    final LocationCubit locationCubit = Modular.get<LocationCubit>();
     return BlocBuilder<LocationCubit, LocationState>(
-        bloc: blck,
+        bloc: locationCubit,
         builder: (context, state) {
           debugPrint('🧐 STATE: $state');
+          bool showGetLocation = false;
+          UserLocationData locationData;
           List<Widget> column = [];
           switch (state.locationServiceStatus) {
             case LocationServiceStatus.initial:
-              blck.setup();
+              locationCubit.setup();
               break;
             case LocationServiceStatus.setupComplete:
               column.add(message('setup complete'));
-              final button = TextButton(
-                onPressed: () => blck.getCurrentLocation(),
-                child: message('get location data'),
-              );
-              column.add(button);
+              showGetLocation = true;
               break;
             case LocationServiceStatus.denied:
               column.add(message('Permission denined'));
@@ -57,6 +55,8 @@ class _LocationWidget extends State<LocationWidget> {
             default:
               debugPrint('☠️ ${state.locationServiceStatus} not handled');
           }
+          if (showGetLocation) column.add(_getLocationButton(locationCubit));
+
           column.add(message('Done'));
           return Center(
               child: Column(
@@ -66,6 +66,15 @@ class _LocationWidget extends State<LocationWidget> {
         });
   }
 
+  Widget _getLocationButton(LocationCubit locationCubit) => TextButton(
+        onPressed: () => locationCubit.getCurrentLocation(),
+        child: message('get location data'),
+      );
+
+  Widget _saveLocationButton(LocationCubit locationCubit) => TextButton(
+        onPressed: () => locationCubit.getCurrentLocation(),
+        child: message('save location data'),
+      );
   Text message(String s) {
     return Text(
       s,

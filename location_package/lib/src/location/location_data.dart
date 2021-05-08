@@ -1,15 +1,18 @@
 import 'package:hive/hive.dart';
 
+import 'user_location_data.dart';
+
 part 'location_data.g.dart';
 
+
 @HiveType(typeId: 0)
-class LocationData extends HiveObject {
+class LocationData extends HiveObject implements UserLocationData {
   @HiveField(0)
-  final double latitude;
+  late final double latitude;
   @HiveField(1)
-  final double longitude;
+  late final double longitude;
   @HiveField(2)
-  final DateTime dateTimestamp;
+  late final DateTime dateTimestamp;
 
   LocationData({required this.latitude, required this.longitude, required this.dateTimestamp});
 

@@ -1,5 +1,6 @@
 import 'package:location_package/src/app_exceptions.dart';
 import 'package:location_package/src/location/location_data.dart';
+import 'package:location_package/src/location/user_location_data.dart';
 import 'package:location_package/src/persisted_data/hive_persisted_data.dart';
 import 'package:location_package/src/persisted_data/mock_persisted_data.dart';
 import 'package:test/test.dart';
@@ -15,7 +16,7 @@ void main() {
     MockPersistedData mockPersistedData = MockPersistedData();
     bool result = await mockPersistedData.setup();
     expect(result, true);
-    LocationData? value = mockPersistedData.getLocationData(usingKey: 'X');
+    UserLocationData? value = mockPersistedData.getLocationData(usingKey: 'X');
     expect(value, null);
   });
 
@@ -25,7 +26,7 @@ void main() {
     expect(result, true);
     final LocationData data = LocationData(latitude: 100.0, longitude: -50.0, dateTimestamp: DateTime.now());
     mockPersistedData.setLocationData(data, usingKey: 'zz');
-    LocationData? value = mockPersistedData.getLocationData(usingKey: 'zz');
+    UserLocationData? value = mockPersistedData.getLocationData(usingKey: 'zz');
     print('VALUE:${value?.toString()}');
     expect(value, data);
   });

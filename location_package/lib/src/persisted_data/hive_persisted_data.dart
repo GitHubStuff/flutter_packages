@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:location_package/src/location/location_data.dart';
+import 'package:location_package/src/location/user_location_data.dart';
 import 'package:location_package/src/persisted_data/persisted_data.dart';
 
 import '../app_exceptions.dart';
@@ -35,7 +36,7 @@ class HivePersistedData implements PersistedData {
   }
 
   @override
-  void setLocationData(LocationData value, {required String usingKey}) {
+  void setLocationData(UserLocationData value, {required String usingKey}) {
     if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
     _box.put(usingKey, value);
   }

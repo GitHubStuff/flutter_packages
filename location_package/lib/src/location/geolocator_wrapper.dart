@@ -8,6 +8,7 @@ import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
 import 'location_data.dart';
 import 'location_service.dart';
+import 'user_location_data.dart';
 
 /// This wraps the geolocator package (https://pub.dev/packages/geolocator) so that any Geolocator can be
 /// swapped in, this is because any wrapper must conform to 'LocationService'-class that wraps implementation
@@ -16,12 +17,12 @@ class GeolocatorWrapper extends LocationService {
   GeolocatorWrapper({required PersistedData persistedData}) : super(persistedData: persistedData);
 
   @override
-  Future<Either<LocationServiceStatus, LocationData?>> getCurrentLocation() async {
+  Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation() async {
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.deniedForever) return Left(LocationServiceStatus.deniedForever);
     try {
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-      LocationData result = LocationData(
+      UserLocationData result = LocationData(
         latitude: position.latitude,
         longitude: position.longitude,
         dateTimestamp: position.timestamp ?? DateTime.now(),

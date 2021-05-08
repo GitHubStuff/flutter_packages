@@ -1,166 +1,55 @@
 # location_package
 
-This package provides a BLoC design to get the user's location and providing information needed
-to use location services to find near-by locations
+This package provides a BLoC design to get the user's location, store that location on-device for later
+comparisons
 
 ## Getting Started
 
-### Persisted Data
+The example app has an implementation of the project. It uses MODULAR state managment, HIVE for
+on-Device storage of location lat/long/time, and GEOLOCATOR to get the device posistion.
 
-This element is to store location information on-device to use in comparing distance between current and save-location. The idea being that queries to back-end services can be reduced and that information on-boarded so that subsequent queries can use on-device data if the distance between the save position and current position is within a threshold (say 200 meters)
+1) Add a 'ModuleRoute' to the main.dart AppModule
 
-#### class LocationData
+example:
 
 ```dart
-@HiveType(typeId: 0)
-class LocationData extends HiveObject {
-  @HiveField(0)
-  final double latitude;
-  @HiveField(1)
-  final double longitude;
-  @HiveField(2)
-  final DateTime dateTimestamp;
-
-  LocationData({required this.latitude, required this.longitude, required this.dateTimestamp});
+class AppModule extends Module {
+  @override
+  List<Bind> get binds => [];
 
   @override
-  String toString() => 'LAT:$latitude LONG:$longitude TIME:${dateTimestamp.toIso8601String()}';
+  List<ModularRoute> get routes => [
+        ChildRoute('/', child: (_, __) => MyHomePage(title: 'Flutter Demo Home Page')),
+        ModuleRoute('/location', module: LocationModule(locationWidget: LocationWidget())),
+      ];
 }
 ```
 
-This class uses Hive package to persist and object that is a location, it has latitude, longitude, and timestamp.
+With a 'LocationWidget', the screen that is to be added to the app where access to the LocationState via the LocationCubit can process location events, saving/updating saved locations.
 
-#### class MockPersistedData
+2) Within the *locationWidget* get the LocationCubit and within a BlocBuilder handle state changes as needed
 
-```dart
-import '../../src/location/location_data.dart';
-import '../app_exceptions.dart';
-import 'persisted_data.dart';
-
-class MockPersistedData implements PersistedData {
-  static Map<String, LocationData> _data = Map();
-
-  // Must be called to simulate set-up likes those for hive & get_location packages
-  Future<bool> setup() async {
-    persistedDataSetupComplete = true;
-    return true;
-  }
-
-  // This method is exclusive to mock 
-  void overridePersistedData(bool newValue) => persistedDataSetupComplete = newValue;
-
-  LocationData? getLocationData({required String usingKey}) {
-    if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
-    return (_data.isEmpty) ? null : _data[usingKey];
-  }
-
-  void setLocationData(LocationData value, {required String usingKey}) {
-    if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
-    _data[usingKey] = value;
-  }
-}
-
-```
-
-This is used to Mock persisting the data for unit tests. The data saved/read is ***LocationData***
-
-#### class HivePeristedData
+example:
 
 ```dart
-class HivePersistedData implements PersistedData {
-  static late Box _box;
-
-  @override
-  Future<bool> setup() async {
-    try {
-      await Hive.initFlutter();
-      Hive.registerAdapter(LocationDataAdapter());
-      _box = await Hive.openBox(K.hiveBoxName);
-      persistedDataSetupComplete = true;
-      return true;
-    } on NullThrownError {} on MissingPluginException {} catch (e) {
-      throw UnknownHiveException(e.toString());
-    }
-    return false;
-  }
-
-  @override
-  LocationData? getLocationData({required String usingKey}) {
-    final locationData = _box.get(usingKey) as LocationData;
-    return locationData;
-  }
-
-  @override
-  void setLocationData(LocationData value, {required String usingKey}) {
-    _box.put(usingKey, value);
-  }
-}
+Widget _body() {
+    final LocationCubit locationCubit = Modular.get<LocationCubit>();
+    return BlocBuilder<LocationCubit, LocationState>(
+        bloc: locationCubit,
+        builder: (context, state) {
+          List<Widget> column = [];
+          switch (state.locationServiceStatus) {
+            case LocationServiceStatus.initial:
+              locationCubit.setup();  //* Must be inital call to initialize HIVE package
+              break;
+               :
+               :         
 ```
 
-Implementation using Hive for the backend-store
+*NOTE:* locationCubit.setup() must be called in LocationServiceStatus.initial to setup HIVE package
 
-#### class MockLocation
+The enum LocationServiceStatus has all the location service states
 
-```dart
-class MockLocation extends LocationService {
-  LocationData? locationData;
-  LocationServiceStatus locationServiceStatus;
-
-  MockLocation({required PersistedData persistedData, this.locationData, required this.locationServiceStatus}) : super(persistedData: persistedData);
-
-  @override
-  Future<LocationData?> getCurrentLocation() async => locationData;
-
-  @override
-  Future<LocationServiceStatus> getStatus() async => locationServiceStatus;
-}
-```
-
-Allows Mocking of a location, with the use a PersistedData class (like MockPersistedData or HivePersistedData)
-
-#### class GeolocationWrapper
-
-```dart
-class GeolocatorWrapper extends LocationService {
-  GeolocatorWrapper({required PersistedData persistedData}) : super(persistedData: persistedData);
-
-  @override
-  Future<LocationData?> getCurrentLocation() async {
-    LocationServiceStatus status = await getStatus();
-    if (status != LocationServiceStatus.enabled) return null;
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
-    LocationData result = LocationData(
-      latitude: position.latitude,
-      longitude: position.longitude,
-      dateTimestamp: position.timestamp ?? DateTime.now(),
-    );
-    return result;
-  }
-
-  @override
-  Future<LocationServiceStatus> getStatus() async {
-    try {
-      LocationPermission permission = await Geolocator.checkPermission();
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) return LocationServiceStatus.disabled;
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.denied) {
-          return LocationServiceStatus.denied;
-        }
-      }
-      if (permission == LocationPermission.deniedForever) {
-        return LocationServiceStatus.deniedForever;
-      }
-      return LocationServiceStatus.enabled;
-    } on PermissionDefinitionsNotFoundException {
-      throw MissingLocationPermission();
-    }
-  }
-}
-```
-
-Implementation of LocationServices that uses Geolocator package to the user/device latitude and longitude
 
 ## Conclusion
 

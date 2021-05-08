@@ -1,5 +1,5 @@
 // Copyright 2021, LTMM
-import '../../src/location/location_data.dart';
+import '../../src/location/user_location_data.dart';
 
 // Global value that can be used to indicate  'Future<bool>setup()' was called.
 bool persistedDataSetupComplete = false;
@@ -7,6 +7,6 @@ bool persistedDataSetupComplete = false;
 /// Abstract class apps follow when persisting LocationData
 abstract class PersistedData {
   Future<bool> setup();
-  LocationData? getLocationData({required String usingKey});
-  void setLocationData(LocationData value, {required String usingKey});
+  UserLocationData? getLocationData({required String usingKey});
+  void setLocationData(UserLocationData value, {required String usingKey});
 }
