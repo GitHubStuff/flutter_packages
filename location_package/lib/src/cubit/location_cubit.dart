@@ -1,12 +1,16 @@
+// Copyright 2021
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:location_package/src/location/location_data.dart';
 
-import '../../location_package.dart';
+import '../../src/app_exceptions.dart';
 import '../../src/location/location_service.dart';
+import '../../src/persisted_data/persisted_data.dart';
 import '../public_constants.dart';
 
 part 'location_state.dart';
 
+/// BLoC for the states/events of Location Readings, Saved Lookups, and Updates to Saved locations
 class LocationCubit extends Cubit<LocationState> {
   late LocationService _locationService;
   bool _setupComplete = false;

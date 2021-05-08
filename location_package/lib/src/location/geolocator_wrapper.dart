@@ -1,11 +1,17 @@
+// Copyright 2021
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../../location_package.dart';
 import '../app_exceptions.dart';
+import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
+import 'location_data.dart';
 import 'location_service.dart';
 
+/// This wraps the geolocator package (https://pub.dev/packages/geolocator) so that any Geolocator can be
+/// swapped in, this is because any wrapper must conform to 'LocationService'-class that wraps implementation
+/// details.
 class GeolocatorWrapper extends LocationService {
   GeolocatorWrapper({required PersistedData persistedData}) : super(persistedData: persistedData);
 

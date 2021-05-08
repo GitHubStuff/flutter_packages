@@ -1,10 +1,12 @@
+// Copyright 2021
 import 'package:dartz/dartz.dart';
 import 'package:location_package/src/location/location_data.dart';
 
-import '../../location_package.dart';
+import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
 import 'location_service.dart';
 
+/// Class to use as mock location service for testing/development
 class MockLocation extends LocationService {
   LocationData? locationData;
   LocationServiceStatus locationServiceStatus;

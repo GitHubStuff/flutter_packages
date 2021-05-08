@@ -14,5 +14,5 @@ class LocationData extends HiveObject {
   LocationData({required this.latitude, required this.longitude, required this.dateTimestamp});
 
   @override
-  String toString() => 'LAT:$latitude LONG:$longitude TIME:${dateTimestamp.toIso8601String()}';
+  String toString() => 'LAT:$latitude\nLONG:$longitude\nTIME:${dateTimestamp.toIso8601String()}';
 }

@@ -1,3 +1,4 @@
+// Copyright 2021
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:location_package/src/persisted_data/persisted_data.dart';
 import '../app_exceptions.dart';
 import '../private_constants.dart' as K;
 
+/// An implementation of 'PersistedData'-abstract class that uses Hive to persist location data
 class HivePersistedData implements PersistedData {
   static late Box _box;
 

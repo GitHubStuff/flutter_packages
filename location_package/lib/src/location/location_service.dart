@@ -1,9 +1,13 @@
+// Copyright 2021
 import 'package:dartz/dartz.dart';
-import 'package:location_package/location_package.dart';
 
+import '../app_exceptions.dart';
+import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
 import 'location_data.dart';
 
+/// Abstact class that any GeoLocation service {eg geolocator} must be wrapped in so
+/// that implementation details are abstracted away allow for any location service to be used
 abstract class LocationService {
   PersistedData _persistedData;
   bool _setupComplete = false;

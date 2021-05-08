@@ -22,6 +22,7 @@ dependencies:
       path: observing_stateful_widget
   dartz: ^0.10.0-nullsafety.1
   flutter_bloc: ^7.0.0
+  flutter_modular: ^3.2.0
   geolocator: ^7.0.3
   hive: ^2.0.4
   hive_flutter: ^1.0.0
