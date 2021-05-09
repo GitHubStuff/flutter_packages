@@ -15,3 +15,7 @@ class UnknownHiveException extends AppException {
 class UnknownLocationPermissionException extends AppException {
   UnknownLocationPermissionException([String message = '']) : super(message, 'Unknown Location Permission', 605);
 }
+
+class UnsupportedPlatform extends AppException {
+  UnsupportedPlatform({required String platform}) : super(platform, 'Unsupportd Platform', 909);
+}

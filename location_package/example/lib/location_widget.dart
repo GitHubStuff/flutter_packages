@@ -1,3 +1,4 @@
+// Copyright 2021, LTMM
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -40,7 +41,7 @@ class _LocationWidget extends State<LocationWidget> {
               column.add(message('setup complete'));
               break;
             case LocationServiceStatus.denied:
-              column.add(message('Permission denined'));
+              column.add(message('Permission denied'));
               break;
             case LocationServiceStatus.disabled:
               column.add(message('Location Serviced disabled'));
@@ -76,6 +77,7 @@ class _LocationWidget extends State<LocationWidget> {
           column.add(_getLocationButton(locationCubit));
           column.add(_getSaveLocationButton(locationCubit));
           column.add(_getIntervalButton(locationCubit));
+          column.add(_openLocationServiceButon(locationCubit));
           if (locationData != null) column.add(_saveLocationButton(locationCubit, locationData!));
 
           column.add(message('Done'));
@@ -84,6 +86,24 @@ class _LocationWidget extends State<LocationWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: column,
           ));
+        });
+  }
+
+  Widget _openLocationServiceButon(LocationCubit locationCubit) => TextButton(
+        onPressed: () => _showDialog(locationCubit),
+        child: message('Open Location Manager'),
+      );
+
+  Future<void> _showDialog(LocationCubit locationCubit) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return locationCubit.locationSettingsWidget(
+            title: 'Title',
+            content: 'Content',
+            openString: 'open',
+            cancelString: 'cancel',
+          );
         });
   }
 

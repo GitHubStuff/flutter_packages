@@ -33,4 +33,16 @@ class MockLocation extends LocationService {
     required UserLocationData? endLocation,
   }) =>
       mockUserLocationDistance;
+
+  @override
+  Future<bool> openAndroidLocationSettings() {
+    // TODO: implement openAndroidLocationSettings
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> openIosLocationSettings() {
+    // TODO: implement openIosLocationSettings
+    throw UnimplementedError();
+  }
 }

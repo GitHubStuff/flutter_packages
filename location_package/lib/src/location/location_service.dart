@@ -12,14 +12,21 @@ import 'user_location_data.dart';
 abstract class LocationService {
   PersistedData _persistedData;
   bool _setupComplete = false;
+
   LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
-  Future<LocationServiceStatus> getStatus();
+
   Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation();
-  UserLocationDistance? userLocationDistance({required UserLocationData? startLocation, required UserLocationData? endLocation});
+
   UserLocationData? getSavedLocation({required String key}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     return _persistedData.getLocationData(usingKey: key);
   }
+
+  Future<LocationServiceStatus> getStatus();
+
+  Future<bool> openAndroidLocationSettings();
+
+  Future<bool> openIosLocationSettings();
 
   void saveLocation({required String key, required UserLocationData locationData}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
@@ -35,4 +42,6 @@ abstract class LocationService {
     _setupComplete = persistedDataSetupComplete;
     return _setupComplete;
   }
+
+  UserLocationDistance? userLocationDistance({required UserLocationData? startLocation, required UserLocationData? endLocation});
 }

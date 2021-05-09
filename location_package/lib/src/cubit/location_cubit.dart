@@ -1,8 +1,10 @@
 // Copyright 2021
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:location_package/location_package.dart';
 import 'package:location_package/src/location/user_location_data.dart';
+import 'package:location_package/src/widgets/location_permission_widget.dart';
 
 import '../../src/app_exceptions.dart';
 import '../../src/location/location_service.dart';
@@ -62,6 +64,21 @@ class LocationCubit extends Cubit<LocationState> {
   void getSavedLocation({required String key}) {
     UserLocationData? data = _locationService.getSavedLocation(key: key);
     emit(GotCurrentLocation(data));
+  }
+
+  Widget locationSettingsWidget({
+    required String title,
+    required String content,
+    required String openString,
+    required String cancelString,
+  }) {
+    return LocationPermissionWidget(
+      locationService: _locationService,
+      title: title,
+      content: content,
+      openString: openString,
+      cancelString: cancelString,
+    );
   }
 
   void saveLocation(UserLocationData userLocationData, {required String key}) {

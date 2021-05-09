@@ -1,6 +1,6 @@
 name: location_package
 description: BLoC design for getting/persisting/comparing location data
-version: 0.0.1+7
+version: 0.0.2+0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'

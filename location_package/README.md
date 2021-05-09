@@ -33,6 +33,12 @@ With a 'LocationWidget', the screen that is to be added to the app where access 
 LocationCubit.compareCurrentLocationAndSavedLocation({required String key});
 LocationCubit.getCurrentLocation();
 LocationCubit.getSavedLocation();
+Widget LocationCubit.locationSettingsWidget({
+    required String title,
+    required String content,
+    required String openString,
+    required String cancelString,
+  });
 LocationCubit.saveLocation({required String key});
 LocationCubit.setup()
 ```

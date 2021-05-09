@@ -55,6 +55,12 @@ class GeolocatorWrapper extends LocationService {
   }
 
   @override
+  Future<bool> openAndroidLocationSettings() async => await Geolocator.openAppSettings();
+
+  @override
+  Future<bool> openIosLocationSettings() async => await Geolocator.openLocationSettings();
+
+  @override
   UserLocationDistance? userLocationDistance({required UserLocationData? startLocation, required UserLocationData? endLocation}) {
     if (startLocation == null || endLocation == null) return null;
     final distance = Geolocator.distanceBetween(
