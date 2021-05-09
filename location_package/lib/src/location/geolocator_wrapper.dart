@@ -17,9 +17,9 @@ class GeolocatorWrapper extends LocationService {
   GeolocatorWrapper({required PersistedData persistedData}) : super(persistedData: persistedData);
 
   @override
-  Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation() async {
+  Future<Either<LocationServiceState, UserLocationData?>> getCurrentLocation() async {
     LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) return Left(LocationServiceStatus.deniedForever);
+    if (permission == LocationPermission.deniedForever) return Left(LocationServiceState.deniedForever);
     try {
       Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.bestForNavigation);
       UserLocationData result = LocationData(
@@ -29,26 +29,26 @@ class GeolocatorWrapper extends LocationService {
       );
       return Right(result);
     } on PermissionDeniedException {
-      return Left(LocationServiceStatus.denied);
+      return Left(LocationServiceState.denied);
     }
   }
 
   @override
-  Future<LocationServiceStatus> getStatus() async {
+  Future<LocationServiceState> getStatus() async {
     try {
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) return LocationServiceStatus.disabled;
+      if (!serviceEnabled) return LocationServiceState.disabled;
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          return LocationServiceStatus.denied;
+          return LocationServiceState.denied;
         }
       }
       if (permission == LocationPermission.deniedForever) {
-        return LocationServiceStatus.deniedForever;
+        return LocationServiceState.deniedForever;
       }
-      return LocationServiceStatus.enabled;
+      return LocationServiceState.enabled;
     } on PermissionDefinitionsNotFoundException {
       throw MissingLocationPermission();
     }

@@ -33,44 +33,44 @@ class _LocationWidget extends State<LocationWidget> {
         builder: (context, state) {
           debugPrint('🧐 STATE: $state');
           List<Widget> column = [];
-          switch (state.locationServiceStatus) {
-            case LocationServiceStatus.initial:
+          switch (state.locationServiceState) {
+            case LocationServiceState.initial:
               locationCubit.setup();
               break;
-            case LocationServiceStatus.setupComplete:
+            case LocationServiceState.setupComplete:
               column.add(message('setup complete'));
               break;
-            case LocationServiceStatus.denied:
+            case LocationServiceState.denied:
               column.add(message('Permission denied'));
               break;
-            case LocationServiceStatus.disabled:
+            case LocationServiceState.disabled:
               column.add(message('Location Serviced disabled'));
               break;
-            case LocationServiceStatus.deniedForever:
+            case LocationServiceState.deniedForever:
               column.add(message('Location denied forever!!'));
               break;
-            case LocationServiceStatus.locationData:
+            case LocationServiceState.locationData:
               if (state is GotCurrentLocation) {
                 locationData = state.locationData;
                 column.add(message('Data:${state.locationData.toString()}'));
               }
               break;
-            case LocationServiceStatus.locationDataRetrieved:
+            case LocationServiceState.locationDataRetrieved:
               if (state is GotSavedLocation) {
                 locationData = state.locationData;
                 column.add(message('Saved Location:\n${state.locationData.toString()}'));
               }
               break;
-            case LocationServiceStatus.locationDataSaved:
+            case LocationServiceState.locationDataSaved:
               column.add(message('Location Saved!'));
               break;
-            case LocationServiceStatus.missingPermission:
-            case LocationServiceStatus.enabled:
-              final str = '☠️ ${state.locationServiceStatus} not handled';
+            case LocationServiceState.missingPermission:
+            case LocationServiceState.enabled:
+              final str = '☠️ ${state.locationServiceState} not handled';
               debugPrint(str);
               column.add(message(str));
               break;
-            case LocationServiceStatus.gotUserLocationDistance:
+            case LocationServiceState.gotUserLocationDistance:
               if (state is GotUserLocationDistance) column.add(message('distance/interval:\n${state.userLocationDistance}'));
               break;
           }

@@ -1,49 +1,49 @@
 part of 'location_cubit.dart';
 
 abstract class LocationState {
-  final LocationServiceStatus locationServiceStatus;
-  LocationState(this.locationServiceStatus);
+  final LocationServiceState locationServiceState;
+  LocationState(this.locationServiceState);
 }
 
 class GotCurrentLocation extends LocationState {
   final UserLocationData? locationData;
-  GotCurrentLocation(this.locationData) : super(LocationServiceStatus.locationData);
+  GotCurrentLocation(this.locationData) : super(LocationServiceState.locationData);
 }
 
 class GotSavedLocation extends LocationState {
   final UserLocationData? locationData;
-  GotSavedLocation(this.locationData) : super(LocationServiceStatus.locationDataRetrieved);
+  GotSavedLocation(this.locationData) : super(LocationServiceState.locationDataRetrieved);
 }
 
 class GotUserLocationDistance extends LocationState {
   final UserLocationDistance? userLocationDistance;
-  GotUserLocationDistance(this.userLocationDistance) : super(LocationServiceStatus.gotUserLocationDistance);
+  GotUserLocationDistance(this.userLocationDistance) : super(LocationServiceState.gotUserLocationDistance);
 }
 
 class LocationDataSaved extends LocationState {
-  LocationDataSaved() : super(LocationServiceStatus.locationDataSaved);
+  LocationDataSaved() : super(LocationServiceState.locationDataSaved);
 }
 
 class LocationInitial extends LocationState {
-  LocationInitial() : super(LocationServiceStatus.initial);
+  LocationInitial() : super(LocationServiceState.initial);
 }
 
 class LocationServiceDenied extends LocationState {
-  LocationServiceDenied() : super(LocationServiceStatus.denied);
+  LocationServiceDenied() : super(LocationServiceState.denied);
 }
 
 class LocationServiceDeniendForever extends LocationState {
-  LocationServiceDeniendForever() : super(LocationServiceStatus.deniedForever);
+  LocationServiceDeniendForever() : super(LocationServiceState.deniedForever);
 }
 
 class LocationServiceDisabled extends LocationState {
-  LocationServiceDisabled() : super(LocationServiceStatus.disabled);
+  LocationServiceDisabled() : super(LocationServiceState.disabled);
 }
 
 class LocationServiceServiceEnabled extends LocationState {
-  LocationServiceServiceEnabled() : super(LocationServiceStatus.enabled);
+  LocationServiceServiceEnabled() : super(LocationServiceState.enabled);
 }
 
 class SetupComplete extends LocationState {
-  SetupComplete() : super(LocationServiceStatus.setupComplete);
+  SetupComplete() : super(LocationServiceState.setupComplete);
 }

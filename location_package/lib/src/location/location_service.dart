@@ -15,14 +15,14 @@ abstract class LocationService {
 
   LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
 
-  Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation();
+  Future<Either<LocationServiceState, UserLocationData?>> getCurrentLocation();
 
   UserLocationData? getSavedLocation({required String key}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     return _persistedData.getLocationData(usingKey: key);
   }
 
-  Future<LocationServiceStatus> getStatus();
+  Future<LocationServiceState> getStatus();
 
   Future<bool> openAndroidLocationSettings();
 

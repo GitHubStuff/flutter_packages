@@ -1,7 +1,7 @@
 // Copyright 2021, LTMM
 
 /// Status/States returned by LocationService methods
-enum LocationServiceStatus {
+enum LocationServiceState {
   denied,
   deniedForever,
   disabled,

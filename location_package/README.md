@@ -43,7 +43,7 @@ LocationCubit.saveLocation({required String key});
 LocationCubit.setup()
 ```
 
-*NOTE:* locationCubit.setup() must be called in LocationServiceStatus.initial to setup HIVE package
+*NOTE:* locationCubit.setup() must be called in LocationServiceState.initial to setup HIVE package
 
 example:
 
@@ -54,14 +54,13 @@ Widget _body() {
         bloc: locationCubit,
         builder: (context, state) {
           List<Widget> column = [];
-          switch (state.locationServiceStatus) {
-            case LocationServiceStatus.initial:
+          switch (state.locationServiceState) {
+            case LocationServiceState.initial:
               locationCubit.setup();  //* Must be inital call to initialize HIVE package
               break;
                :
                :         
 ```
-
 
 ## Conclusion
 

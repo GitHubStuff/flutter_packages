@@ -11,21 +11,21 @@ import 'location_service.dart';
 /// Class to use as mock location service for testing/development
 class MockLocation extends LocationService {
   LocationData? locationData;
-  LocationServiceStatus locationServiceStatus;
+  LocationServiceState locationServiceState;
   UserLocationDistance? mockUserLocationDistance;
 
   MockLocation({
     required PersistedData persistedData,
     this.locationData,
-    required this.locationServiceStatus,
+    required this.locationServiceState,
     this.mockUserLocationDistance,
   }) : super(persistedData: persistedData);
 
   @override
-  Future<Either<LocationServiceStatus, LocationData?>> getCurrentLocation() async => locationData == null ? Left(LocationServiceStatus.denied) : Right(locationData);
+  Future<Either<LocationServiceState, LocationData?>> getCurrentLocation() async => locationData == null ? Left(LocationServiceState.denied) : Right(locationData);
 
   @override
-  Future<LocationServiceStatus> getStatus() async => locationServiceStatus;
+  Future<LocationServiceState> getStatus() async => locationServiceState;
 
   @override
   UserLocationDistance? userLocationDistance({

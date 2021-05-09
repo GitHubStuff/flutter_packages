@@ -30,7 +30,7 @@ class LocationCubit extends Cubit<LocationState> {
       emit(GotUserLocationDistance(null));
       return;
     }
-    Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
+    Either<LocationServiceState, UserLocationData?> result = await _locationService.getCurrentLocation();
     result.fold((left) {
       emit(GotUserLocationDistance(null)); //TODO: Better error correction
     }, (right) {
@@ -40,16 +40,16 @@ class LocationCubit extends Cubit<LocationState> {
   }
 
   void getCurrentLocation() async {
-    Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
+    Either<LocationServiceState, UserLocationData?> result = await _locationService.getCurrentLocation();
     result.fold((left) {
       switch (left) {
-        case LocationServiceStatus.denied:
+        case LocationServiceState.denied:
           emit(LocationServiceDenied());
           break;
-        case LocationServiceStatus.deniedForever:
+        case LocationServiceState.deniedForever:
           emit(LocationServiceDeniendForever());
           break;
-        case LocationServiceStatus.disabled:
+        case LocationServiceState.disabled:
           emit(LocationServiceDisabled());
           break;
         default:
