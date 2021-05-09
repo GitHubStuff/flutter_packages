@@ -30,6 +30,15 @@ class SetupComplete extends LocationState {
 }
 
 class LocationDataReturned extends LocationState {
-  final UserLocationData locationData;
+  final UserLocationData? locationData;
   LocationDataReturned(this.locationData) : super(LocationServiceStatus.locationData);
+}
+
+class LocationDataRetrived extends LocationState {
+  final UserLocationData? locationData;
+  LocationDataRetrived(this.locationData) : super(LocationServiceStatus.locationDataRetrieved);
+}
+
+class LocationDataSaved extends LocationState {
+  LocationDataSaved() : super(LocationServiceStatus.locationDataSaved);
 }

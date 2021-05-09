@@ -1,6 +1,7 @@
 // Copyright 2021
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
+import 'package:location_package/location_package.dart';
 import 'package:location_package/src/location/user_location_data.dart';
 
 import '../../src/app_exceptions.dart';
@@ -18,13 +19,6 @@ class LocationCubit extends Cubit<LocationState> {
   LocationCubit({required LocationService locationService})
       : _locationService = locationService,
         super(LocationInitial());
-
-  void setup() async {
-    await _locationService.setup();
-    _setupComplete = persistedDataSetupComplete;
-    if (!_setupComplete) throw PersistedStorageNotSetup();
-    emit(SetupComplete());
-  }
 
   void getCurrentLocation() async {
     Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
@@ -46,5 +40,22 @@ class LocationCubit extends Cubit<LocationState> {
       if (right == null) throw UnknownLocationPermissionException('Returned NULL location data');
       emit(LocationDataReturned(right));
     });
+  }
+
+  void getSavedLocation({required String key}) {
+    UserLocationData? data = _locationService.getSavedLocation(key: key);
+    emit(LocationDataReturned(data));
+  }
+
+  void saveLocation(UserLocationData userLocationData, {required String key}) {
+    _locationService.saveLocation(key: key, locationData: userLocationData);
+    emit(LocationDataSaved());
+  }
+
+  void setup() async {
+    await _locationService.setup();
+    _setupComplete = persistedDataSetupComplete;
+    if (!_setupComplete) throw PersistedStorageNotSetup();
+    emit(SetupComplete());
   }
 }

@@ -31,8 +31,8 @@ class HivePersistedData implements PersistedData {
   @override
   LocationData? getLocationData({required String usingKey}) {
     if (!persistedDataSetupComplete) throw PersistedStorageNotSetup();
-    final locationData = _box.get(usingKey) as LocationData;
-    return locationData;
+    dynamic locationData = _box.get(usingKey);
+    return locationData == null ? null : locationData as LocationData;
   }
 
   @override

@@ -3,12 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:location_package/location_package.dart';
 
+const String LOCATION_KEY = 'location_key';
+
 class LocationWidget extends StatefulWidget {
   @override
   _LocationWidget createState() => _LocationWidget();
 }
 
 class _LocationWidget extends State<LocationWidget> {
+  UserLocationData? locationData;
+
   @override
   Widget build(BuildContext context) {
     return _scaffold();
@@ -27,8 +31,6 @@ class _LocationWidget extends State<LocationWidget> {
         bloc: locationCubit,
         builder: (context, state) {
           debugPrint('🧐 STATE: $state');
-          bool showGetLocation = false;
-          UserLocationData locationData;
           List<Widget> column = [];
           switch (state.locationServiceStatus) {
             case LocationServiceStatus.initial:
@@ -36,7 +38,6 @@ class _LocationWidget extends State<LocationWidget> {
               break;
             case LocationServiceStatus.setupComplete:
               column.add(message('setup complete'));
-              showGetLocation = true;
               break;
             case LocationServiceStatus.denied:
               column.add(message('Permission denined'));
@@ -49,13 +50,28 @@ class _LocationWidget extends State<LocationWidget> {
               break;
             case LocationServiceStatus.locationData:
               if (state is LocationDataReturned) {
-                column.add(message('${state.locationData.toString()}'));
+                locationData = state.locationData;
+                column.add(message('Data:${state.locationData.toString()}'));
               }
               break;
-            default:
-              debugPrint('☠️ ${state.locationServiceStatus} not handled');
+            case LocationServiceStatus.locationDataRetrieved:
+              if (state is LocationDataRetrived) {
+                locationData = state.locationData;
+                column.add(message('Saved Location:\n${state.locationData.toString()}'));
+              }
+              break;
+            case LocationServiceStatus.locationDataSaved:
+              column.add(message('Location Saved!'));
+              break;
+            case LocationServiceStatus.missingPermission:
+            case LocationServiceStatus.enabled:
+              final str = '☠️ ${state.locationServiceStatus} not handled';
+              debugPrint(str);
+              column.add(message(str));
           }
-          if (showGetLocation) column.add(_getLocationButton(locationCubit));
+          column.add(_getLocationButton(locationCubit));
+          column.add(_getSaveLocationButton(locationCubit));
+          if (locationData != null) column.add(_saveLocationButton(locationCubit, locationData!));
 
           column.add(message('Done'));
           return Center(
@@ -71,10 +87,16 @@ class _LocationWidget extends State<LocationWidget> {
         child: message('get location data'),
       );
 
-  Widget _saveLocationButton(LocationCubit locationCubit) => TextButton(
-        onPressed: () => locationCubit.getCurrentLocation(),
-        child: message('save location data'),
+  Widget _getSaveLocationButton(LocationCubit locationCubit) => TextButton(
+        onPressed: () => locationCubit.getSavedLocation(key: LOCATION_KEY),
+        child: message('get saved location'),
       );
+
+  Widget _saveLocationButton(LocationCubit locationCubit, UserLocationData locationData) => TextButton(
+        onPressed: () => locationCubit.saveLocation(locationData, key: LOCATION_KEY),
+        child: message('save location'),
+      );
+
   Text message(String s) {
     return Text(
       s,

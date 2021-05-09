@@ -8,6 +8,8 @@ enum LocationServiceStatus {
   enabled,
   initial,
   locationData,
+  locationDataRetrieved,
+  locationDataSaved,
   missingPermission,
   setupComplete,
 }
