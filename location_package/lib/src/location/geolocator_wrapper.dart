@@ -53,4 +53,17 @@ class GeolocatorWrapper extends LocationService {
       throw MissingLocationPermission();
     }
   }
+
+  @override
+  UserLocationDistance? userLocationDistance({required UserLocationData? startLocation, required UserLocationData? endLocation}) {
+    if (startLocation == null || endLocation == null) return null;
+    final distance = Geolocator.distanceBetween(
+      startLocation.latitude,
+      startLocation.longitude,
+      endLocation.latitude,
+      endLocation.longitude,
+    );
+    final interval = endLocation.dateTimestamp.difference(startLocation.dateTimestamp);
+    return UserLocationDistance(distanceInMeters: distance, interval: interval);
+  }
 }

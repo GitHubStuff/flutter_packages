@@ -18,10 +18,10 @@ class _LocationWidget extends State<LocationWidget> {
     return _scaffold();
   }
 
-  Widget _scaffold() {
-    return Scaffold(
-      appBar: AppBar(title: Text('Fetch location')),
-      body: Center(child: _body()),
+  Text message(String s) {
+    return Text(
+      s,
+      style: TextStyle(fontSize: 24.0),
     );
   }
 
@@ -49,13 +49,13 @@ class _LocationWidget extends State<LocationWidget> {
               column.add(message('Location denied forever!!'));
               break;
             case LocationServiceStatus.locationData:
-              if (state is LocationDataReturned) {
+              if (state is GotCurrentLocation) {
                 locationData = state.locationData;
                 column.add(message('Data:${state.locationData.toString()}'));
               }
               break;
             case LocationServiceStatus.locationDataRetrieved:
-              if (state is LocationDataRetrived) {
+              if (state is GotSavedLocation) {
                 locationData = state.locationData;
                 column.add(message('Saved Location:\n${state.locationData.toString()}'));
               }
@@ -68,9 +68,14 @@ class _LocationWidget extends State<LocationWidget> {
               final str = '☠️ ${state.locationServiceStatus} not handled';
               debugPrint(str);
               column.add(message(str));
+              break;
+            case LocationServiceStatus.gotUserLocationDistance:
+              if (state is GotUserLocationDistance) column.add(message('distance/interval:\n${state.userLocationDistance}'));
+              break;
           }
           column.add(_getLocationButton(locationCubit));
           column.add(_getSaveLocationButton(locationCubit));
+          column.add(_getIntervalButton(locationCubit));
           if (locationData != null) column.add(_saveLocationButton(locationCubit, locationData!));
 
           column.add(message('Done'));
@@ -81,6 +86,11 @@ class _LocationWidget extends State<LocationWidget> {
           ));
         });
   }
+
+  Widget _getIntervalButton(LocationCubit locationCubit) => TextButton(
+        onPressed: () => locationCubit.compareCurrentLocationAndSavedLocation(key: LOCATION_KEY),
+        child: message('get locations distance/interval'),
+      );
 
   Widget _getLocationButton(LocationCubit locationCubit) => TextButton(
         onPressed: () => locationCubit.getCurrentLocation(),
@@ -97,10 +107,10 @@ class _LocationWidget extends State<LocationWidget> {
         child: message('save location'),
       );
 
-  Text message(String s) {
-    return Text(
-      s,
-      style: TextStyle(fontSize: 24.0),
+  Widget _scaffold() {
+    return Scaffold(
+      appBar: AppBar(title: Text('Fetch location')),
+      body: Center(child: _body()),
     );
   }
 }

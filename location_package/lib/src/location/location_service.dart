@@ -1,6 +1,7 @@
 // Copyright 2021
 import 'package:dartz/dartz.dart';
 
+import '../../location_package.dart';
 import '../app_exceptions.dart';
 import '../persisted_data/persisted_data.dart';
 import '../public_constants.dart';
@@ -14,6 +15,7 @@ abstract class LocationService {
   LocationService({required PersistedData persistedData}) : _persistedData = persistedData;
   Future<LocationServiceStatus> getStatus();
   Future<Either<LocationServiceStatus, UserLocationData?>> getCurrentLocation();
+  UserLocationDistance? userLocationDistance({required UserLocationData? startLocation, required UserLocationData? endLocation});
   UserLocationData? getSavedLocation({required String key}) {
     if (!_setupComplete) throw PersistedStorageNotSetup();
     return _persistedData.getLocationData(usingKey: key);
@@ -28,6 +30,7 @@ abstract class LocationService {
   }
 
   Future<bool> setup() async {
+    if (_setupComplete) return true;
     await _persistedData.setup();
     _setupComplete = persistedDataSetupComplete;
     return _setupComplete;

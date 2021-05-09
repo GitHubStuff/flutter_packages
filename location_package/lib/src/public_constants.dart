@@ -6,6 +6,7 @@ enum LocationServiceStatus {
   deniedForever,
   disabled,
   enabled,
+  gotUserLocationDistance,
   initial,
   locationData,
   locationDataRetrieved,

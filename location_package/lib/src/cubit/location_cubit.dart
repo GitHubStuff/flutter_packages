@@ -11,6 +11,8 @@ import '../public_constants.dart';
 
 part 'location_state.dart';
 
+typedef LocationDistances = double Function(UserLocationData, UserLocationData);
+
 /// BLoC for the states/events of Location Readings, Saved Lookups, and Updates to Saved locations
 class LocationCubit extends Cubit<LocationState> {
   late LocationService _locationService;
@@ -19,6 +21,21 @@ class LocationCubit extends Cubit<LocationState> {
   LocationCubit({required LocationService locationService})
       : _locationService = locationService,
         super(LocationInitial());
+
+  void compareCurrentLocationAndSavedLocation({required String key}) async {
+    UserLocationData? data = _locationService.getSavedLocation(key: key);
+    if (data == null) {
+      emit(GotUserLocationDistance(null));
+      return;
+    }
+    Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
+    result.fold((left) {
+      emit(GotUserLocationDistance(null)); //TODO: Better error correction
+    }, (right) {
+      final UserLocationDistance? result = (right == null) ? null : _locationService.userLocationDistance(startLocation: data, endLocation: right);
+      emit(GotUserLocationDistance(result));
+    });
+  }
 
   void getCurrentLocation() async {
     Either<LocationServiceStatus, UserLocationData?> result = await _locationService.getCurrentLocation();
@@ -38,13 +55,13 @@ class LocationCubit extends Cubit<LocationState> {
       }
     }, (right) {
       if (right == null) throw UnknownLocationPermissionException('Returned NULL location data');
-      emit(LocationDataReturned(right));
+      emit(GotCurrentLocation(right));
     });
   }
 
   void getSavedLocation({required String key}) {
     UserLocationData? data = _locationService.getSavedLocation(key: key);
-    emit(LocationDataReturned(data));
+    emit(GotCurrentLocation(data));
   }
 
   void saveLocation(UserLocationData userLocationData, {required String key}) {

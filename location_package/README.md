@@ -29,6 +29,16 @@ With a 'LocationWidget', the screen that is to be added to the app where access 
 
 2) Within the *locationWidget* get the LocationCubit and within a BlocBuilder handle state changes as needed
 
+```dart
+LocationCubit.compareCurrentLocationAndSavedLocation({required String key});
+LocationCubit.getCurrentLocation();
+LocationCubit.getSavedLocation();
+LocationCubit.saveLocation({required String key});
+LocationCubit.setup()
+```
+
+*NOTE:* locationCubit.setup() must be called in LocationServiceStatus.initial to setup HIVE package
+
 example:
 
 ```dart
@@ -45,10 +55,6 @@ Widget _body() {
                :
                :         
 ```
-
-*NOTE:* locationCubit.setup() must be called in LocationServiceStatus.initial to setup HIVE package
-
-The enum LocationServiceStatus has all the location service states
 
 
 ## Conclusion

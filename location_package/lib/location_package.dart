@@ -3,6 +3,7 @@ library location_package;
 export 'src/app_exceptions.dart';
 export 'src/child_module/location_module.dart';
 export 'src/cubit/location_cubit.dart';
+export 'src/distance/user_location_distance.dart';
 export 'src/location/location_service.dart';
 export 'src/location/mock_location.dart';
 export 'src/location/user_location_data.dart';
