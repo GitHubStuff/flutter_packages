@@ -9,6 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  json_decoder:
+    path: ../
+  app_exception:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: app_exception
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

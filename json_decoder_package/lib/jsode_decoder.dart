@@ -16,11 +16,11 @@ enum JsonDecodeType {
 
 /// Gateway class with static method "decode" to parse/decode a json string
 class JSONDecoder {
-  static Either<Exception, JsonDecoded> decode(String data) {
+  static Either<T, JsonDecoded> decode<T extends Exception>(String data) {
     try {
       return Right(JsonDecoded(data));
     } catch (error) {
-      return Left(error as Exception);
+      return Left(error as T);
     }
   }
 }
@@ -29,9 +29,10 @@ class JSONDecoder {
 /// and accessors (jsonMap and jsonList) for decoded values according to type.
 class JsonDecoded {
   final String source;
-  DateTime _startDecode = DateTime.now().toUtc();
+  late DateTime _startDecode;
   DateTime? _finishDecode;
   dynamic? result;
+
   JsonDecoded(this.source) {
     _startDecode = DateTime.now().toUtc();
     result = jsonDecoder(source);
@@ -41,7 +42,7 @@ class JsonDecoded {
   Duration? get duration => _finishDecode == null ? null : _finishDecode!.difference(_startDecode);
   List<Map<String, dynamic>>? get jsonConvertListDynamic => (result == null) ? null : (result as List).map((e) => e as Map<String, dynamic>).toList();
   Map<String, dynamic>? get jsonMap => (result == null || result is List) ? null : result as Map<String, dynamic>;
-  List<Map<String, dynamic>>? get jsonList => (result is List) ? result as List<Map<String, dynamic>> : null;
+  List<Map<String, dynamic>>? get jsonList => (result == null || result is Map) ? null : result as List<Map<String, dynamic>>;
   JsonDecodeType? get jsonType => (result == null)
       ? null
       : (result is List)
@@ -49,7 +50,7 @@ class JsonDecoded {
           : JsonDecodeType.map;
 
   String toString() {
-    final String type = jsonType == null ? "type: null" : "type: ${EnumToString.convertToString(jsonType)}";
+    final String type = (jsonType == null) ? "type: null" : "type: ${EnumToString.convertToString(jsonType)}";
     final String decodeTime = "Decode: ${duration == null ? 'N/A' : duration!.inMilliseconds}/ms";
     return '$type, $decodeTime, source:$source';
   }

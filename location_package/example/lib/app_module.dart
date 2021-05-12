@@ -12,5 +12,6 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, __) => MyHomePage(title: 'Flutter Demo Home Page')),
         ModuleRoute('/location', module: LocationModule(locationWidget: LocationWidget())),
+        //ModuleRoute('/location', module: BufferModule()),
       ];
 }

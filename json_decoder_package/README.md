@@ -7,7 +7,7 @@ Performs "safe" json decoding, and returns information about type (list, map), a
 example
 
 ```dart
-final String good = '[{"name":"steven","title":"grand poobah"},{"name":"steven","title":"grand poobah"}]';
+final String good = '[{"name":"steven","title":"grand poobah"},{"name":"kevin","title":"guitar player"}]';
     final Either<Exception, JsonDecoded> goodResult = JSONDecoder.decode(good);
     goodResult.fold(
       (l) => debugPrint('Error ${l.toString()}'),

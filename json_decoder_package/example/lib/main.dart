@@ -47,10 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _decodePatch('[{"name":"steven","title":"grand poobah"},{"name":"kevin","title":"guitar player"}]'),
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),
     );
+  }
+
+  void _decodePatch(String jsonString) {
+    
   }
 }
