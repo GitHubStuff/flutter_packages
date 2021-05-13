@@ -1,4 +1,4 @@
-# animated_checkbox_widget_package_app 8-Mar-2021
+# animated_ballot_package_app 8-Mar-2021
 
 Minimal Flutter App
 

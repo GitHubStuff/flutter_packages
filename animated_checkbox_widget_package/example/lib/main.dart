@@ -1,4 +1,4 @@
-import 'package:animated_checkbox_widget_package/source/animated_checkbox.dart';
+import 'package:animated_ballot_package/animated_ballot_package.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -52,8 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
               //borderWidgth: 2.0,
               //checkmarkColor: Colors.green,
               //boxColor: Colors.red,
-              animationDuration: Duration(seconds: 3),
+              animationDuration: Duration(seconds: 1),
               //checkmarkStroke: 4.0,
+            ),
+            AnimatedCheckMark(
+              animatedAction: forward ? AnimatedAction.draw : AnimatedAction.reset,
+              sideLength: 56.0,
             ),
           ],
         ),

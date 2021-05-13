@@ -1,4 +1,4 @@
-# animated_checkbox_widget_package
+# animated_ballot_package
 
 Template for Flutter package project.
 

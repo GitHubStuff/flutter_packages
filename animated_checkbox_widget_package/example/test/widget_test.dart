@@ -8,7 +8,7 @@
 /*
 import 'package:flutter/material.dart';
 
-import 'package:animated_checkbox_widget_package/main.dart';
+import 'package:animated_ballot_package/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

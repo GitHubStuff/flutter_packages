@@ -1,10 +1,9 @@
-import 'package:animated_check/animated_check.dart';
 import 'package:flutter/material.dart';
 
-enum AnimatedAction {
-  draw,
-  reset,
-}
+import 'animated_action.dart';
+import 'tick_mark.dart';
+
+
 const _factor = 0.36;
 const _filled = 0.18;
 const _defaultBorderWidth = 2.0;
@@ -92,7 +91,7 @@ class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProvide
   }
 
   Widget _checkmark() {
-    return AnimatedCheck(
+    return TickMark(
       progress: _animation,
       size: widget.sideLength,
       strokeWidth: widget.checkmarkStroke,

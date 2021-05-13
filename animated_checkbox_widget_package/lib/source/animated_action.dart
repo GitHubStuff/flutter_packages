@@ -1,0 +1,4 @@
+enum AnimatedAction {
+  draw,
+  reset,
+}
