@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 const Point<double> _start = Point(0.27083, 0.54167);
 const Point<double> _downPoint = Point(0.41667, 0.68750);
 const Point<double> _upPoint = Point(0.75000, 0.35417);
+const Point<double> _upWidePoint = Point(1.0000, 0.15417);
 const double _strokeFactor = 0.06;
 
 class TickMark extends StatefulWidget {
@@ -13,8 +14,15 @@ class TickMark extends StatefulWidget {
   final double size;
   final Color? color;
   final double? strokeWidth;
+  final bool containCheckMark;
 
-  TickMark({required this.progress, required this.size, this.color, this.strokeWidth});
+  TickMark({
+    required this.progress,
+    required this.size,
+    this.color,
+    this.strokeWidth,
+    this.containCheckMark = true,
+  });
 
   @override
   _TickMark createState() => _TickMark();
@@ -31,7 +39,12 @@ class _TickMark extends State<TickMark> with SingleTickerProviderStateMixin {
     final ThemeData theme = Theme.of(context);
 
     return CustomPaint(
-      foregroundPainter: AnimatedPathPainter(widget.progress, widget.color ?? theme.primaryColor, widget.strokeWidth),
+      foregroundPainter: AnimatedPathPainter(
+        widget.progress,
+        widget.color ?? theme.primaryColor,
+        widget.strokeWidth,
+        widget.containCheckMark,
+      ),
       child: SizedBox(
         width: widget.size,
         height: widget.size,
@@ -44,14 +57,16 @@ class AnimatedPathPainter extends CustomPainter {
   final Animation<double> _animation;
   final Color _color;
   final double? strokeWidth;
+  final bool containCheckMark;
 
-  AnimatedPathPainter(this._animation, this._color, this.strokeWidth) : super(repaint: _animation);
+  AnimatedPathPainter(this._animation, this._color, this.strokeWidth, this.containCheckMark) : super(repaint: _animation);
 
   Path _createAnyPath(Size size) {
+    final Point upPoint = (containCheckMark) ? _upPoint : _upWidePoint;
     return Path()
       ..moveTo(_start.x * size.width, _start.y * size.height)
       ..lineTo(_downPoint.x * size.width, _downPoint.y * size.height)
-      ..lineTo(_upPoint.x * size.width, _upPoint.y * size.height);
+      ..lineTo(upPoint.x * size.width, upPoint.y * size.height);
   }
 
   Path createAnimatedPath(Path originalPath, double animationPercent) {

@@ -45,6 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
               'Text without context',
               style: Theme.of(context).textTheme.headline4,
             ),
+            /*
+            AnimatedCheckBox(
+              containCheckMark: forward,
+              animatedAction: AnimatedAction.draw,
+              sideLength: 48.0,
+              //borderWidgth: 2.0,
+              //checkmarkColor: Colors.green,
+              //boxColor: Colors.red,
+              animationDuration: Duration(seconds: 1),
+              //checkmarkStroke: 4.0,
+            ),
             AnimatedCheckBox(
               containCheckMark: forward,
               animatedAction: AnimatedAction.draw,
@@ -58,6 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
             AnimatedCheckMark(
               animatedAction: forward ? AnimatedAction.draw : AnimatedAction.reset,
               sideLength: 56.0,
+            ),
+            */
+            AnimatedCheckCircle(
+              animatedAction: forward ? AnimatedAction.draw : AnimatedAction.draw,
+              sideLength: 56.0,
+              containCheckMark: forward,
+              borderWidgth: 3,
             ),
           ],
         ),
