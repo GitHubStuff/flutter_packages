@@ -15,7 +15,7 @@ class AnimatedCheckCircle extends StatefulWidget {
   final Color? checkmarkColor;
   final double? checkmarkStroke;
   final Color? circleColor;
-  final double? borderWidgth;
+  final double? borderWidth;
   final Duration? drawDelay;
 
   const AnimatedCheckCircle({
@@ -27,7 +27,7 @@ class AnimatedCheckCircle extends StatefulWidget {
     this.checkmarkStroke,
     this.circleColor,
     this.animationDuration,
-    this.borderWidgth,
+    this.borderWidth,
     this.drawDelay,
   })  : assert(sideLength > 0.0),
         super(key: key);
@@ -38,6 +38,7 @@ class AnimatedCheckCircle extends StatefulWidget {
 class _AnimatedCheckCircle extends State<AnimatedCheckCircle> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late Color useNullColor;
 
   @override
   void initState() {
@@ -54,6 +55,7 @@ class _AnimatedCheckCircle extends State<AnimatedCheckCircle> with SingleTickerP
   @override
   Widget build(context) {
     final ThemeData theme = Theme.of(context);
+    useNullColor = (theme.brightness == Brightness.dark) ? theme.primaryColorDark : theme.primaryColorLight;
 
     Future.delayed(widget.drawDelay ?? _defaultDrawDelay, () {
       widget.animatedAction == AnimatedAction.draw ? _animationController.forward() : _animationController.reset();
@@ -62,22 +64,27 @@ class _AnimatedCheckCircle extends State<AnimatedCheckCircle> with SingleTickerP
     return SizedBox(
       width: widget.sideLength,
       height: widget.sideLength,
-      child: _stack(theme),
+      child: _stack(),
     );
   }
 
-  Widget _stack(ThemeData theme) {
+  Widget _stack() {
     return Stack(
-      children: [_box(theme), _checkmark()],
+      children: [_box(), _checkmark()],
     );
   }
 
-  Widget _box(ThemeData theme) {
-    if (widget.borderWidgth == 0.0) return Container();
+  Widget _box() {
+    if (widget.borderWidth == 0.0) return Container();
     return Container(
-      child: CustomPaint(painter: _OpenPainter(widget.sideLength, widget.borderWidgth ?? _defaultBorderWidth)),
-      width: widget.borderWidgth,
-      height: widget.borderWidgth,
+      child: CustomPaint(
+          painter: _OpenPainter(
+        widget.sideLength,
+        widget.borderWidth ?? _defaultBorderWidth,
+        widget.circleColor ?? useNullColor,
+      )),
+      width: widget.borderWidth,
+      height: widget.borderWidth,
     );
   }
 
@@ -86,7 +93,7 @@ class _AnimatedCheckCircle extends State<AnimatedCheckCircle> with SingleTickerP
       progress: _animation,
       size: widget.sideLength,
       strokeWidth: widget.checkmarkStroke,
-      color: widget.checkmarkColor,
+      color: widget.checkmarkColor ?? useNullColor,
       containCheckMark: widget.containCheckMark,
     );
   }
@@ -95,13 +102,14 @@ class _AnimatedCheckCircle extends State<AnimatedCheckCircle> with SingleTickerP
 class _OpenPainter extends CustomPainter {
   final double radius;
   final double stroke;
-  _OpenPainter(this.radius, this.stroke);
+  final Color color;
+  _OpenPainter(this.radius, this.stroke, this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
     final offset = Offset(radius / 2.0, radius / 2.0);
     var paint1 = Paint()
-      ..color = Color(0xffaa44aa)
+      ..color = color
       ..strokeWidth = stroke
       ..style = PaintingStyle.stroke;
 

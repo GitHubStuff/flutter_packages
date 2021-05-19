@@ -15,12 +15,12 @@ class AnimatedCheckMark extends StatefulWidget {
   final AnimatedAction animatedAction;
 
   const AnimatedCheckMark({
-    this.animationDuration,
-    required this.sideLength,
     required this.animatedAction,
-    this.drawDelay,
+    required this.sideLength,
+    this.animationDuration,
     this.checkmarkColor,
     this.checkmarkStroke,
+    this.drawDelay,
   });
   @override
   _AnimatedCheckMark createState() => _AnimatedCheckMark();
@@ -29,6 +29,7 @@ class AnimatedCheckMark extends StatefulWidget {
 class _AnimatedCheckMark extends State<AnimatedCheckMark> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late Color useNullColor;
 
   @override
   void initState() {
@@ -44,6 +45,9 @@ class _AnimatedCheckMark extends State<AnimatedCheckMark> with SingleTickerProvi
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    useNullColor = (theme.brightness == Brightness.dark) ? theme.primaryColorDark : theme.primaryColorLight;
+
     Future.delayed(widget.drawDelay ?? _defaultDrawDelay, () {
       widget.animatedAction == AnimatedAction.draw ? _animationController.forward() : _animationController.reset();
     });
@@ -52,7 +56,7 @@ class _AnimatedCheckMark extends State<AnimatedCheckMark> with SingleTickerProvi
       progress: _animation,
       size: widget.sideLength,
       strokeWidth: widget.checkmarkStroke,
-      color: widget.checkmarkColor,
+      color: widget.checkmarkColor ?? useNullColor,
     );
   }
 }

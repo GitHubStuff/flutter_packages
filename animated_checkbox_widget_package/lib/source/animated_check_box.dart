@@ -1,36 +1,36 @@
+// Copyright 2021, LTMM
 import 'package:flutter/material.dart';
 
 import 'animated_action.dart';
 import 'tick_mark.dart';
 
-
-const _factor = 0.36;
-const _filled = 0.18;
+///* AnimatedCheckBox - Stateful widget that animates a check mark (inside or outside the box).
+const _containedFactor = 0.15;
 const _defaultBorderWidth = 2.0;
 const _defaultDrawDelay = Duration(milliseconds: 50);
 const _defaultDrawDuration = Duration(milliseconds: 550);
 
 class AnimatedCheckBox extends StatefulWidget {
-  final double sideLength;
   final AnimatedAction animatedAction;
   final bool containCheckMark;
-  final Duration? animationDuration;
-  final Color? checkmarkColor;
-  final double? checkmarkStroke;
   final Color? boxColor;
-  final double? borderWidgth;
+  final Color? checkmarkColor;
+  final double sideLength;
+  final double? borderWidth;
+  final double? checkmarkStroke;
+  final Duration? animationDuration;
   final Duration? drawDelay;
-
+  
   const AnimatedCheckBox({
     Key? key,
     required this.animatedAction,
     required this.containCheckMark,
     required this.sideLength,
+    this.animationDuration,
+    this.borderWidth,
+    this.boxColor,
     this.checkmarkColor,
     this.checkmarkStroke,
-    this.boxColor,
-    this.animationDuration,
-    this.borderWidgth,
     this.drawDelay,
   })  : assert(sideLength > 0.0),
         super(key: key);
@@ -41,6 +41,7 @@ class AnimatedCheckBox extends StatefulWidget {
 class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late Color useNullColor;
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProvide
   @override
   Widget build(context) {
     final ThemeData theme = Theme.of(context);
+    useNullColor = (theme.brightness == Brightness.dark) ? theme.primaryColorDark : theme.primaryColorLight;
 
     Future.delayed(widget.drawDelay ?? _defaultDrawDelay, () {
       widget.animatedAction == AnimatedAction.draw ? _animationController.forward() : _animationController.reset();
@@ -71,20 +73,19 @@ class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProvide
 
   Widget _stack(ThemeData theme) {
     return Stack(
-      children: [_box(theme), _checkmark()],
+      children: [_box(), _checkmark()],
     );
   }
 
-  Widget _box(ThemeData theme) {
-    if (widget.borderWidgth == 0.0) return Container();
-    final offset = widget.containCheckMark ? widget.sideLength * _filled : widget.sideLength * _factor;
-    final devisor = widget.containCheckMark ? 1.0 : 2.0;
+  Widget _box() {
+    if (widget.borderWidth == 0.0) return Container();
+    final offset = widget.containCheckMark ? 0.0 : widget.sideLength * _containedFactor;
     return Container(
-      margin: EdgeInsets.only(left: offset / devisor, right: offset, top: offset, bottom: offset / devisor),
+      margin: EdgeInsets.all(offset),
       decoration: BoxDecoration(
         border: Border.all(
-          color: widget.boxColor ?? theme.primaryColor,
-          width: widget.borderWidgth ?? _defaultBorderWidth,
+          color: widget.boxColor ?? useNullColor,
+          width: widget.borderWidth ?? _defaultBorderWidth,
         ),
       ),
     );
@@ -95,7 +96,8 @@ class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProvide
       progress: _animation,
       size: widget.sideLength,
       strokeWidth: widget.checkmarkStroke,
-      color: widget.checkmarkColor,
+      color: widget.checkmarkColor ?? useNullColor,
+      containCheckMark: widget.containCheckMark,
     );
   }
 }

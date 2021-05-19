@@ -1,3 +1,11 @@
-# [0.0.1] - TODO: Add release date.
+# [0.0.2+1] - 19-May-2021
 
-* TODO: Describe initial release.
+* Initial release.
+
+Three(3) widgets:
+
+**AnimatedCheckBox**
+
+**AnimatedCheckCircle**
+
+**AnimatedCheckMark**
