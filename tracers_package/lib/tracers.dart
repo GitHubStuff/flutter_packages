@@ -211,6 +211,6 @@ class TimeMarker {
     final duration = endTime.difference(startTime);
     final timestamp = DTP.consoleTimeStamp;
     final message = '${duration.inSeconds}.${duration.inMilliseconds}';
-    debugPrint(caption.isEmpty ? '$timestamp\n⏱ $message' : '$timestamp\n⏱ $caption $message\n');
+    debugPrint(caption.isEmpty ? '\n$timestamp ⏱ $message' : '$timestamp ⏱ $caption $message\n');
   }
 }
