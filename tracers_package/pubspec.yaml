@@ -1,6 +1,6 @@
 name: tracers_package
 description: Write messages to the console
-version: 1.1.0+1
+version: 1.1.0+11
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -13,14 +13,14 @@ dependencies:
   flutter:
     sdk: flutter
   dartz: ^0.10.0-nullsafety.1
-  xfer:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: xfer
   date_time_package:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: date_time_package
+  xfer:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: xfer
 
 dev_dependencies:
   flutter_test:

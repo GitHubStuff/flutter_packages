@@ -1,4 +1,4 @@
-package com.example.skinny_app
+package com.icodeforyou.tracers
 
 import io.flutter.embedding.android.FlutterActivity
 

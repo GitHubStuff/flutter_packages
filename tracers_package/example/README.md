@@ -1,4 +1,4 @@
-# skinny_app 8-Mar-2021
+# tracer_app 8-Mar-2021
 
 Minimal Flutter App
 

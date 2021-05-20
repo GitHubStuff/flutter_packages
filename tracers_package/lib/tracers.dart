@@ -59,7 +59,10 @@ class Log {
   static E(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Error, message, tag);
   static C(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Crash, message, tag);
 
+  static bool _setTraceFlag = false;
+
   static Future setTrace({required LogLevel baseLevel}) async {
+    _setTraceFlag = true;
     Set<LogLevel> adjustableSetOfLogLevels = Set.from(LogLevel.values);
     switch (baseLevel) {
       case LogLevel.All:
@@ -118,12 +121,15 @@ class Log {
 
   static void _verifyLoggingUsingMessageLevel(LogLevel level, String message, String tag) {
     _getSavedLevelsFromPreferences().then((Set<LogLevel> savedLevels) {
+      final timestamp = DTP.consoleTimeStamp;
+      if (!_setTraceFlag) debugPrint('|$timestamp| 🔕 TRACERS LEVEL NOT SET 🔕');
+      _setTraceFlag = true;
       if (savedLevels.contains(level)) _printToConsole(level, message, tag);
     });
   }
 
   static Future<Set<LogLevel>> _getSavedLevelsFromPreferences() async {
-    Xfer xfer = Xfer();
+    Xfer xfer = Xfer(trace: true);
     Set<LogLevel> levels = Set();
     for (LogLevel level in LogLevel.values) {
       if (level == LogLevel.None) continue;

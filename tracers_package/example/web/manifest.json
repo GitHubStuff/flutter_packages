@@ -1,6 +1,6 @@
 {
-    "name": "skinny_app",
-    "short_name": "skinny_app",
+    "name": "tracer_app",
+    "short_name": "tracer_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
