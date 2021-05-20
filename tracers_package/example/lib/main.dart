@@ -49,9 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        onPressed: () {
+          final tm = TimeMarker();
+          Future.delayed(Duration(seconds: 2), () {
+            tm.show();
+          });
+        },
+        tooltip: 'Marker',
+        child: Icon(Icons.lock_clock_sharp),
       ),
     );
   }

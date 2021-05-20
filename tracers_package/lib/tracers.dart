@@ -132,9 +132,12 @@ class Log {
         'preference://$key',
         value: false,
       );
-      result.fold((l) => null, (r) {
-        if (r.data<bool>()) levels.add(level);
-      });
+      result.fold(
+        (l) => null,
+        (response) {
+          if (response.data<bool>()) levels.add(level);
+        },
+      );
     }
     levels.add(LogLevel.Crash);
     levels.add(LogLevel.Fix);
@@ -192,5 +195,16 @@ extension _LogLevel on LogLevel {
       default:
         throw FlutterError('{tracers.dart} no symbol for ${this.toString()}');
     }
+  }
+}
+
+class TimeMarker {
+  final startTime = DateTime.now();
+  void show([String caption = 'Elapsed']) {
+    final endTime = DateTime.now();
+    final duration = endTime.difference(startTime);
+    final timestamp = DTP.consoleTimeStamp;
+    final message = '${duration.inSeconds}.${duration.inMilliseconds}';
+    debugPrint(caption.isEmpty ? '$timestamp => ⏱ $message' : '$timestamp => ⏱ $caption $message');
   }
 }
