@@ -1,8 +1,9 @@
 name: json_decoder
 description: Json Decoder with 'Safe'-decoding and decoding time feature
-version: 1.0.4+2
+version: 1.1.0+3
 author: Steven Smith
 homepage: http://www.icodeforyou.com
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
   sdk: ">=2.12.2 <3.0.0"
@@ -11,11 +12,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  tracers_package:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: tracers_package
   dartz: ^0.10.0-nullsafety.2
   enum_to_string: ^2.0.1
 
 dev_dependencies:
-  test: ^1.17.3
+  test: ^1.17.4
 
 flutter:
   uses-material-design: true
