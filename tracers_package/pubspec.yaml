@@ -1,6 +1,6 @@
 name: tracers_package
 description: Write messages to the console
-version: 1.1.0+11
+version: 1.1.1+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
