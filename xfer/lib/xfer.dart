@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:tracers_package/tracers.dart';
 import 'package:xfer/src/xfer_hive.dart';
 import 'package:xfer/src/xfer_preference.dart';
 
@@ -72,28 +73,37 @@ class Xfer {
     Map<String, String>? headers,
     Object? value,
   }) async {
+    TimeMarker? tm;
     if (_trace) {
       debugPrint('🔮 url: $url');
       if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
       if (value != null) debugPrint('💡 value:${value.toString()}');
+      tm = TimeMarker();
     }
     try {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.asset:
-          return assetGet(url, headers: headers);
+          Either<XferFailure, XferResponse> assetResponse = await assetGet(url, headers: headers);
+          tm?.show('$url');
+          return assetResponse;
         case XferProtocol.http:
         case XferProtocol.https:
           if (_httpGetFuture == null) return Left(XferFailure(XferException.httpUndefinedGETMethod, code: "No GET defined"));
-          return httpGet(
+          Either<XferFailure, XferResponse> getResponse = await httpGet(
             url,
             headers: headers,
             getMethod: _httpGetFuture!,
             protocol: protocol,
           );
+          tm?.show('$url');
+          return getResponse;
+
         case XferProtocol.pref:
         case XferProtocol.preference:
-          return hiveGet(url, value: value);
+          Either<XferFailure, XferResponse> hiveResponse = await hiveGet(url, value: value);
+          tm?.show('$url');
+          return hiveResponse;
       }
     } catch (error) {
       return Left(error as XferFailure);
@@ -109,12 +119,14 @@ class Xfer {
     Object? value,
   }) async {
     try {
+      TimeMarker? tm;
       if (_trace) {
         debugPrint('🔮 url: $url');
         if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
         if (body != null) debugPrint('📦 body:${body.toString()}');
         if (value != null) debugPrint('💡 value:${value.toString()}');
         if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+        tm = TimeMarker();
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -123,7 +135,7 @@ class Xfer {
         case XferProtocol.http:
         case XferProtocol.https:
           if (_httpPostFuture == null) return Left(XferFailure(XferException.httpUndefinedPOSTMethod, code: "No POST defined"));
-          return httpPost(
+          Either<XferFailure, XferResponse> httpResponse = await httpPost(
             url,
             headers: headers,
             body: body,
@@ -131,6 +143,8 @@ class Xfer {
             postMethod: _httpPostFuture!,
             protocol: protocol,
           );
+          tm?.show('$url');
+          return httpResponse;
         case XferProtocol.pref:
         case XferProtocol.preference:
           return hivePost(url, value: body ?? value);
@@ -149,12 +163,14 @@ class Xfer {
     Object? value,
   }) async {
     try {
+      TimeMarker? tm;
       if (_trace) {
         debugPrint('🔮 url: $url');
         if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
         if (body != null) debugPrint('📦 body:${body.toString()}');
         if (value != null) debugPrint('💡 value:${value.toString()}');
         if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+        tm = TimeMarker();
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -163,8 +179,7 @@ class Xfer {
         case XferProtocol.http:
         case XferProtocol.https:
           if (_httpPutFuture == null) return Left(XferFailure(XferException.httpUndefinedPUTMethod, code: "No PUT defined"));
-
-          return httpPut(
+          Either<XferFailure, XferResponse> putResponse = await httpPut(
             url,
             headers: headers,
             body: body,
@@ -172,6 +187,8 @@ class Xfer {
             putMethod: _httpPutFuture!,
             protocol: protocol,
           );
+          tm?.show('$url');
+          return putResponse;
         case XferProtocol.pref:
         case XferProtocol.preference:
           return preferencePost(url, value: body ?? value);
