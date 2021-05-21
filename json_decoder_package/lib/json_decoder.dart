@@ -17,11 +17,11 @@ enum JsonDecodeType {
 
 /// Gateway class with static method "decode" to parse/decode a json string
 class JSONDecoder {
-  static Either<T, JsonDecoded> decode<T extends Exception>(String data, {bool reportDecodingTime = false}) {
+  static Either<T, JsonDecoded> decode<T extends Exception>(String data, {bool trace = false}) {
     try {
-      final tm = TimeMarker();
+      final TimeMarker? tm = (trace) ? TimeMarker() : null;
       final JsonDecoded jsonDecoded = JsonDecoded(data);
-      if (reportDecodingTime) tm.show('decoding:$data\n');
+      tm?.show('👉🏼 json decoding:\n$data\n');
       return Right(jsonDecoded);
     } catch (error) {
       return Left(error as T);
