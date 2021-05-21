@@ -23,8 +23,8 @@ import 'package:xfer/xfer.dart';
 /// Log.I(String, String: tag); //Logs as Info Level
 /// Log.W(String, String: tag); //Logs as Warning Level
 /// Log.E(String, String: tag); //Logs as Error Level
-/// Log.C(String, String: tag); //Logs as Crash Level - highest level
 /// Log.F(String, String: tag); //Logs as Fix - special case for placeholder that is always displayed
+/// Log.C(String, String: tag); //Logs as Crash Level - highest level
 /// ```
 /// NOTE: To change the logging level
 /// ```dart
@@ -42,8 +42,8 @@ enum LogLevel {
   Info,
   Warning,
   Error,
-  Crash,
   Fix,
+  Crash,
   None,
 }
 
@@ -54,78 +54,80 @@ class Log {
   static V(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Verbose, message, tag);
   static D(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Debug, message, tag);
   static I(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Info, message, tag);
-  static F(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Fix, message, tag);
   static W(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Warning, message, tag);
   static E(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Error, message, tag);
+  static F(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Fix, message, tag);
   static C(String message, {String tag = ''}) => _verifyLoggingUsingMessageLevel(LogLevel.Crash, message, tag);
 
-  static bool _setTraceFlag = false;
+  static Set _setOfLogLevels = {LogLevel.Fix, LogLevel.Crash};
+  static bool _logLevelsSet = false;
 
   static Future setTrace({required LogLevel baseLevel}) async {
-    _setTraceFlag = true;
-    Set<LogLevel> adjustableSetOfLogLevels = Set.from(LogLevel.values);
+    _logLevelsSet = true;
+    _setOfLogLevels = Set.from(LogLevel.values);
     switch (baseLevel) {
       case LogLevel.All:
         break;
       case LogLevel.Mark:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.All);
         break;
       case LogLevel.Trace:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
-        adjustableSetOfLogLevels.remove(LogLevel.Mark);
+        _setOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.Mark);
         break;
       case LogLevel.Verbose:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
-        adjustableSetOfLogLevels.remove(LogLevel.Mark);
-        adjustableSetOfLogLevels.remove(LogLevel.Trace);
+        _setOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.Mark);
+        _setOfLogLevels.remove(LogLevel.Trace);
         break;
       case LogLevel.Debug:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
-        adjustableSetOfLogLevels.remove(LogLevel.Mark);
-        adjustableSetOfLogLevels.remove(LogLevel.Trace);
-        adjustableSetOfLogLevels.remove(LogLevel.Verbose);
+        _setOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.Mark);
+        _setOfLogLevels.remove(LogLevel.Trace);
+        _setOfLogLevels.remove(LogLevel.Verbose);
         break;
       case LogLevel.Info:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
-        adjustableSetOfLogLevels.remove(LogLevel.Mark);
-        adjustableSetOfLogLevels.remove(LogLevel.Trace);
-        adjustableSetOfLogLevels.remove(LogLevel.Verbose);
-        adjustableSetOfLogLevels.remove(LogLevel.Debug);
+        _setOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.Mark);
+        _setOfLogLevels.remove(LogLevel.Trace);
+        _setOfLogLevels.remove(LogLevel.Verbose);
+        _setOfLogLevels.remove(LogLevel.Debug);
         break;
       case LogLevel.Fix:
-        adjustableSetOfLogLevels.remove(LogLevel.All);
-        adjustableSetOfLogLevels.remove(LogLevel.Mark);
-        adjustableSetOfLogLevels.remove(LogLevel.Trace);
-        adjustableSetOfLogLevels.remove(LogLevel.Verbose);
-        adjustableSetOfLogLevels.remove(LogLevel.Debug);
-        adjustableSetOfLogLevels.remove(LogLevel.Info);
+        _setOfLogLevels.remove(LogLevel.All);
+        _setOfLogLevels.remove(LogLevel.Mark);
+        _setOfLogLevels.remove(LogLevel.Trace);
+        _setOfLogLevels.remove(LogLevel.Verbose);
+        _setOfLogLevels.remove(LogLevel.Debug);
+        _setOfLogLevels.remove(LogLevel.Info);
         break;
       case LogLevel.Warning:
-        adjustableSetOfLogLevels = Set.of([LogLevel.Warning, LogLevel.Error]);
+        _setOfLogLevels = Set.of([LogLevel.Warning, LogLevel.Error]);
         break;
       case LogLevel.Error:
-        adjustableSetOfLogLevels = Set.of([LogLevel.Error]);
+        _setOfLogLevels = Set.of([LogLevel.Error]);
         break;
       case LogLevel.None:
       case LogLevel.Crash:
-        adjustableSetOfLogLevels = Set();
+        _setOfLogLevels = Set();
         break;
     }
 
-    adjustableSetOfLogLevels.addAll(Set.of([LogLevel.Fix, LogLevel.Crash]));
-    await _saveLevelsToPreferences(adjustableSetOfLogLevels);
-    _printToConsole(LogLevel.Mark, 'Set Logging to $adjustableSetOfLogLevels', null);
+    _setOfLogLevels.addAll(Set.of([LogLevel.Fix, LogLevel.Crash]));
+    //await _saveLevelsToPreferences(adjustableSetOfLogLevels);
+    _printToConsole(LogLevel.Mark, 'Set Logging to $_setOfLogLevels', null);
   }
 
   static const _TRACE_ROOT_PREFERENCE_PRIVATE_KEY = 'com.icodeforyou.tracer';
 
   static void _verifyLoggingUsingMessageLevel(LogLevel level, String message, String tag) {
-    _getSavedLevelsFromPreferences().then((Set<LogLevel> savedLevels) {
-      final timestamp = DTP.consoleTimeStamp;
-      if (!_setTraceFlag) debugPrint('|$timestamp| 🔕 TRACERS LEVEL NOT SET 🔕');
-      _setTraceFlag = true;
-      if (savedLevels.contains(level)) _printToConsole(level, message, tag);
-    });
+    if (!_logLevelsSet) debugPrint('\n\n🚦🚥🚦🚥🚦🚥🚦 Log Levels Not Set 🚦🚥🚦🚥🚦🚥🚦\n\n');
+    _logLevelsSet = true;
+    if (_setOfLogLevels.contains(level)) _printToConsole(level, message, tag);
+    // _getSavedLevelsFromPreferences().then((Set<LogLevel> savedLevels) {
+    //   final timestamp = DTP.consoleTimeStamp;
+    //   if (savedLevels.contains(level)) _printToConsole(level, message, tag);
+    // });
   }
 
   static Future<Set<LogLevel>> _getSavedLevelsFromPreferences() async {
