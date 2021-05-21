@@ -208,11 +208,11 @@ extension _LogLevel on LogLevel {
 
 class TimeMarker {
   final startTime = DateTime.now();
-  void show([String caption = 'Elapsed']) {
+  void show([String caption = '']) {
     final endTime = DateTime.now();
     final duration = endTime.difference(startTime);
     final timestamp = DTP.consoleTimeStamp;
-    final message = '${duration.inSeconds}.${duration.inMilliseconds}';
-    debugPrint(caption.isEmpty ? '\n$timestamp ⏱ $message' : '$timestamp ⏱ $caption $message\n');
+    final message = '${duration.inMilliseconds}/ms';
+    debugPrint(caption.isEmpty ? '\n$timestamp ⏱ Elapsed: $message' : '$timestamp\n $caption\n ⏱ Elapsed $message\n');
   }
 }

@@ -4,10 +4,14 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:xfer/xfer.dart';
 
-import 'xfer_preference.dart';
-
 bool _isInitialized = false;
 Map<String, Object> _privatePref = Map();
+enum PreferenceDataType {
+  boolean,
+  double,
+  integer,
+  string,
+}
 
 Future<Either<XferFailure, XferResponse>> hiveGet(String url, {Object? value}) async {
   final String key = url.split('://').last;
