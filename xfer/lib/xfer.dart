@@ -18,6 +18,12 @@ export 'src/xfer_asset.dart';
 export 'src/xfer_failure.dart';
 export 'src/xfer_response.dart';
 
+enum HttpVerb {
+  GET,
+  POST,
+  PUT,
+}
+
 enum XferException {
   assetArguementError,
   assetReadError,
@@ -73,7 +79,6 @@ class Xfer {
       tm = TimeMarker('🟠 GET url: $url');
       if (headers != null) debugPrint(' ⛓ headers:${headers.toString()}');
       if (value != null) debugPrint(' 💡 value:${value.toString()}');
-      
     }
     try {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
@@ -121,7 +126,6 @@ class Xfer {
         if (body != null) debugPrint(' 📦 body:${body.toString()}');
         if (value != null) debugPrint(' 💡 value:${value.toString()}');
         if (encoding != null) debugPrint(' 🔑 encoding:${encoding.toString()}');
-        
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -165,7 +169,6 @@ class Xfer {
         if (body != null) debugPrint(' 📦 body:${body.toString()}');
         if (value != null) debugPrint(' 💡 value:${value.toString()}');
         if (encoding != null) debugPrint(' 🔑 encoding:${encoding.toString()}');
-        
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {

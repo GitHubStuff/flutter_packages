@@ -8,12 +8,6 @@ import 'package:http/http.dart' as http;
 import '../xfer.dart';
 import 'xfer_response.dart';
 
-enum HttpVerb {
-  GET,
-  POST,
-  PUT,
-}
-
 Future<Either<XferFailure, XferResponse>> _httpMethod(
   HttpVerb verb,
   String url, {
