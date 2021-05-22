@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:xfer/xfer.dart';
 
 const String progressRoot = 'https://baas.kinvey.com/appdata/kid_rk7CWpu8w/';

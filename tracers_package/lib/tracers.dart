@@ -1,14 +1,12 @@
-library tracers;
-
 // Copyright 2021 LTMM. All rights reserved.
+library tracers;
 
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
 import 'package:date_time_package/date_time_package.dart' as DTP;
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:xfer/xfer.dart';
+
+export 'time_marker.dart';
 
 /// This is a [Helper] class that displays message to the console using [debugPrint].
 /// The display layout is [timeStamp] [icon] [optional tag] [message]
@@ -118,7 +116,7 @@ class Log {
     _printToConsole(LogLevel.Mark, 'Set Logging to $_setOfLogLevels', null);
   }
 
-  static const _TRACE_ROOT_PREFERENCE_PRIVATE_KEY = 'com.icodeforyou.tracer';
+  //static const _TRACE_ROOT_PREFERENCE_PRIVATE_KEY = 'com.icodeforyou.tracer';
 
   static void _verifyLoggingUsingMessageLevel(LogLevel level, String message, String tag) {
     if (!_logLevelsSet) debugPrint('\n\n🚦🚥🚦🚥🚦🚥🚦 Log Levels Not Set 🚦🚥🚦🚥🚦🚥🚦\n\n');
@@ -130,6 +128,7 @@ class Log {
     // });
   }
 
+/*
   static Future<Set<LogLevel>> _getSavedLevelsFromPreferences() async {
     Xfer xfer = Xfer(trace: true);
     Set<LogLevel> levels = Set();
@@ -166,7 +165,7 @@ class Log {
       );
     }
   }
-
+*/
   static void _printToConsole(LogLevel level, String message, String? tag) {
     tag = ((tag ??= '').length <= 7 ? tag : tag.substring(0, 7)).trim();
     final timestamp = DTP.consoleTimeStamp;
@@ -176,8 +175,6 @@ class Log {
 }
 
 extension _LogLevel on LogLevel {
-  String get asPreferenceString => EnumToString.convertToString(this);
-
   String get asSymbol {
     switch (this) {
       case LogLevel.All:
@@ -203,16 +200,5 @@ extension _LogLevel on LogLevel {
       default:
         throw FlutterError('{tracers.dart} no symbol for ${this.toString()}');
     }
-  }
-}
-
-class TimeMarker {
-  final startTime = DateTime.now();
-  void show([String caption = '']) {
-    final endTime = DateTime.now();
-    final duration = endTime.difference(startTime);
-    final timestamp = DTP.consoleTimeStamp;
-    final message = '${duration.inMilliseconds}/ms';
-    debugPrint(caption.isEmpty ? '\n$timestamp ⏱ Elapsed: $message' : '$timestamp\n $caption\n ⏱ Elapsed $message\n');
   }
 }
