@@ -8,14 +8,14 @@ import 'package:http/http.dart' as http;
 import '../xfer.dart';
 import 'xfer_response.dart';
 
-enum httpVerb {
+enum HttpVerb {
   GET,
   POST,
   PUT,
 }
 
 Future<Either<XferFailure, XferResponse>> _httpMethod(
-  httpVerb verb,
+  HttpVerb verb,
   String url, {
   required Object? body,
   required Encoding? encoding,
@@ -28,13 +28,13 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
     http.Response? response;
     final DateTime startRequest = DateTime.now().toUtc();
     switch (verb) {
-      case httpVerb.GET:
+      case HttpVerb.GET:
         response = await (method as Get)(uri, headers: headers);
         break;
-      case httpVerb.POST:
+      case HttpVerb.POST:
         response = await (method as Post)(uri, headers: headers, body: body, encoding: encoding);
         break;
-      case httpVerb.PUT:
+      case HttpVerb.PUT:
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
     }
@@ -77,7 +77,7 @@ Future<Either<XferFailure, XferResponse>> httpGet(
   required Get getMethod,
   required XferProtocol protocol,
 }) async =>
-    _httpMethod(httpVerb.GET, url, method: getMethod, protocol: protocol, headers: headers, encoding: null, body: null);
+    _httpMethod(HttpVerb.GET, url, method: getMethod, protocol: protocol, headers: headers, encoding: null, body: null);
 
 Future<Either<XferFailure, XferResponse>> httpPost(
   String url, {
@@ -88,7 +88,7 @@ Future<Either<XferFailure, XferResponse>> httpPost(
   required XferProtocol protocol,
 }) async =>
     _httpMethod(
-      httpVerb.POST,
+      HttpVerb.POST,
       url,
       method: postMethod,
       protocol: protocol,
@@ -106,7 +106,7 @@ Future<Either<XferFailure, XferResponse>> httpPut(
   required XferProtocol protocol,
 }) async =>
     _httpMethod(
-      httpVerb.PUT,
+      HttpVerb.PUT,
       url,
       method: putMethod,
       protocol: protocol,
