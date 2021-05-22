@@ -8,4 +8,5 @@ export 'src/extensions/theme_mode_extensions.dart';
 export 'src/theme/default_themes.dart';
 export 'src/theme/text_keys.dart';
 export 'src/widgets/set_theme_dialog.dart';
+export 'src/widgets/theme_control_widget.dart';
 export 'src/widgets/theme_icons.dart';
