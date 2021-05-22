@@ -15,14 +15,17 @@ part 'theme_cubit_state.dart';
 
 class ThemeCubit extends Cubit<ThemeCubitState> {
   //Should be called BEFORE runApp()
-  static setup() async {
-    await _Hive.setup();
-  }
+  static setup() async => await _Hive.setup();
 
   static ThemeIcons _themeIcons = DefaultThemeIcons();
   static ThemeMode get themeMode => _Hive.getThemeMode();
   static Brightness brightness({required BuildContext? context}) => themeMode.asBrightness(context: context);
   static Widget themeModeIcon({required BuildContext context}) => themeMode.getIcon(context: context, usingThemeIcons: _themeIcons);
+  static Color colorOf(String key, {required BuildContext context}) => ThemeColorsManager.by(
+        key: key,
+        themeMode: themeMode,
+        using: context,
+      );
 
   late ThemeData _darkTheme;
   late ThemeData _lightTheme;
