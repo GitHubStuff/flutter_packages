@@ -71,8 +71,8 @@ class Xfer {
     TimeMarker? tm;
     if (trace) {
       tm = TimeMarker('🟠 GET url: $url');
-      if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
-      if (value != null) debugPrint('💡 value:${value.toString()}');
+      if (headers != null) debugPrint(' ⛓ headers:${headers.toString()}');
+      if (value != null) debugPrint(' 💡 value:${value.toString()}');
       
     }
     try {
@@ -117,10 +117,10 @@ class Xfer {
       TimeMarker? tm;
       if (trace) {
         tm = TimeMarker('🟩 POST url: $url');
-        if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
-        if (body != null) debugPrint('📦 body:${body.toString()}');
-        if (value != null) debugPrint('💡 value:${value.toString()}');
-        if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+        if (headers != null) debugPrint(' ⛓ headers:${headers.toString()}');
+        if (body != null) debugPrint(' 📦 body:${body.toString()}');
+        if (value != null) debugPrint(' 💡 value:${value.toString()}');
+        if (encoding != null) debugPrint(' 🔑 encoding:${encoding.toString()}');
         
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
@@ -161,10 +161,10 @@ class Xfer {
       TimeMarker? tm;
       if (trace) {
         tm = TimeMarker('🟣 PUT url: $url');
-        if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
-        if (body != null) debugPrint('📦 body:${body.toString()}');
-        if (value != null) debugPrint('💡 value:${value.toString()}');
-        if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
+        if (headers != null) debugPrint(' ⛓ headers:${headers.toString()}');
+        if (body != null) debugPrint(' 📦 body:${body.toString()}');
+        if (value != null) debugPrint(' 💡 value:${value.toString()}');
+        if (encoding != null) debugPrint(' 🔑 encoding:${encoding.toString()}');
         
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
