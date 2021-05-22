@@ -11,7 +11,7 @@ class TimeMarker {
     final endTime = DateTime.now();
     final duration = endTime.difference(startTime);
     final timestamp = DTP.consoleTimeStamp;
-    final message = '${(duration.inMilliseconds / 1000.0)}/ms 🏁';
+    final message = '${(duration.inMilliseconds / 1000.0)}/seconds 🏁';
     final details = '\nFinished at $timestamp taking $message';
     debugPrint('$caption$details');
   }
