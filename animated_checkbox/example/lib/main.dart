@@ -1,4 +1,4 @@
-import 'package:animated_ballot_package/animated_ballot_package.dart';
+import 'package:animation_checkmark/animation_checkmark.dart';
 import 'package:flutter/material.dart';
 
 void main() {

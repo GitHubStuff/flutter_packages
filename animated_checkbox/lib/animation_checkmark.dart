@@ -1,4 +1,4 @@
-library animated_ballot_package;
+library animation_checkmark;
 
 export 'source/animated_action.dart';
 export 'source/animated_check_box.dart';

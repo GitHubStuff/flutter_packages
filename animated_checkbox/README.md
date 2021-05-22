@@ -1,4 +1,4 @@
-# animated_ballot_package
+# animated_checkbox
 
 Collection of three(3) widgets that have an animated check-mark
 

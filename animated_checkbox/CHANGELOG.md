@@ -4,8 +4,8 @@
 
 Three(3) widgets:
 
-**AnimatedCheckBox**
+**animated_checkbox**
 
-**AnimatedCheckCircle**
+**animated_checkbox**
 
-**AnimatedCheckMark**
+**animated_checkbox**
