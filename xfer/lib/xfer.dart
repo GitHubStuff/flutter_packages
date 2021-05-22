@@ -70,10 +70,10 @@ class Xfer {
   }) async {
     TimeMarker? tm;
     if (trace) {
-      debugPrint('🟠 GET url: $url');
+      tm = TimeMarker('🟠 GET url: $url');
       if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
       if (value != null) debugPrint('💡 value:${value.toString()}');
-      tm = TimeMarker();
+      
     }
     try {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
@@ -91,13 +91,13 @@ class Xfer {
             getMethod: httpGetFuture!,
             protocol: protocol,
           );
-          tm?.show('GOT $url');
+          tm?.show('🟠 GOT $url');
           return getResponse;
 
         case XferProtocol.pref:
         case XferProtocol.preference:
           Either<XferFailure, XferResponse> hiveResponse = await hiveGet(url, value: value);
-          tm?.show('GOT $url');
+          tm?.show('🟠 GOT $url');
           return hiveResponse;
       }
     } catch (error) {
@@ -116,12 +116,12 @@ class Xfer {
     try {
       TimeMarker? tm;
       if (trace) {
-        debugPrint('🟩 POST url: $url');
+        tm = TimeMarker('🟩 POST url: $url');
         if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
         if (body != null) debugPrint('📦 body:${body.toString()}');
         if (value != null) debugPrint('💡 value:${value.toString()}');
         if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
-        tm = TimeMarker();
+        
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -138,7 +138,7 @@ class Xfer {
             postMethod: httpPostFuture!,
             protocol: protocol,
           );
-          tm?.show('POSTED $url');
+          tm?.show('🟩 POSTED $url');
           return httpResponse;
         case XferProtocol.pref:
         case XferProtocol.preference:
@@ -160,12 +160,12 @@ class Xfer {
     try {
       TimeMarker? tm;
       if (trace) {
-        debugPrint('🟣 PUT url: $url');
+        tm = TimeMarker('🟣 PUT url: $url');
         if (headers != null) debugPrint('⛓ headers:${headers.toString()}');
         if (body != null) debugPrint('📦 body:${body.toString()}');
         if (value != null) debugPrint('💡 value:${value.toString()}');
         if (encoding != null) debugPrint('🔑 encoding:${encoding.toString()}');
-        tm = TimeMarker();
+        
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
@@ -182,7 +182,7 @@ class Xfer {
             putMethod: httpPutFuture!,
             protocol: protocol,
           );
-          tm?.show('PUT $url\n');
+          tm?.show('🟣 PUT $url\n');
           return putResponse;
         case XferProtocol.pref:
         case XferProtocol.preference:
