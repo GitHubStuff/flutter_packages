@@ -12,6 +12,9 @@ class TimeMarker {
       debugPrint('Starting 🕛 $header at $timestamp');
     }
   }
+
+  static TimeMarker? builder([bool trace = false, String caption = '']) => (trace) ? TimeMarker(caption) : null;
+
   void show([String caption = '']) {
     if (!_enabled) return;
     final endTime = DateTime.now();
