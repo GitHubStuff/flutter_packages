@@ -1,4 +1,4 @@
-package com.ltmm.xfer_app
+package com.icodeforyou.xfer_app
 
 import io.flutter.embedding.android.FlutterActivity
 

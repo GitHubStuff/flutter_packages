@@ -1,6 +1,6 @@
 name: xfer
 description: Does http calls, and call to asset, and local files with various protocols
-version: 0.1.0+1
+version: 0.1.0+2
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'

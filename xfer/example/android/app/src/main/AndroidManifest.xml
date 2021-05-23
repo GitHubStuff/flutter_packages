@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ltmm.xfer_app">
+    package="com.icodeforyou.xfer_app">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="xfer_app"
+        android:label="AApp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
