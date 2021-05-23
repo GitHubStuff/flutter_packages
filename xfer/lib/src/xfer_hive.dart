@@ -16,31 +16,26 @@ enum PreferenceDataType {
 Future<Either<XferFailure, XferResponse>> hiveGet(String url, {Object? value}) async {
   final String key = url.split('://').last;
   if (key.isEmpty) return Left(XferFailure(XferException.preferenceMissingKey, code: 'Missing key'));
-  final DateTime startRequest = DateTime.now().toUtc();
 
   try {
     if (!_isInitialized) await Hive.initFlutter();
     _isInitialized = true;
   } on NullThrownError {
     final result = _privatePref[key] ?? value;
-    Duration duration = DateTime.now().toUtc().difference(startRequest);
-    return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
+    return Right(XferResponse(result, 200, protocol: XferProtocol.preference));
   } on MissingPluginException {
     final result = _privatePref[key] ?? value;
-    Duration duration = DateTime.now().toUtc().difference(startRequest);
-    return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
+    return Right(XferResponse(result, 200, protocol: XferProtocol.preference));
   }
 
   var box = await Hive.openBox(key);
   final result = box.get(key, defaultValue: value);
-  Duration duration = DateTime.now().toUtc().difference(startRequest);
-  return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
+  return Right(XferResponse(result, 200, protocol: XferProtocol.preference));
 }
 
 Future<Either<XferFailure, XferResponse>> hivePost(String url, {Object? value}) async {
   final String key = url.split('://').last;
   if (key.isEmpty) return Left(XferFailure(XferException.preferenceMissingKey, code: 'Missing key'));
-  final DateTime startRequest = DateTime.now().toUtc();
   if (value == null) return Left(XferFailure(XferException.preferenceMissingData));
 
   try {
@@ -48,12 +43,10 @@ Future<Either<XferFailure, XferResponse>> hivePost(String url, {Object? value}) 
     _isInitialized = true;
   } on NullThrownError {
     final result = _privatePref[key] ?? value;
-    Duration duration = DateTime.now().toUtc().difference(startRequest);
-    return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
+    return Right(XferResponse(result, 200, protocol: XferProtocol.preference));
   } on MissingPluginException {
     final result = _privatePref[key] ?? value;
-    Duration duration = DateTime.now().toUtc().difference(startRequest);
-    return Right(XferResponse(result, 200, protocol: XferProtocol.preference, duration: duration));
+    return Right(XferResponse(result, 200, protocol: XferProtocol.preference));
   }
 
   var box = await Hive.openBox(key);
@@ -74,8 +67,7 @@ Future<Either<XferFailure, XferResponse>> hivePost(String url, {Object? value}) 
     default:
       return Left(XferFailure(XferException.preferenceUnknownDataType, code: 'body: ${value.toString()}'));
   }
-  final Duration duration = DateTime.now().toUtc().difference(startRequest);
-  return Right(XferResponse(true, 201, protocol: XferProtocol.preference, duration: duration));
+  return Right(XferResponse(true, 201, protocol: XferProtocol.preference));
 }
 
 PreferenceDataType? _getType(Object value) {

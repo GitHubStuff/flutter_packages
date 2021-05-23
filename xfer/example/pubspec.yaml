@@ -16,6 +16,7 @@ dependencies:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: tracers_package
   cupertino_icons: ^1.0.2
+  dartz: ^0.10.0-nullsafety.2
   http: ^0.13.0
 
 dev_dependencies:
@@ -23,3 +24,5 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
+  assets:
+    - images/

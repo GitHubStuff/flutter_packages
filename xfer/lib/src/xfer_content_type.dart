@@ -7,6 +7,7 @@ enum XferContentType {
   applicationJson,
   textHTML,
   textPlain,
+  image,
 }
 
 extension XferContentTypeExtenstion on XferContentType {
@@ -18,6 +19,11 @@ extension XferContentTypeExtenstion on XferContentType {
         return Right(XferContentType.textHTML);
       case 'text/plain':
         return Right(XferContentType.textPlain);
+      case 'image/gif':
+      case 'image/jpeg':
+      case 'image/jpg':
+      case 'image/png':
+        return Right(XferContentType.image);
       default:
         return Left(XferFailure(XferException.headerUnknownContentType, code: 'Unsupported Type => $type'));
     }

@@ -6,12 +6,15 @@ class XferResponse {
   final XferProtocol protocol;
   final dynamic body;
   final int statusCode;
-  final Duration duration;
   final Object? response;
-  XferResponse(this.body, this.statusCode, {required this.protocol, this.response, required this.duration});
+  XferResponse(
+    this.body,
+    this.statusCode, {
+    required this.protocol,
+    this.response,
+  });
 
   T data<T>() => (body as T);
 
-  String toString() =>
-      'XferProtocol: ${EnumToString.convertToString(protocol)}, statusCode: $statusCode, ⏱ duration: ${duration.inMilliseconds}/ms, response?: $response body: "$body"';
+  String toString() => 'XferProtocol: ${EnumToString.convertToString(protocol)}, statusCode: $statusCode, response?: $response body: "$body"';
 }

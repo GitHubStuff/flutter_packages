@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart' as D;
 import 'package:flutter/material.dart';
-import 'package:xfer/xfer.dart';
 import 'package:http/http.dart' as http;
+import 'package:xfer/xfer.dart';
 
 const String progressRoot = 'https://baas.kinvey.com/appdata/kid_rk7CWpu8w/';
 Map<String, String> get httpPostHeaders => {
@@ -14,6 +15,10 @@ Map<String, String> get httpGetHeaders => {
       'Authorization': 'Basic c3RldmVuLnNtaXRoOkZIQ1AyMDIwIQ==',
     };
 const String collectionName = 'tutorial';
+
+Map<String, String> get assetPngHeaders => {
+      'Content-Type': 'image/png',
+    };
 
 void main() {
   runApp(MyApp());
@@ -41,7 +46,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  AssetImage? assetImage;
   String message = 'Data without context';
+
+  @override
+  void initState() {
+    super.initState();
+    assetImage = AssetImage('images/theme.png');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,6 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              child: Image(image: assetImage!),
+              height: 175,
+              width: 175,
+            ),
             Text(
               'Generic header',
             ),
@@ -65,6 +83,22 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          FloatingActionButton(
+              onPressed: () async {
+                D.Either<XferFailure, XferResponse> result = await Xfer().get('asset://images/brand.png', headers: assetPngHeaders);
+                result.fold(
+                  (l) => null,
+                  (r) {
+                    setState(() {
+                      assetImage = r.body as AssetImage;
+                    });
+                    final xx = r.body as AssetImage;
+                    debugPrint('$xx');
+                  },
+                );
+                debugPrint('$result');
+              },
+              child: Text('PNG')),
           FloatingActionButton(
               onPressed: () async {
                 final result = Xfer().post('pref://myKey', body: 11);

@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../xfer.dart';
@@ -27,10 +28,15 @@ Future<Either<XferFailure, XferResponse>> assetPost(
         case XferContentType.textHTML:
         case XferContentType.textPlain:
           try {
-            final DateTime startRequest = DateTime.now().toUtc();
             final contents = await rootBundle.loadString(path);
-            final Duration duration = DateTime.now().toUtc().difference(startRequest);
-            return Right(XferResponse(contents, successCode, protocol: XferProtocol.asset, duration: duration));
+            return Right(XferResponse(contents, successCode, protocol: XferProtocol.asset));
+          } catch (error) {
+            return Left(XferFailure(XferException.assetReadError));
+          }
+        case XferContentType.image:
+          try {
+            final assetImage = AssetImage(path);
+            return Right(XferResponse(assetImage, successCode, protocol: XferProtocol.asset));
           } catch (error) {
             return Left(XferFailure(XferException.assetReadError));
           }

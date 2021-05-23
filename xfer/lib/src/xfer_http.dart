@@ -20,7 +20,6 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
   final Uri uri = Uri.parse(url);
   try {
     http.Response? response;
-    final DateTime startRequest = DateTime.now().toUtc();
     switch (verb) {
       case HttpVerb.GET:
         response = await (method as Get)(uri, headers: headers);
@@ -32,7 +31,6 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
     }
-    final Duration duration = DateTime.now().toUtc().difference(startRequest);
     switch (response.statusCode) {
       case 200:
       case 201:
@@ -41,7 +39,6 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
           response.statusCode,
           protocol: protocol,
           response: response,
-          duration: duration,
         );
         return Right(result);
       case 400:
