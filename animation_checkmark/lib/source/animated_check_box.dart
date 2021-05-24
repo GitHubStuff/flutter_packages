@@ -20,7 +20,7 @@ class AnimatedCheckBox extends StatefulWidget {
   final double? checkmarkStroke;
   final Duration? animationDuration;
   final Duration? drawDelay;
-  
+
   const AnimatedCheckBox({
     Key? key,
     required this.animatedAction,
@@ -69,6 +69,12 @@ class _AnimatedCheckBox extends State<AnimatedCheckBox> with SingleTickerProvide
       height: widget.sideLength,
       child: _stack(theme),
     );
+  }
+
+  @override
+  dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   Widget _stack(ThemeData theme) {
