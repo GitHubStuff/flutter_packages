@@ -17,13 +17,13 @@ class ThemeColorsManager {
   static Map<String, ThemeColors> _repository = {};
 
   static Color by({required String key, required ThemeMode themeMode, required BuildContext? using}) => of(
-        key,
+        key.toLowerCase(),
         brightness: themeMode.asBrightness(context: using),
       );
 
   static Color of(String key, {required Brightness brightness}) {
     if (_repository[key.toLowerCase()] == null) throw UnknownColor('Cannot find color key:$key');
-    return (_repository[key]!).of(brightness);
+    return (_repository[key.toLowerCase()]!).of(brightness);
   }
 
   static Color ofPlatformBrightness({required String key, required BuildContext context}) => of(
@@ -36,5 +36,5 @@ class ThemeColorsManager {
         light: light,
       );
 
-  static void addMono({required Color color, required String key}) => add(key: key, dark: color, light: color);
+  static void addMono({required Color color, required String key}) => add(key: key.toLowerCase(), dark: color, light: color);
 }
