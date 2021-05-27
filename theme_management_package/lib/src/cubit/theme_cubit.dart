@@ -22,7 +22,7 @@ class ThemeCubit extends Cubit<ThemeCubitState> {
   static Brightness brightness({required BuildContext? context}) => themeMode.asBrightness(context: context);
   static Widget themeModeIcon({required BuildContext context}) => themeMode.getIcon(context: context, usingThemeIcons: _themeIcons);
   static Color colorOf(String key, {required BuildContext context}) => ThemeColorsManager.by(
-        key: key,
+        key: key.toLowerCase(),
         themeMode: themeMode,
         using: context,
       );

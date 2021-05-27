@@ -23,11 +23,12 @@ class ThemeColorsManager {
 
   static Color of(String key, {required Brightness brightness}) {
     if (_repository[key.toLowerCase()] == null) throw UnknownColor('Cannot find color key:$key');
+    debugPrint('REPO: $_repository');
     return (_repository[key.toLowerCase()]!).of(brightness);
   }
 
   static Color ofPlatformBrightness({required String key, required BuildContext context}) => of(
-        key,
+        key.toLowerCase(),
         brightness: MediaQuery.of(context).platformBrightness,
       );
 
