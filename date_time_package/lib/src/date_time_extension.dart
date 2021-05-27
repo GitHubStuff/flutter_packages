@@ -20,6 +20,8 @@ extension DateTimeExtension on DateTime {
 
   int get daysInTheMonth => daysInMonth(this.month, year: this.year);
 
+  String shortDate([String fmt = 'dd-MMM-yy']) => DateFormat(fmt).format(this);
+
   int get hour12 => (this.hour == 0)
       ? 12
       : (this.hour < 13)

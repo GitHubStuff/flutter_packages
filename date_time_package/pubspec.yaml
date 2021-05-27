@@ -1,6 +1,6 @@
 name: date_time_package
 description: Extensions to DateTime and String for date/time operations
-version: 0.0.5+8
+version: 0.0.7+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -15,7 +15,7 @@ dependencies:
   intl: ^0.17.0
 
 dev_dependencies:
-  test: ^1.16.8
+  test: ^1.17.5
 
 flutter:
   uses-material-design: true
