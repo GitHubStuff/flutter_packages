@@ -1,6 +1,6 @@
 {
-    "name": "themer",
-    "short_name": "themer",
+    "name": "AApp",
+    "short_name": "AApp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

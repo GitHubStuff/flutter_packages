@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ltmm.themer">
+    package="com.icodeforyou.themer">
    <application
-        android:label="themer"
+        android:label="AApp"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
