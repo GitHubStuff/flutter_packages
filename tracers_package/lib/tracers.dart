@@ -3,8 +3,9 @@ library tracers;
 
 import 'dart:async';
 
-import 'package:date_time_package/date_time_package.dart' as DTP;
 import 'package:flutter/material.dart';
+
+import 'time_marker.dart';
 
 export 'time_marker.dart';
 
@@ -112,63 +113,18 @@ class Log {
     }
 
     _setOfLogLevels.addAll(Set.of([LogLevel.Fix, LogLevel.Crash]));
-    //await _saveLevelsToPreferences(adjustableSetOfLogLevels);
     _printToConsole(LogLevel.Mark, 'Set Logging to $_setOfLogLevels', null);
   }
-
-  //static const _TRACE_ROOT_PREFERENCE_PRIVATE_KEY = 'com.icodeforyou.tracer';
 
   static void _verifyLoggingUsingMessageLevel(LogLevel level, String message, String tag) {
     if (!_logLevelsSet) debugPrint('\n\n🚦🚥🚦🚥🚦🚥🚦 Log Levels Not Set 🚦🚥🚦🚥🚦🚥🚦\n\n');
     _logLevelsSet = true;
     if (_setOfLogLevels.contains(level)) _printToConsole(level, message, tag);
-    // _getSavedLevelsFromPreferences().then((Set<LogLevel> savedLevels) {
-    //   final timestamp = DTP.consoleTimeStamp;
-    //   if (savedLevels.contains(level)) _printToConsole(level, message, tag);
-    // });
   }
 
-/*
-  static Future<Set<LogLevel>> _getSavedLevelsFromPreferences() async {
-    Xfer xfer = Xfer(trace: true);
-    Set<LogLevel> levels = Set();
-    for (LogLevel level in LogLevel.values) {
-      if (level == LogLevel.None) continue;
-      final key = '$_TRACE_ROOT_PREFERENCE_PRIVATE_KEY.${level.asPreferenceString}';
-      final Either<XferFailure, XferResponse> result = await xfer.get(
-        'preference://$key',
-        value: false,
-      );
-      result.fold(
-        (l) => null,
-        (response) {
-          if (response.data<bool>()) levels.add(level);
-        },
-      );
-    }
-    levels.add(LogLevel.Crash);
-    levels.add(LogLevel.Fix);
-    return levels;
-  }
-
-  static Future<void> _saveLevelsToPreferences(Set<LogLevel> levels) async {
-    Xfer xfer = Xfer();
-    levels.add(LogLevel.Crash);
-    levels.add(LogLevel.Fix);
-    for (LogLevel level in LogLevel.values) {
-      if (level == LogLevel.None) continue;
-      final key = '$_TRACE_ROOT_PREFERENCE_PRIVATE_KEY.${level.asPreferenceString}';
-      final enabled = levels.contains(level);
-      final Either<XferFailure, XferResponse> result = await xfer.post(
-        'preference://$key',
-        value: enabled,
-      );
-    }
-  }
-*/
   static void _printToConsole(LogLevel level, String message, String? tag) {
     tag = ((tag ??= '').length <= 7 ? tag : tag.substring(0, 7)).trim();
-    final timestamp = DTP.consoleTimeStamp;
+    final timestamp = TimeMarker.consoleTimeStamp;
     final result = '|$timestamp|$tag ${level.asSymbol} $message';
     debugPrint('$result');
   }

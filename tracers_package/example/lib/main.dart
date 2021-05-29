@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Generic header',
+              'Press the button to see a time marker in the console',
             ),
             Text(
               'Text without context',
@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
           final tm = TimeMarker();
           Future.delayed(Duration(seconds: 2), () {
             tm.show();
+            TimeMarker.status ? TimeMarker.disabled : TimeMarker.enabled;
           });
         },
         tooltip: 'Marker',
