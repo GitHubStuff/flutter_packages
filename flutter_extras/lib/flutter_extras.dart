@@ -1,4 +1,4 @@
-library augments;
+library flutter_extras;
 
 export 'source/bloc_observer_extension.dart';
 export 'source/context_extensions.dart';

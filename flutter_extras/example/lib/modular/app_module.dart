@@ -11,6 +11,6 @@ class AppModule extends Module {
   // Provide all the routes for your module
   @override
   final List<ModularRoute> routes = [
-    ChildRoute('/', child: (_, __) => ScaffoldWidget(title: 'Augments')),
+    ChildRoute('/', child: (_, __) => ScaffoldWidget(title: 'Flutter Extras')),
   ];
 }
