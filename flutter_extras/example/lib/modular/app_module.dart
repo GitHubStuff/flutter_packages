@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import 'scaffold_widget.dart';
 

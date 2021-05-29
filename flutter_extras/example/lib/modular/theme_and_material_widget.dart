@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 class ThemeAndMaterialWidget extends StatelessWidget {
   @override
