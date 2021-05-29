@@ -1,7 +1,7 @@
 // Copyright 2021, LTMM LLC
-import 'package:augments/augments.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 import '../../theme_management_package.dart';
 

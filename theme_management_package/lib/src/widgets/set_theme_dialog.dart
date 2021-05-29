@@ -1,7 +1,7 @@
 // Copyright 2021 LTMM. All rights reserved.
 // This is a US-English only dialog that can be used to set the theme of the application.
-import 'package:augments/augments.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 import '../../theme_management_package.dart';
 
