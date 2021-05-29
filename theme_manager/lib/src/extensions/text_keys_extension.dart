@@ -1,7 +1,7 @@
 // Copyright 2021, LTMM LLC
 import 'package:flutter/material.dart';
 
-import '../../theme_management_package.dart';
+import '../../theme_manager.dart';
 import 'theme_mode_extensions.dart';
 
 extension TextKeysExtension on TextKey {

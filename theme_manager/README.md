@@ -150,7 +150,7 @@ abstract class ThemeIcons {
     required this.platform,
   });
 }
-``` 
+```
 
 #### TextKeys
 

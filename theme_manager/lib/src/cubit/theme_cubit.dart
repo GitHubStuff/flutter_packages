@@ -8,7 +8,7 @@ import 'package:meta/meta.dart';
 
 import '../../src/colors/theme_colors_manager.dart';
 import '../../src/theme/default_themes.dart';
-import '../../theme_management_package.dart';
+import '../../theme_manager.dart';
 import '../extensions/theme_mode_extensions.dart';
 
 part '../hive/hive.dart';
