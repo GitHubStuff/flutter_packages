@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import '../aguments.dart';
 
 extension DateTimeExtension on DateTime {
+  static String asSqlite([DateTime? dateTime]) => (dateTime ?? DateTime.now()).sqlite;
+
   static int daysInMonth(int month, {required int year}) {
     if (!(month >= DateTime.january && month <= DateTime.december)) throw ArgumentError('Months 1-12 .. value passed $month');
     return (isLeapYear(year) && month == 2) ? 29 : [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
@@ -15,6 +17,8 @@ extension DateTimeExtension on DateTime {
       : (year % 100 == 0)
           ? false
           : (year % 4 == 0);
+
+  String get sqlite => this.toUtc().toIso8601String();
 
   String asKey() => this.toIso8601String().replaceAll(':', '').replaceAll('.', '').replaceAll('-', '');
 
