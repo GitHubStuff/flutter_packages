@@ -1,4 +1,5 @@
 // Copyright 2021, LTMM LLC
+import 'package:augments/augments.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ extension ThemeModeExtension on ThemeMode {
         return Brightness.light;
       case ThemeMode.system:
         if (context == null) throw RequiresContext('ThemeMode.asBrightness() => needs context');
-        return MediaQuery.of(context).platformBrightness;
+        return context.platformBrightness;
     }
   }
 
@@ -26,7 +27,7 @@ extension ThemeModeExtension on ThemeMode {
       case ThemeMode.light:
         return usingThemeIcons.applicationLight;
       case ThemeMode.system:
-        final brightness = MediaQuery.of(context).platformBrightness;
+        final brightness = context.platformBrightness;
         switch (brightness) {
           case Brightness.dark:
             return usingThemeIcons.platformDark;
