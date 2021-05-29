@@ -1,4 +1,4 @@
-# aguments
+# augments
 
 Augments to flutter objects.
 

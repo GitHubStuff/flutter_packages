@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  aguments:
+  augments:
     path: ../
   theme_management_package:
     git:

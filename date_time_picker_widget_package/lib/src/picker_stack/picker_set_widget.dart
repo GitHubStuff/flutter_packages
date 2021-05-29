@@ -14,17 +14,17 @@ class PickerSetWidget extends StatelessWidget {
   final String dateFormat;
   final String timeFormat;
   final TextStyle dateTimeStyle;
-  final ThemeColors backgroundColors;
-  late final ThemeColors setButtonColors;
+  late final ThemeColors? backgroundColors;
+  late final ThemeColors? setButtonColors;
   final Widget setButtonWidget;
   PickerSetWidget({
     required this.brightness,
     required this.dateTimeCubit,
     ThemeColors? buttonColors,
-    this.setButtonColors = K.setButtonColors,
+    this.setButtonColors,
     this.dateFormat = K.dateFormatString,
     this.timeFormat = K.timeFormatString,
-    this.backgroundColors = K.pickerColors,
+    this.backgroundColors,
     this.setButtonWidget = K.setWidget,
     required this.dateTimeStyle,
   }) {
@@ -39,7 +39,7 @@ class PickerSetWidget extends StatelessWidget {
           final dateText = dateTimeCubit.formattedDateTime(dateFormat);
           final timeText = dateTimeCubit.formattedDateTime(timeFormat);
           return Container(
-            color: backgroundColors.of(brightness),
+            color: backgroundColors!.of(brightness),
             child: Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: Row(mainAxisSize: MainAxisSize.max, children: [

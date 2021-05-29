@@ -1,4 +1,4 @@
-library aguments;
+library augments;
 
 export 'source/bloc_observer_extension.dart';
 export 'source/context_extensions.dart';

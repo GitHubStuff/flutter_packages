@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-import '../aguments.dart';
+import '../augments.dart';
 
 extension DateTimeExtension on DateTime {
   static String asSqlite([DateTime? dateTime]) => (dateTime ?? DateTime.now()).sqlite;

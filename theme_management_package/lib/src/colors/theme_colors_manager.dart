@@ -43,6 +43,6 @@ class ThemeColorsManager {
   }) =>
       of(
         key.toLowerCase(),
-        brightness: MediaQuery.of(context).platformBrightness,
+        brightness: context.platformBrightness,
       );
 }

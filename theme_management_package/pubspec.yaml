@@ -16,10 +16,10 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: app_exception
-  observing_stateful_widget:
+  aguments:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
-      path: observing_stateful_widget
+      path: aguments
   xfer:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
