@@ -9,8 +9,8 @@ class WidgetSize extends StatefulWidget {
 
   const WidgetSize({
     Key? key,
-    required this.onChange,
     required this.child,
+    required this.onChange,
   }) : super(key: key);
 
   @override
@@ -18,20 +18,20 @@ class WidgetSize extends StatefulWidget {
 }
 
 class _WidgetSizeState extends State<WidgetSize> {
+  final _widgetKey = GlobalKey();
+  var oldSize;
+
   @override
   Widget build(BuildContext context) {
-    SchedulerBinding.instance!.addPostFrameCallback(postFrameCallback);
+    SchedulerBinding.instance!.addPostFrameCallback(_postFrameCallback);
     return Container(
-      key: widgetKey,
+      key: _widgetKey,
       child: widget.child,
     );
   }
 
-  var widgetKey = GlobalKey();
-  var oldSize;
-
-  void postFrameCallback(_) {
-    var context = widgetKey.currentContext;
+  void _postFrameCallback(_) {
+    var context = _widgetKey.currentContext;
     if (context == null) return;
 
     var newSize = context.size;

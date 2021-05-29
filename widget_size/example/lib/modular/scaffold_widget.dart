@@ -13,6 +13,9 @@ class ScaffoldWidget extends StatefulWidget {
 
 class _ScaffoldWidget extends State<ScaffoldWidget> {
   String message = 'Tap for Size';
+  String instruction = 'Tap + to change the text';
+  String instruction2 = 'Tap again';
+  bool isFirst = true;
   @override
   Widget build(BuildContext context) {
     final themeCubit = Modular.get<ThemeCubit>();
@@ -39,7 +42,7 @@ class _ScaffoldWidget extends State<ScaffoldWidget> {
                 });
               },
               child: Text(
-                'Text without context',
+                isFirst ? instruction : instruction2,
                 style: Theme.of(context).textTheme.headline4,
               ),
             ),
@@ -47,7 +50,11 @@ class _ScaffoldWidget extends State<ScaffoldWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            isFirst = !isFirst;
+          });
+        },
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

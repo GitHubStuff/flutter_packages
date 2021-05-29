@@ -9,24 +9,27 @@ import '../constants/constants.dart' as K;
 
 /// Widget that shows the date/time as it is updated by the pickers, and the 'Set'-button
 class PickerSetWidget extends StatelessWidget {
-  final DateTimeCubit dateTimeCubit;
-  final CustomColor backgroundColors;
-  final CustomColor setButtonColors;
   final Brightness brightness;
+  final DateTimeCubit dateTimeCubit;
   final String dateFormat;
   final String timeFormat;
-  final Widget setButtonWidget;
   final TextStyle dateTimeStyle;
-  const PickerSetWidget({
-    required this.dateTimeCubit,
+  final ThemeColors backgroundColors;
+  late final ThemeColors setButtonColors;
+  final Widget setButtonWidget;
+  PickerSetWidget({
     required this.brightness,
+    required this.dateTimeCubit,
+    ThemeColors? buttonColors,
     this.setButtonColors = K.setButtonColors,
     this.dateFormat = K.dateFormatString,
     this.timeFormat = K.timeFormatString,
     this.backgroundColors = K.pickerColors,
     this.setButtonWidget = K.setWidget,
     required this.dateTimeStyle,
-  });
+  }) {
+    setButtonColors = buttonColors ?? ;
+  }
 
   @override
   Widget build(BuildContext context) {

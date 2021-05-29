@@ -3,12 +3,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_management_package/theme_management_package.dart';
 
-const CustomColor datePickerColors = const CustomColor(dark: Color(0xFF004D40), light: Color(0xFFBDBDBD));
-const CustomColor headerTextColors = const CustomColor(dark: Colors.white60, light: Colors.black87);
-const CustomColor pickerColors = const CustomColor(dark: Colors.black87, light: Colors.white70);
-const CustomColor pickerTextColors = const CustomColor(dark: Colors.white70, light: Colors.black87);
-const CustomColor setButtonColors = const CustomColor(dark: Colors.white54, light: Colors.black54);
-const CustomColor timePickerColors = const CustomColor(dark: Color(0xFF00796B), light: Color(0xFFE0E0E0));
 const Duration crossFadeDuration = const Duration(milliseconds: 400);
 const EdgeInsets padding = EdgeInsets.all(4.0);
 const EdgeInsets seperatorPadding = EdgeInsets.only(top: 4, bottom: 4);
@@ -53,7 +47,25 @@ const int noonOrMidnight = 12;
 const int pmIndex = 1;
 const int yearLimit = 600;
 
-TextStyle headerTextStyle(Brightness brightness) => TextStyle().copyWith(
-      color: headerTextColors.of(brightness),
+TextStyle headerTextStyle(Brightness brightness, {required BuildContext context}) => TextStyle().copyWith(
+      color: ThemeCubit.colorOf(headerTextColors, context: context),
       fontWeight: FontWeight.bold,
     );
+
+const String _datePickerColors = 'com.icodeforyou.datePickerColors';
+const String headerTextColors = 'com.icodeforyou.headerTextColors';
+const String pickerColors = 'com.icodeforyou.pickerColors';
+const String pickerTextColors = 'com.icodeforyou.pickerTextColors';
+const String setButtonColors = 'com.icodeforyou.setButtonColors';
+const String timePickerColors = 'com.icodeforyou.timePickerColors';
+
+class DateTimePickerConstants {
+  DateTimePickerConstants() {
+    ThemeColorsManager.add(key: _datePickerColors, dark: Color(0xFF004D40), light: Color(0xFFBDBDBD));
+    ThemeColorsManager.add(key: headerTextColors, dark: Colors.white60, light: Colors.black87);
+    ThemeColorsManager.add(key: pickerColors, dark: Colors.black87, light: Colors.white70);
+    ThemeColorsManager.add(key: pickerTextColors, dark: Colors.white70, light: Colors.black87);
+    ThemeColorsManager.add(key: setButtonColors, dark: Colors.white54, light: Colors.black54);
+    ThemeColorsManager.add(key: timePickerColors, dark: Color(0xFF00796B), light: Color(0xFFE0E0E0));
+  }
+}
