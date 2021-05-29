@@ -1,6 +1,6 @@
 name: augments
 description: Add features to BuildContext
-version: 0.0.4+1
+version: 0.0.5+0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
