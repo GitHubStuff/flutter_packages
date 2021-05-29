@@ -2,6 +2,7 @@ library theme_management_package;
 
 export 'src/app_exceptions.dart';
 export 'src/colors/theme_colors.dart';
+export 'src/colors/theme_colors_manager.dart';
 export 'src/cubit/theme_cubit.dart';
 export 'src/extensions/text_keys_extension.dart';
 export 'src/extensions/theme_mode_extensions.dart';

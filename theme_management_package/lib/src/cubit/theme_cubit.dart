@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:meta/meta.dart';
 
+import '../../src/colors/theme_colors_manager.dart';
 import '../../src/theme/default_themes.dart';
 import '../../theme_management_package.dart';
 import '../extensions/theme_mode_extensions.dart';
