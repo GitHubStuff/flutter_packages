@@ -1,4 +1,6 @@
+import 'package:app_exception/app_exception.dart';
 import 'package:flutter/material.dart';
+import 'package:json_decoder/json_decoder.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,11 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Json Decoder',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Json Decoder Demo'),
     );
   }
 }
@@ -37,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Generic header',
+              'Tap + and console show decoded json',
             ),
             Text(
               'Text without context',
@@ -55,6 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _decodePatch(String jsonString) {
-    
+    final result = JSONDecoder.decode<AppException>(jsonString, trace: true);
+    result.fold(
+      (err) => debugPrint('${err.toString()}'),
+      (data) {
+        debugPrint('${data.toString()}');
+      },
+    );
   }
 }

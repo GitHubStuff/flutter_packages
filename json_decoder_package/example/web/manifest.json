@@ -1,6 +1,6 @@
 {
-    "name": "skinny_app",
-    "short_name": "skinny_app",
+    "name": "json_decoder",
+    "short_name": "json_decoder",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

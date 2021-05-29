@@ -1,4 +1,4 @@
-# skinny_app 8-Mar-2021
+# json_decoder 8-Mar-2021
 
 Minimal Flutter App
 

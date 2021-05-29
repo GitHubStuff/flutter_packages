@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.skinny_app">
+    package="com.icodeforyou.json_decoder">
    <application
-        android:label="skinny_app"
+        android:label="AApp Decoder"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
