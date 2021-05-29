@@ -3,7 +3,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 
-import '../../theme_management_package.dart';
+import '../../theme_manager.dart';
 
 extension ThemeModeExtension on ThemeMode {
   Brightness asBrightness({required BuildContext? context}) {

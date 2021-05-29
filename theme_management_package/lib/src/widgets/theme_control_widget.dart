@@ -1,7 +1,8 @@
 // Copyright 2021, LTMM
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+
+import '../../theme_manager.dart';
 
 /// A widget that can be used to change themes (typically in the app bar)
 class ThemeControlWidget extends StatelessWidget {

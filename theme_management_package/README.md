@@ -1,4 +1,4 @@
-# theme_management_package
+# theme_manager
 
 Manages an app's ability to change themes (light/dark/system).
 

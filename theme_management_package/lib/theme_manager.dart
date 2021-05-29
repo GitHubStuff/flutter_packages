@@ -1,4 +1,4 @@
-library theme_management_package;
+library theme_manager;
 
 export 'src/app_exceptions.dart';
 export 'src/colors/theme_colors.dart';

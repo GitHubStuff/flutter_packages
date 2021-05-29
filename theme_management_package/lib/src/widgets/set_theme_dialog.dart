@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 
-import '../../theme_management_package.dart';
+import '../../theme_manager.dart';
 
 /// This is a [helper] class that displays a custom [Alert Dialog] that allows the user
 /// to change the [ModeTheme] to [Dark, Light, Platform]

@@ -1,4 +1,4 @@
-name: theme_management_package
+name: theme_manager
 description: Manages themes
 version: 0.0.8+2
 author: Steven Smith
