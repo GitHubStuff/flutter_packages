@@ -1,7 +1,6 @@
 // Copyright 2021 LTMM. All rights reserved.
 // This is a US-English only dialog that can be used to set the theme of the application.
 import 'package:flutter/material.dart';
-import 'package:flutter_extras/flutter_extras.dart';
 
 import '../../theme_manager.dart';
 
@@ -74,7 +73,8 @@ class SetThemeDialog {
         alertContentColumns = alertContent('Application Light');
         break;
       case ThemeMode.system:
-        final Brightness brightness = context.platformBrightness;
+        final Brightness brightness = MediaQuery.of(context).platformBrightness;
+
         switch (brightness) {
           case Brightness.dark:
             alertContentColumns = alertContent('Platform dark');

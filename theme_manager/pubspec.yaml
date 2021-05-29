@@ -1,6 +1,6 @@
 name: theme_manager
 description: Manages themes
-version: 0.0.8+2
+version: 0.0.9+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -16,10 +16,6 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: app_exception
-  flutter_extras:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: flutter_extras
   dartz: ^0.10.0-nullsafety.2
   enum_to_string: ^2.0.1
   flutter_bloc: ^7.0.0

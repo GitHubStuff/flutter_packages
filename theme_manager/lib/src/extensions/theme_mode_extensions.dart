@@ -1,9 +1,9 @@
 // Copyright 2021, LTMM LLC
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_extras/flutter_extras.dart';
 
 import '../../theme_manager.dart';
+import '../extensions/build_context_extension.dart';
 
 extension ThemeModeExtension on ThemeMode {
   Brightness asBrightness({required BuildContext? context}) {

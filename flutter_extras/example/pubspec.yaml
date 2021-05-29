@@ -11,10 +11,6 @@ dependencies:
     sdk: flutter
   flutter_extras:
     path: ../
-  theme_management_package:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: theme_management_package
   cupertino_icons: ^1.0.3
   flutter_bloc: ^7.0.0
   flutter_modular: 3.2.2+1
