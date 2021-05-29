@@ -1,12 +1,14 @@
 import 'package:intl/intl.dart';
 
-import '../date_time_package.dart';
+import '../aguments.dart';
 
 extension DateTimeExtension on DateTime {
   static int daysInMonth(int month, {required int year}) {
     if (!(month >= DateTime.january && month <= DateTime.december)) throw ArgumentError('Months 1-12 .. value passed $month');
     return (isLeapYear(year) && month == 2) ? 29 : [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month];
   }
+
+  static String get timeStamp => DateFormat('HH:mm:ss.SSS').format(DateTime.now().toLocal());
 
   static bool isLeapYear(int year) => (year % 400 == 0)
       ? true
@@ -20,7 +22,8 @@ extension DateTimeExtension on DateTime {
 
   int get daysInTheMonth => daysInMonth(this.month, year: this.year);
 
-  String shortDate([String fmt = 'dd-MMM-yy']) => DateFormat(fmt).format(this);
+  String shortTime([String fmt = 'h:mm a']) => DateFormat(fmt).format(this);
+  String shortDate([String fmt = 'dd-MMM-yyyy']) => DateFormat(fmt).format(this);
 
   int get hour12 => (this.hour == 0)
       ? 12
