@@ -12,18 +12,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  app_exception:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: app_exception
-  augments:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: augments
-  xfer:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: xfer
+  # app_exception:
+  #   git:
+  #     url: https://github.com/GitHubStuff/flutter_packages.git
+  #     path: app_exception
+  # augments:
+  #   git:
+  #     url: https://github.com/GitHubStuff/flutter_packages.git
+  #     path: augments
+  # xfer:
+  #   git:
+  #     url: https://github.com/GitHubStuff/flutter_packages.git
+  #     path: xfer
   dartz: ^0.10.0-nullsafety.2
   enum_to_string: ^2.0.1
   flutter_bloc: ^7.0.0
