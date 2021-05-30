@@ -21,6 +21,12 @@ final ThemeCubit themeCubit = ThemeCubit();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ThemeColorsManager.addColors(
+    key: 'Alert',
+    dark: Colors.red[900]!,
+    light: Colors.greenAccent,
+  );
+
   await ThemeCubit.setup();
   runApp(SetUpWidget());
 }
@@ -28,11 +34,6 @@ void main() async {
 class SetUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeColorsManager.add(
-      key: 'Alert',
-      dark: Colors.red[900]!,
-      light: Colors.greenAccent,
-    );
     return MyApp();
   }
 }
@@ -90,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'I Use Custom Colors',
-              style: TextStyle(fontSize: 20, color: ThemeColorsManager.by(key: 'alert', themeMode: ThemeCubit.themeMode, using: context)),
+              style: TextStyle(fontSize: 20, color: ThemeCubit.color(key: 'alert', context: context)),
             ),
             Text(
               'Text without context',

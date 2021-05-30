@@ -1,6 +1,7 @@
 // Copyright 2021 LTMM. All rights reserved.
 // This is a US-English only dialog that can be used to set the theme of the application.
 import 'package:flutter/material.dart';
+import 'package:theme_manager/src/theme/theme_state.dart';
 
 import '../../theme_manager.dart';
 
@@ -11,8 +12,8 @@ const _widgetHorizontalSpace = 8.0;
 
 class SetThemeDialog {
   static void show({required BuildContext context, required ThemeCubit themeCubit}) {
-    final _style = TextKey.headline6.asTextStyleOf(context: context, themeMode: ThemeCubit.themeMode);
-    final _title = TextKey.headline5.asTextStyleOf(context: context, themeMode: ThemeCubit.themeMode);
+    final _style = TextKey.headline6.asTextStyle(forBrightness: ThemeCubit.brightness(context: context));
+    final _title = TextKey.headline5.asTextStyle(forBrightness: ThemeCubit.brightness(context: context));
 
     /// [Column] of widgets that appear as the [Alert content], it shows the [title], current [theme], and [user instructions]
     Column alertContent(String message) => Column(
@@ -65,24 +66,20 @@ class SetThemeDialog {
     }
 
     Column alertContentColumns;
-    switch (ThemeCubit.themeMode) {
-      case ThemeMode.dark:
+
+    switch (ThemeCubit.themeState(context: context)) {
+      case ThemeState.applicationDark:
         alertContentColumns = alertContent('Application Dark');
         break;
-      case ThemeMode.light:
+      case ThemeState.applicationLight:
         alertContentColumns = alertContent('Application Light');
         break;
-      case ThemeMode.system:
-        final Brightness brightness = MediaQuery.of(context).platformBrightness;
-
-        switch (brightness) {
-          case Brightness.dark:
-            alertContentColumns = alertContent('Platform dark');
-            break;
-          case Brightness.light:
-            alertContentColumns = alertContent('Platform light');
-            break;
-        }
+      case ThemeState.platformDark:
+        alertContentColumns = alertContent('Platform dark');
+        break;
+      case ThemeState.platformLight:
+        alertContentColumns = alertContent('Platform light');
+        break;
     }
 
     final AlertDialog alert = AlertDialog(

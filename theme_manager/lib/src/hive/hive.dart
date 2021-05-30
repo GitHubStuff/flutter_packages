@@ -10,7 +10,7 @@ bool _hiveSetup = false;
 class _Hive {
   static const _boxName = 'com.icodeforyou.themeSetting';
   static Box? _box;
-  static ThemeMode _placeHolder = ThemeMode.system;
+  static ThemeMode _themeMode = ThemeMode.system;
 
   static Future<void> setup() async {
     _hiveSetup = true;
@@ -22,20 +22,49 @@ class _Hive {
     }
   }
 
-  static ThemeMode getThemeMode() {
+  static ThemeState _themeState(BuildContext context) {
+    final mode = _getThemeMode();
+    switch (mode) {
+      case ThemeMode.dark:
+        return ThemeState.applicationDark;
+      case ThemeMode.light:
+        return ThemeState.applicationLight;
+      case ThemeMode.system:
+        switch (context.platformBrightness) {
+          case Brightness.dark:
+            return ThemeState.platformDark;
+          case Brightness.light:
+            return ThemeState.platformLight;
+        }
+    }
+  }
+
+  static Brightness _brightness(BuildContext context) {
+    final mode = _getThemeMode();
+    switch (mode) {
+      case ThemeMode.dark:
+        return Brightness.dark;
+      case ThemeMode.light:
+        return Brightness.light;
+      case ThemeMode.system:
+        return context.platformBrightness;
+    }
+  }
+
+  static ThemeMode _getThemeMode() {
     if (!_hiveSetup) throw IncompleteThemeCubit('Cannot getThemeMode()');
     final String storedValue = _box?.get(_boxName) ?? ThemeMode.system.asString();
     final ThemeMode? result = EnumToString.fromString(ThemeMode.values, storedValue);
     if (result == null) throw CannotReadThemeMode('value: $storedValue returned null');
-    _placeHolder = result;
-    _box?.put(_boxName, _placeHolder.asString());
-    return _placeHolder;
+    _themeMode = result;
+    _box?.put(_boxName, _themeMode.asString());
+    return _themeMode;
   }
 
-  static ThemeMode setThemeMode(ThemeMode themeMode) {
+  static ThemeMode _setThemeMode(ThemeMode themeMode) {
     if (!_hiveSetup) throw IncompleteThemeCubit('Cannot setThemeMode()');
     _box?.put(_boxName, themeMode.asString());
-    _placeHolder = themeMode;
-    return _placeHolder;
+    _themeMode = themeMode;
+    return _themeMode;
   }
 }
