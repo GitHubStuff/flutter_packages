@@ -2,7 +2,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import '../../date_time_picker_widget_package.dart';
 import '../constants/constants.dart' as K;
@@ -28,7 +28,7 @@ class PickerSetWidget extends StatelessWidget {
     this.setButtonWidget = K.setWidget,
     required this.dateTimeStyle,
   }) {
-    setButtonColors = buttonColors ?? ;
+    setButtonColors = buttonColors ?? ThemeColors.themeColors(forKey: K.setButtonColors);
   }
 
   @override

@@ -2,9 +2,8 @@
 import 'package:date_time_picker_widget_package/src/cubit/date_time_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 import 'package:popover/popover.dart';
-import 'package:theme_management_package/theme_management_package.dart';
 
 import '../../date_time_picker_widget_package.dart';
 import '../constants/constants.dart' as K;

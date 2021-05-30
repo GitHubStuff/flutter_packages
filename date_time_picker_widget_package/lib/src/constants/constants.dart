@@ -1,7 +1,7 @@
 //Copyright 2021, LTMM LLC
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 const Duration crossFadeDuration = const Duration(milliseconds: 400);
 const EdgeInsets padding = EdgeInsets.all(4.0);

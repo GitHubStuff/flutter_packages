@@ -49,10 +49,10 @@ class ThemeColorsManager {
         brightness: context.platformBrightness,
       );
 
-  static ThemeColors themeColors({required String forKey}) {
-    forKey = _reKey(forKey);
-    if (_repository[forKey] == null) throw UnknownColor('Cannot find color key:$forKey');
-    return _repository[forKey]!;
+  static ThemeColors colors({required String key}) {
+    key = _reKey(key);
+    if (_repository[key] == null) throw UnknownColor('Cannot find color key:$key');
+    return _repository[key]!;
   }
 
   static void replace({required String key, required Color dark, required Color light, bool check = false}) {

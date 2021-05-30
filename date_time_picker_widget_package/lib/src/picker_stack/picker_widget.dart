@@ -2,8 +2,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:observing_stateful_widget/observing_stateful_widget.dart';
-import 'package:theme_management_package/theme_management_package.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 import '../../date_time_picker_widget_package.dart';
 import '../constants/constants.dart' as K;
@@ -45,7 +44,7 @@ class PickerWidget extends StatefulWidget {
       maxLines: 1,
     ),
     required this.brightness,
-  })   : this.datePickerColor = (datePickerColor ?? K.datePickerColors),
+  })  : this.datePickerColor = (datePickerColor ?? K.datePickerColors),
         this.timePickerColor = (timePickerColor ?? K.timePickerColors),
         this.pickerColor = (pickerColor ?? K.pickerColors),
         super(key: key) {

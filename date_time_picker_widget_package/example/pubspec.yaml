@@ -11,18 +11,14 @@ dependencies:
     sdk: flutter
   date_time_picker_widget_package:
     path: ../
-  date_time_package:
+  flutter_extras:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
-      path: date_time_package
-  observing_stateful_widget:
+      path: flutter_extras
+  theme_manager:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
-      path: observing_stateful_widget
-  theme_management_package:
-    git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: theme_management_package
+      path: theme_manager
   cupertino_icons: ^1.0.3
   flutter_bloc: ^7.0.0
   popover: ^0.2.6+1

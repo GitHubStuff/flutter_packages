@@ -1,7 +1,6 @@
 // Copyright 2021, LTMM LLC
-import 'package:date_time_package/date_time_package.dart';
 import 'package:flutter/material.dart';
-import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
@@ -78,7 +77,11 @@ class _MonthWidget extends ObservingStatefulWidget<MonthWidget> {
       if (index < DateTime.january) return null;
       int offset = (index % K.monthsInYear) == 0 ? K.monthsInYear : (index % K.monthsInYear);
       final monthText = offset.asMonth(format: widget.monthFormat);
-      return PickerTextWidget(text: monthText, style: widget.textStyle, textColor: widget.textColor,);
+      return PickerTextWidget(
+        text: monthText,
+        style: widget.textStyle,
+        textColor: widget.textColor,
+      );
     });
   }
 }

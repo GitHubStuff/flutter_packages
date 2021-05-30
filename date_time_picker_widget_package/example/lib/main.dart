@@ -1,7 +1,7 @@
 import 'package:date_time_picker_widget_package/date_time_picker_widget_package.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 void main() {
   runApp(MyApp());

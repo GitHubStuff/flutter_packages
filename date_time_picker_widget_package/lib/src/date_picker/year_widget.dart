@@ -1,6 +1,6 @@
 //Copyright 2021, LTMM LLC
 import 'package:flutter/material.dart';
-import 'package:observing_stateful_widget/observing_stateful_widget.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 import '../constants/constants.dart' as K;
 import '../cubit/date_time_cubit.dart';
