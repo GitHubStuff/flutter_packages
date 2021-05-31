@@ -74,10 +74,13 @@ class ThemeManager {
   static Color color(String key, {required BuildContext context}) => ThemeColorsManager.color(key, brightness: brightness(context));
 
   static setup() async => await _Hive.setup();
+
   static Widget themeModeIcon(BuildContext context) => _Hive._getThemeMode().getIcon(
         context: context,
         usingThemeIcons: themeIcons,
       );
 
   static ThemeState themeState(BuildContext context) => _Hive._themeState(context);
+
+  static bool missingColors({required String forKey}) => !ThemeColorsManager.colorsExists(forKey: forKey);
 }

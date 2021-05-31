@@ -1,6 +1,6 @@
 name: theme_manager
 description: Manages light and dark themes
-version: 0.1.4+1
+version: 0.1.4+2
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
