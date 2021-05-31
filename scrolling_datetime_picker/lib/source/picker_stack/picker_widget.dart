@@ -76,7 +76,10 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
         children: [
           Expanded(
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: ThemeManager.color(K.dateColors, context: context)),
+              style: ElevatedButton.styleFrom(
+                primary: ThemeManager.color(K.dateColors, context: context),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+              ),
               onPressed: () {
                 if (_dateOpacity != K.fullOpacity) {
                   setState(() {
@@ -90,7 +93,10 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
           ),
           Expanded(
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: ThemeManager.color(K.timeColors, context: context)),
+                style: ElevatedButton.styleFrom(
+                  primary: ThemeManager.color(K.timeColors, context: context),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                ),
                 onPressed: () {
                   if (_timeOpacity != K.fullOpacity) {
                     setState(() {

@@ -63,10 +63,10 @@ const String timeColors = 'com.icodeforyou.com.timeColors';
 
 class DateTimePickerConstants {
   DateTimePickerConstants() {
-    ThemeColors captionWidget = ThemeColors(dark: Color(0xFF004D40), light: Color(0xFFBDBDBD));
+    ThemeColors captionWidget = ThemeColors(dark: Color(0xff7990ff), light: Colors.red);
     ThemeColors textColors = ThemeColors(dark: Colors.white70, light: Colors.black87);
-    ThemeColors dateWidget = ThemeColors(dark: Color(0xFF00796B), light: Color(0xFFE0E0E0));
-    ThemeColors timeWidget = ThemeColors(dark: Color(0xff00805a), light: Color(0xffd1d1d1));
+    ThemeColors dateWidget = ThemeColors(dark: Color(0xff0047ab), light: Color(0xFFE0E0E0));
+    ThemeColors timeWidget = ThemeColors(dark: Color(0xff5a77e3), light: Color(0xffd1d1d1));
     if (ThemeManager.missingColors(forKey: captionColors)) ThemeManager.addThemeColors(captionWidget, forKey: captionColors);
     if (ThemeManager.missingColors(forKey: characterColors)) ThemeManager.addThemeColors(textColors, forKey: characterColors);
     if (ThemeManager.missingColors(forKey: dateColors)) ThemeManager.addThemeColors(dateWidget, forKey: dateColors);

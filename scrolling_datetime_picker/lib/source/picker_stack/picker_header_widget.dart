@@ -7,7 +7,7 @@ import 'package:theme_manager/theme_manager.dart';
 import '../../source/cubit/date_time_cubit.dart';
 import '../constants.dart' as K;
 
-/// Widget that shows the date/time as it is updated by the pickers, and the 'Set'-button
+/// Widget that shows the date/time caption as it is updated by the pickers, and the 'Set'-button
 class PickerHeaderWidget extends StatelessWidget {
   final String dateFormat;
   final String timeFormat;
