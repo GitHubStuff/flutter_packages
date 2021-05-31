@@ -1,9 +1,11 @@
 // Copyright 2021 LTMM. All rights reserved.
 // This is a US-English only dialog that can be used to set the theme of the application.
 import 'package:flutter/material.dart';
-import 'package:theme_manager/src/theme/theme_state.dart';
 
-import '../../theme_manager.dart';
+import '../../../theme_manager.dart';
+import '../../src/extensions/text_keys_extension.dart';
+import '../../src/theme/text_keys.dart';
+import '../../src/theme/theme_state.dart';
 
 /// This is a [helper] class that displays a custom [Alert Dialog] that allows the user
 /// to change the [ModeTheme] to [Dark, Light, Platform]
@@ -11,9 +13,9 @@ import '../../theme_manager.dart';
 const _widgetHorizontalSpace = 8.0;
 
 class SetThemeDialog {
-  static void show({required BuildContext context, required ThemeCubit themeCubit}) {
-    final _style = TextKey.headline6.asTextStyle(forBrightness: ThemeCubit.brightness(context: context));
-    final _title = TextKey.headline5.asTextStyle(forBrightness: ThemeCubit.brightness(context: context));
+  static void show({required BuildContext context}) {
+    final _style = TextKey.headline6.asTextStyle(forBrightness: ThemeManager.brightness(context));
+    final _title = TextKey.headline5.asTextStyle(forBrightness: ThemeManager.brightness(context));
 
     /// [Column] of widgets that appear as the [Alert content], it shows the [title], current [theme], and [user instructions]
     Column alertContent(String message) => Column(
@@ -33,7 +35,7 @@ class SetThemeDialog {
                     style: _style,
                   ),
                 ),
-                ThemeCubit.themeModeIcon(context: context), // Icon of the current theme
+                ThemeManager.themeModeIcon(context), // Icon of the current theme
               ],
             ),
             Container(height: _widgetHorizontalSpace),
@@ -67,7 +69,7 @@ class SetThemeDialog {
 
     Column alertContentColumns;
 
-    switch (ThemeCubit.themeState(context: context)) {
+    switch (ThemeManager.themeState(context)) {
       case ThemeState.applicationDark:
         alertContentColumns = alertContent('Application Dark');
         break;
@@ -88,18 +90,18 @@ class SetThemeDialog {
       actions: [
         flatButton(
           'Application Dark',
-          themeCubit.themeIcons.applicationDark,
-          () => themeCubit.setThemeMode(ThemeMode.dark),
+          ThemeManager.themeIcons.applicationDark,
+          () => ThemeManager.themeMode = ThemeMode.dark,
         ),
         flatButton(
           'Application Light',
-          themeCubit.themeIcons.applicationLight,
-          () => themeCubit.setThemeMode(ThemeMode.light),
+          ThemeManager.themeIcons.applicationLight,
+          () => ThemeManager.themeMode = ThemeMode.light,
         ),
         flatButton(
           'Platform',
-          (MediaQuery.of(context).platformBrightness == Brightness.dark ? themeCubit.themeIcons.platformDark : themeCubit.themeIcons.platformLight),
-          () => themeCubit.setThemeMode(ThemeMode.system),
+          (MediaQuery.of(context).platformBrightness == Brightness.dark ? ThemeManager.themeIcons.platformDark : ThemeManager.themeIcons.platformLight),
+          () => ThemeManager.themeMode = ThemeMode.system,
         ),
         flatButton(
           'Cancel',

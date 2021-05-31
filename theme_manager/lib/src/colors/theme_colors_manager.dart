@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../theme_manager.dart';
+import '../app_exceptions.dart';
+import 'theme_colors.dart';
 
 String _reKey(String key) => (key.isNotEmpty) ? key.toLowerCase() : throw EmptyKey();
 

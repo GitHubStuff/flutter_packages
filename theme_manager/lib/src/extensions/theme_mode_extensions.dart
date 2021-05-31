@@ -2,8 +2,9 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 
-import '../../theme_manager.dart';
+import '../app_exceptions.dart';
 import '../extensions/build_context_extension.dart';
+import '../widgets/theme_icons.dart';
 
 extension ThemeModeExtension on ThemeMode {
   Brightness asBrightness({required BuildContext? context}) {

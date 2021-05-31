@@ -17,17 +17,12 @@ ThemeData get darkTheme {
       ));
 }
 
-final ThemeCubit themeCubit = ThemeCubit();
+ThemeColors themeColors = ThemeColors(dark: Colors.red[900]!, light: Colors.greenAccent);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  ThemeColorsManager.addColors(
-    key: 'Alert',
-    dark: Colors.red[900]!,
-    light: Colors.greenAccent,
-  );
-
-  await ThemeCubit.setup();
+  ThemeManager.addThemeColors(themeColors, forKey: 'Alert');
+  await ThemeManager.setup();
   runApp(SetUpWidget());
 }
 
@@ -42,16 +37,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
-      bloc: themeCubit,
+      bloc: ThemeManager.themeCubit,
       builder: (_, state) {
-        ThemeMode themeMode = ThemeCubit.themeMode;
+        ThemeMode themeMode = ThemeManager.themeMode;
         if (state is UpdateThemeMode) {
           themeMode = state.themeMode;
         }
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: themeCubit.lightTheme,
-          darkTheme: themeCubit.darkTheme,
+          theme: ThemeManager.lightTheme,
+          darkTheme: ThemeManager.darkTheme,
           themeMode: themeMode,
           home: MyHomePage(title: 'Flutter Demo Home Page'),
         );
@@ -69,7 +64,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ThemeIcons _themeIcons = DefaultThemeIcons();
+  final ThemeIcons _themeIcons = ThemeManager.themeIcons;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 20, top: 12),
             child: GestureDetector(
-              onTap: () => SetThemeDialog.show(context: context, themeCubit: themeCubit),
-              child: ThemeCubit.themeModeIcon(context: context),
+              onTap: () => SetThemeDialog.show(context: context),
+              child: ThemeManager.themeModeIcon(context),
             ),
           ),
         ],
@@ -91,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'I Use Custom Colors',
-              style: TextStyle(fontSize: 20, color: ThemeCubit.color(key: 'alert', context: context)),
+              style: TextStyle(fontSize: 20, color: ThemeManager.color('alert', context: context)),
             ),
             Text(
               'Text without context',
@@ -150,7 +145,7 @@ class _Test extends ObservingStatefulWidget<Test> {
     return GestureDetector(
         child: Text('SYSTEM', style: TextStyle(fontSize: 56.0)),
         onTap: () {
-          themeCubit.setThemeMode(ThemeMode.system);
+          ThemeManager.themeMode = ThemeMode.system;
         });
   }
 }

@@ -1,7 +1,7 @@
 // Copyright 2021, LTMM LLC
 import 'package:flutter/material.dart';
 
-import '../../theme_manager.dart';
+import '../../src/theme/text_keys.dart';
 
 extension TextKeysExtension on TextKey {
   Color getColor({required Brightness forBrightness}) => (forBrightness == Brightness.dark) ? textColorDarkMode[this]! : textColorLightMode[this]!;

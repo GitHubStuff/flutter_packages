@@ -3,7 +3,7 @@
 //
 // NOTE: For testing Hive won't work natively because the directory isn't defined, but _placeholder does so tests can be run
 // - This effectively STUBS the service without have to swizzle in an alternative
-part of '../cubit/theme_cubit.dart';
+part of '../theme_manager.dart';
 
 bool _hiveSetup = false;
 
