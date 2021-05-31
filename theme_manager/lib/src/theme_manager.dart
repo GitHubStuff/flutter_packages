@@ -18,8 +18,10 @@ import 'widgets/theme_icons.dart';
 part '../src/hive/hive.dart';
 
 class ThemeManager {
+  static ThemeManager get singleton => _instance ?? ThemeManager();
+
   static final ThemeCubit _themeCubit = ThemeCubit();
-  
+
   static late ThemeManager? _instance;
 
   static ThemeIcons? _themeIcons;
@@ -40,12 +42,12 @@ class ThemeManager {
     _themeCubit.emit(UpdateThemeMode(mode));
   }
 
-  factory ThemeManager(
+  factory ThemeManager([
     ThemeData? darkTheme,
     ThemeData? lightTheme,
     ThemeIcons? themeIcons,
     Map<String, ThemeColors>? colorMap,
-  ) {
+  ]) {
     _instance = ThemeManager._internal(
       darkTheme ?? DefaultThemes.defaultDarkThemeData,
       lightTheme ?? DefaultThemes.defaultLightThemeData,
@@ -76,5 +78,6 @@ class ThemeManager {
         context: context,
         usingThemeIcons: themeIcons,
       );
+
   static ThemeState themeState(BuildContext context) => _Hive._themeState(context);
 }
