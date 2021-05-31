@@ -7,7 +7,7 @@ import 'package:theme_manager/theme_manager.dart';
 import '../../source/date_picker/date_picker_widget.dart';
 import '../../source/time_picker/time_picker_widget.dart';
 import '../constants.dart' as K;
-import 'picker_set_widget.dart';
+import 'picker_header_widget.dart';
 
 /// NOTE: The [entire widget] except for the popover
 class PickerWidget extends StatefulWidget {
@@ -66,7 +66,7 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
   }
 
   /// Displays the date/time matching the values in the pickers, with a "set"-button
-  Widget _dateTimeAndSetButton() => PickerSetWidget();
+  Widget _dateTimeAndSetButton() => PickerHeaderWidget();
 
   /// Button to control if the DatePicker or TimePicker is displayed (aka which Widget in the Stack Widget is visible)
   Widget _segmentButtonsOfDateTime() {

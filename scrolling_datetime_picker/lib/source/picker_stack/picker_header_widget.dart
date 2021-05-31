@@ -8,14 +8,12 @@ import '../../source/cubit/date_time_cubit.dart';
 import '../constants.dart' as K;
 
 /// Widget that shows the date/time as it is updated by the pickers, and the 'Set'-button
-class PickerSetWidget extends StatelessWidget {
+class PickerHeaderWidget extends StatelessWidget {
   final String dateFormat;
   final String timeFormat;
   final Widget setButtonWidget;
-  PickerSetWidget({
+  PickerHeaderWidget({
     Key? key,
-    ThemeColors? buttonColors,
-    ThemeColors? backgroundColors,
     this.dateFormat = K.dateFormatString,
     this.timeFormat = K.timeFormatString,
     this.setButtonWidget = K.setWidget,
@@ -38,19 +36,20 @@ class PickerSetWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       AutoSizeText(
                         '$dateText',
-                        maxFontSize: K.fontSize,
+                        maxFontSize: 20.0, //K.fontSize,
                         style: K.textStyle(context: context),
-                        minFontSize: K.headerFontSize,
+                        //minFontSize: K.headerFontSize,
                         maxLines: 1,
                       ),
                       AutoSizeText(
                         '$timeText',
-                        maxFontSize: K.fontSize,
+                        maxFontSize: 20.0, //K.fontSize,
                         style: K.textStyle(context: context),
-                        minFontSize: K.headerFontSize,
+                        //minFontSize: K.headerFontSize,
                         maxLines: 1,
                       ),
                     ],
