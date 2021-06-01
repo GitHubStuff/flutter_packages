@@ -1,5 +1,5 @@
 // Copyright 2021, LTMM LLC
-// Creates a widget with Hours, Minutes, Seconds, and Merdian Pickers
+// Creates a widget with Hours, Minutes, Seconds{optional}, and Merdian Pickers
 import 'package:flutter/material.dart';
 
 import '../constants.dart' as K;
@@ -34,6 +34,7 @@ class TimeScrollingWidget extends StatelessWidget {
     );
   }
 
+  /// The elements of a row (hour widget) (colon) (minute widget) [(colon) (second widget)] (meridian)
   List<Widget> elements() {
     final timeWidgetSize = Size(size.width * K.timeWidgetWidthFactor, size.height);
     final seperatorSize = Size(size.width * K.timeSeperatorWidthFactor, size.height);
