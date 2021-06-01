@@ -48,11 +48,6 @@ const int noonOrMidnight = 12;
 const int pmIndex = 1;
 const int yearLimit = 600;
 
-// TextStyle headerTextStyle(Brightness brightness, {required BuildContext context}) => TextStyle().copyWith(
-//       color: ThemeCubit.colorOf(headerTextColors, context: context),
-//       fontWeight: FontWeight.bold,
-//     );
-
 TextStyle textStyle({required BuildContext context, TextStyle? textStyle}) => (textStyle ?? TextStyle()).copyWith(
       color: ThemeManager.color(characterColors, context: context),
       fontSize: fontSize,

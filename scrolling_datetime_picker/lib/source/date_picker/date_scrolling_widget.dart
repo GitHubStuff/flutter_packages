@@ -26,6 +26,9 @@ class DateScrollingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!ordering.contains(DateTimeElement.year)) throw Exception('Missing Year Widget');
+    if (!ordering.contains(DateTimeElement.month)) throw Exception('Missing Month Widget');
+    if (!ordering.contains(DateTimeElement.day)) throw Exception('Missing Day Widget');
     final yearWidgetSize = Size(size.width / K.yearWidgetFactor, size.height);
     final monthWidgetSize = Size(size.width / K.monthWidgetFactor, size.height);
     final dayWidgetSize = Size(size.width / K.dayWidgetFactor, size.height);
@@ -49,14 +52,10 @@ class DateScrollingWidget extends StatelessWidget {
         default:
           throw Exception('Cannot have $element in date picker');
       }
-      if (!ordering.contains(DateTimeElement.year)) throw Exception('Missing Year Widget');
-      if (!ordering.contains(DateTimeElement.month)) throw Exception('Missing Month Widget');
-      if (!ordering.contains(DateTimeElement.day)) throw Exception('Missing Day Widget');
     }
 
     return Container(
       margin: const EdgeInsets.all(1.0),
-      // decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
       child: Row(mainAxisSize: MainAxisSize.max, children: children),
     );
   }
