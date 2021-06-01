@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
+import 'package:scrolling_datetime_picker/scrolling_datetime_picker.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 class ScaffoldWidget extends StatefulWidget {
@@ -42,6 +43,14 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          PopoverDateTimePicker(
+              onWidget: Text(
+                'Date Picker',
+                style: TextStyle(fontSize: 48.0),
+              ),
+              callback: (newDateTime) {
+                debugPrint('$newDateTime');
+              }),
           Text(
             message,
           ),

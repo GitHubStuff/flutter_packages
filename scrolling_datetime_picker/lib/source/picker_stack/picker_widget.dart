@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:theme_manager/theme_manager.dart';
 
-import '../../source/date_picker/date_picker_widget.dart';
-import '../../source/time_picker/time_picker_widget.dart';
 import '../constants.dart' as K;
+import '../date_picker/date_scrolling_widget.dart';
+import '../time_picker/time_scrolling_widget.dart';
 import 'picker_header_widget.dart';
 
 /// NOTE: The [entire widget] except for the popover
@@ -38,8 +38,8 @@ class PickerWidget extends StatefulWidget {
 class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
   double _dateOpacity = K.fullOpacity;
   double _timeOpacity = K.emptyOpacity;
-  late TimePickerWidget _timePickerWidget;
-  late DatePickerWidget _datePickerWidget;
+  late TimeScrollingWidget _timePickerWidget;
+  late DateScrollingWidget _datePickerWidget;
 
   @override
   initState() {
@@ -51,15 +51,23 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _timePickerWidget = TimePickerWidget(size: widget.size);
-    _datePickerWidget = DatePickerWidget(size: widget.size);
+    _timePickerWidget = TimeScrollingWidget(size: widget.size);
+    _datePickerWidget = DateScrollingWidget(size: widget.size);
+    final captionHeight = widget.size.height / K.headerWidgetFactor;
+    final toggleButtonHeight = widget.size.height / K.segmentButtonFactor;
     return SizedBox(
       width: widget.size.width,
-      child: Column(
+      child: Stack(
         children: [
-          SizedBox(height: widget.size.height / K.headerWidgetFactor, child: _dateTimeAndSetButton()),
-          SizedBox(height: widget.size.height / K.segmentButtonFactor, child: _segmentButtonsOfDateTime()),
-          SizedBox(height: widget.size.height, child: _stackOfDateAndTimeScrollWidgets()),
+          SizedBox(height: captionHeight, child: _dateTimeAndSetButton()),
+          Padding(
+            padding: EdgeInsets.only(top: captionHeight + 2),
+            child: SizedBox(height: widget.size.height / K.segmentButtonFactor, child: _segmentButtonsOfDateTime()),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: captionHeight + toggleButtonHeight),
+            child: SizedBox(height: widget.size.height, child: _stackOfDateAndTimeScrollWidgets()),
+          ),
         ],
       ),
     );
@@ -75,37 +83,43 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
       child: Row(
         children: [
           Expanded(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: ThemeManager.color(K.dateColors, context: context),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-              ),
-              onPressed: () {
-                if (_dateOpacity != K.fullOpacity) {
-                  setState(() {
-                    _dateOpacity = K.fullOpacity;
-                    _timeOpacity = K.emptyOpacity;
-                  });
-                }
-              },
-              child: widget.dateHeaderWidget,
-            ),
-          ),
-          Expanded(
-            child: ElevatedButton(
+            child: Container(
+              height: double.maxFinite,
+              child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: ThemeManager.color(K.timeColors, context: context),
+                  primary: ThemeManager.color(K.dateColors, context: context),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                 ),
                 onPressed: () {
-                  if (_timeOpacity != K.fullOpacity) {
+                  if (_dateOpacity != K.fullOpacity) {
                     setState(() {
-                      _dateOpacity = K.emptyOpacity;
-                      _timeOpacity = K.fullOpacity;
+                      _dateOpacity = K.fullOpacity;
+                      _timeOpacity = K.emptyOpacity;
                     });
                   }
                 },
-                child: widget.timeHeaderWidget),
+                child: widget.dateHeaderWidget,
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              height: double.maxFinite,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: ThemeManager.color(K.timeColors, context: context),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+                  ),
+                  onPressed: () {
+                    if (_timeOpacity != K.fullOpacity) {
+                      setState(() {
+                        _dateOpacity = K.emptyOpacity;
+                        _timeOpacity = K.fullOpacity;
+                      });
+                    }
+                  },
+                  child: widget.timeHeaderWidget),
+            ),
           )
         ],
       ),

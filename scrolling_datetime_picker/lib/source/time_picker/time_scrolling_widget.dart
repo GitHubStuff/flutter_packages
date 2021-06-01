@@ -9,10 +9,10 @@ import 'minute_widget.dart';
 import 'second_widget.dart';
 import 'seperator_widget.dart';
 
-class TimePickerWidget extends StatelessWidget {
+class TimeScrollingWidget extends StatelessWidget {
   final Size size;
 
-  TimePickerWidget({
+  TimeScrollingWidget({
     Key? key,
     this.size = K.minimalPickerSize,
   })  : assert(

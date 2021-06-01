@@ -8,12 +8,12 @@ import 'day_widget.dart';
 import 'month_widget.dart';
 import 'year_widget.dart';
 
-class DatePickerWidget extends StatelessWidget {
+class DateScrollingWidget extends StatelessWidget {
   final Size size;
 
   final List<DateTimeElement> ordering;
   final String monthDisplayFormat;
-  DatePickerWidget({
+  DateScrollingWidget({
     Key? key,
     this.size = K.minimalPickerSize,
     this.monthDisplayFormat = K.monthDisplayFormat,
