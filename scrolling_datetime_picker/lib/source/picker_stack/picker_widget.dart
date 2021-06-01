@@ -87,6 +87,7 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
               height: double.maxFinite,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+                  onPrimary: ThemeManager.color(K.characterColors, context: context),
                   primary: ThemeManager.color(K.dateColors, context: context),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                 ),
@@ -107,6 +108,7 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
               height: double.maxFinite,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    onPrimary: ThemeManager.color(K.characterColors, context: context),
                     primary: ThemeManager.color(K.timeColors, context: context),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                   ),
