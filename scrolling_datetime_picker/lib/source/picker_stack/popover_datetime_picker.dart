@@ -17,12 +17,14 @@ class PopoverDateTimePicker extends StatefulWidget {
   final Widget onWidget;
   final DateTime? initalDateTime;
   final DateTimeCallback callback;
+  final bool includeSeconds;
 
   PopoverDateTimePicker({
     Key? key,
     required this.onWidget,
     required this.callback,
     this.initalDateTime,
+    this.includeSeconds = true,
   }) : super(key: key) {
     DateTimeCubit.cubit = DateTimeCubit(initalDateTime);
     DateTimePickerConstants();
@@ -70,6 +72,8 @@ class _PopoverDateTimePicker extends ObservingStatefulWidget<PopoverDateTimePick
   }
 
   Widget _picker() {
-    return PickerWidget();
+    return PickerWidget(
+      includeSeconds: widget.includeSeconds,
+    );
   }
 }

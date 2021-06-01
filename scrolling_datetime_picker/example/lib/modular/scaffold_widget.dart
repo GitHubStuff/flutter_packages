@@ -44,6 +44,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           PopoverDateTimePicker(
+              includeSeconds: false,
               onWidget: Text(
                 'Date Picker',
                 style: TextStyle(fontSize: 48.0),

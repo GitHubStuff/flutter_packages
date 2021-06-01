@@ -14,8 +14,10 @@ class PickerWidget extends StatefulWidget {
   final Size size;
   final Widget dateHeaderWidget;
   final Widget timeHeaderWidget;
+  final bool includeSeconds;
   PickerWidget({
     Key? key,
+    required this.includeSeconds,
     this.size = K.minimalPickerSize,
     this.dateHeaderWidget = const AutoSizeText(
       K.dateText,
@@ -51,7 +53,10 @@ class _PickerWidget extends ObservingStatefulWidget<PickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _timePickerWidget = TimeScrollingWidget(size: widget.size);
+    _timePickerWidget = TimeScrollingWidget(
+      size: widget.size,
+      includeSeconds: widget.includeSeconds,
+    );
     _datePickerWidget = DateScrollingWidget(size: widget.size);
     final captionHeight = widget.size.height / K.headerWidgetFactor;
     final toggleButtonHeight = widget.size.height / K.segmentButtonFactor;

@@ -11,10 +11,12 @@ import 'seperator_widget.dart';
 
 class TimeScrollingWidget extends StatelessWidget {
   final Size size;
+  final bool includeSeconds;
 
   TimeScrollingWidget({
     Key? key,
     this.size = K.minimalPickerSize,
+    required this.includeSeconds,
   })  : assert(
           size.width >= K.minimalPickerSize.width && size.height >= K.minimalPickerSize.height,
           'Minimal Size ${K.minimalPickerSize}',
@@ -23,21 +25,40 @@ class TimeScrollingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeWidgetSize = Size(size.width * K.timeWidgetWidthFactor, size.height);
-    final seperatorSize = Size(size.width * K.timeSeperatorWidthFactor, size.height);
     return Container(
       margin: const EdgeInsets.all(1.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
-        children: [
-          HourWidget(size: timeWidgetSize),
-          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
-          MinuteWidget(size: timeWidgetSize),
-          SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
-          SecondWidget(size: timeWidgetSize),
-          MeridianWidget(size: timeWidgetSize),
-        ],
+        children: elements(),
       ),
     );
+  }
+
+  List<Widget> elements() {
+    final timeWidgetSize = Size(size.width * K.timeWidgetWidthFactor, size.height);
+    final seperatorSize = Size(size.width * K.timeSeperatorWidthFactor, size.height);
+    final List<Widget> result = [
+      Spacer(),
+      HourWidget(size: timeWidgetSize),
+      Spacer(),
+      SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
+      Spacer(),
+      MinuteWidget(size: timeWidgetSize),
+    ];
+
+    if (includeSeconds) {
+      result.addAll([
+        SeperatorWidget(seperator: K.timeWidgetSeperator, size: seperatorSize),
+        Spacer(),
+        SecondWidget(size: timeWidgetSize),
+      ]);
+    }
+    result.addAll([
+      Spacer(),
+      MeridianWidget(size: timeWidgetSize),
+      Spacer(),
+    ]);
+
+    return result;
   }
 }
