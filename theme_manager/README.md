@@ -4,29 +4,35 @@ Manages an app's ability to change themes (light/dark/system).
 
 ## Getting Started
 
-Modify **main** to be async and call **ThemeCubit.setup()**
+Modify **main** to be async and call **ThemeManager.setup()**
 
 ```dart
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ThemeCubit.setup();
+  await ThemeManager.setup();   <---- VERY IMPORANT
   runApp(MyApp());
 }
 ```
 
-Either through Dependency-Injection, as a global constant, or other state managment (BLoC, Riverpod, etc) create a singleton of:
-
-```dart
-themeCubit = ThemeCubit({ThemeData? darkTheme, ThemeData? lightTheme, ThemeIcons? themeIcons})
-```
-
 ### NOTE
 
-There are default **darkTheme**, **lightTheme**, and **themeIcons** but it is best practice to use your own
+There are default **darkTheme**, **lightTheme**, and **themeIcons** but it is best practice to use your own. The colors themes for the app are defined by calling:
 
-**ThemeCubit** is extension for Cubit and is used to get, set, and report theme state.
+```dart
+ThemeManager(ThemeData? darkTheme, 
+             ThemeData? lightTheme,
+             ThemeIcons? themeIcons,
+             Map<String,ThemeColors>? colorMap);
+```
 
-The **ThemeCubit** should be the parent of whatever widget defines the app's theme {usually **MaterialApp()**}
+where:
+
+- themeIcons is an abstract class the defines widgets for applicationDark, applicationLight, platformDark, platformLight. These widget can be used when display dialogs that show the platform state
+- colorMap allows for storing theme colors by 'key' for lookup within the app.
+
+**ThemeCubit** is extension of Cubit and is used to get, set, and report theme state.
+
+The **ThemeManager** should be the parent widget at the top of the tree (usually parent of MaterialApp) where theme changes are defined:
 
 Example:
 
@@ -35,16 +41,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
-      bloc: themeCubit,
+      bloc: ThemeManager.themeCubit,
       builder: (_, state) {
-        ThemeMode themeMode = themeCubit.themeMode;
+        ThemeMode themeMode = ThemeManager.themeMode; // system, light, dark
         if (state is UpdateThemeMode) {
           themeMode = state.themeMode;
         }
         return MaterialApp(
           title: 'Flutter Demo',
-          theme: themeCubit.lightTheme,
-          darkTheme: themeCubit.darkTheme,
+          theme: ThemeManager.lightTheme,
+          darkTheme: ThemeManager.darkTheme,
           themeMode: themeMode,
           home: MyHomePage(title: 'Flutter Demo Home Page'),
         );
@@ -54,54 +60,62 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+## ThemeState
+
+There are four(4) states for an app that can be in effect.
+
+```dart
+enum ThemeState {
+  applicationDark,
+  applicationLight,
+  platformDark,
+  platformLight,
+}
+```
+
+- applicationDark : bypasses the platform brightness and enforces DarkTheme for the app
+- applicationLight :  bypasses the platform brightness and enforces LightTheme for the app
+- plaformDark : queries the platform brightness and determed the system level theme enforces DarkTheme
+- plaformDark : queries the platform brightness and determed the system level theme enforces LightTheme
+
 ## Changing Theme
 
-At any point to change the theme call:
+At any point to change the theme:
+
 
 ```dart
-themeCubit.setThemeMode(ThemeMode.dark);
 
-or
+ThemeManager.themeMode = THemeMode.dark;
 
-themeCubit.setThemeMode(ThemeMode.light);
+ThemeManager.themeMode = THemeMode.light;
 
-or
+ThemeManager.themeMode = THemeMode.system;
 
-themeCubit.setThemeMode(ThemeMode.system);
+// Or get the current theme:
+
+ThemeMode currentMode = ThemeManager.themeMode;
+
 ```
 
-## Helpers
+The theme *WILL be preserved across application launches*. ThemeMode.system, the theme used will be based on Platform.brightness.
 
-Collection of methods and classes to help with theme identification, management, and settings.
+## Class Helpers
 
-### Class CustomColorManager
-
-A repository of colors that can be access by a **key** to return a color for theme mode (light/dark/system).
-
-```dart
-// The BuildContext is needed to return colors for ThemeMode.system
-Color c = CustomColorManager.by({required String key, required ThemeMode themeMode, required BuildContext? using});
-
-Color c = CustomColorManager.of(String key, {required Brightness brightness});
-
-Color c = CustomColorManager.ofPlatformBrightness({required String key, required BuildContext context});
-
-CustomColorManager.add({required String key, required Color dark, required Color light});
-
-CustomColorManager.addMono({required Color color, required String key});
-```
-
-### String Extension
-
-Convert string to ThemeMode or throws CannotReadThemeMode if the string can't be parsed\
-
-```dart
-  {string}.asThemeMode()   // transforms strings "dark", "light", "system"
-```
+- await setup() : ***MUST BE CALLED AT APP LAUNCH***
+- get darkTheme : returns the defined darkTheme
+- get lightTheme : returns the defined lightTheme
+- get themeCubit : returns the Cubit used for theme state {for BlocBuilder<ThemeCubit, ThemeState> to wrap theme state changes.
+- get themeIcons : returns the class that defines widgets the represent brightness state
+- defaultThemeColors(ThemeColors theColors, {required String forKey}) : sets an inital color {will not override any color for the 'forKey'}
+- addThemeColors(ThemeColors colors, {required String forKey, bool allowOverwrite = false}) : Add a color to the list and throw an error if already there unless allowOverwrite = true
+- Brightness brightness(BuildContext context) - returned the Brightness of the app
+- Color color(String key, {required BuildContext context}) - returns a color based on ThemeMode or throws error if it doesn't exist
+- Widget themeModeIcon(BuildContext context) - returns the widget based in the mode {application light/dark, platform light/dark}
+- ThemeState themeState(BuildContext context) : returns ThemeState value {see enum ThemeState}
 
 ### TextKey Extension
 
-**TextKey** is enum{see below} the provides a key from the typography of an up. This is used instead of a String to help prevent typo's in string constants, and ensure all 'switch' cases are covered.
+**TextKey** is enum{see below} the provides a key from the typography of an app. This is used instead of a String to help prevent typo's in string constants, and ensure all 'switch' cases are covered.
 
 ```dart
  Color color = {TextKey}.getColor({required Brightness forBrightness});  //Light or Dark theme color
@@ -117,7 +131,7 @@ Convert string to ThemeMode or throws CannotReadThemeMode if the string can't be
 
 ```dart
   /// Gets the theme mode as a brightness, for TyemeMode.system the context != null or an error is thrown
-  Brightness b = {ThemeMode}.asBrightness({required BuildContext? context});
+  Brightness b = {ThemeMode}.asBrightness({required BuildContext context});
 
   String text = {ThemeMode}.asString();  //returns "dark", "light", or "system"
 
@@ -125,7 +139,7 @@ Convert string to ThemeMode or throws CannotReadThemeMode if the string can't be
   // ThemeMode.dark
   // ThemeMode.light
   // ThemeMode.system --> this returns a widget for "platfromLight" or "platformDark" {see 'ThemeIcons'}
-  Widget widget = {ThemeMode}.getIcon({required BuildContext context, required ThemeIcons usingThemeIcons});
+  Widget widget = {ThemeMode}.getIcon({required BuildContext context});
 ```
 
 ### MISC

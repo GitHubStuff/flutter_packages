@@ -22,8 +22,10 @@ class ThemeColorsManager {
 
   static bool colorsExists({required String forKey}) => _repository.containsKey(_reKey(forKey));
 
-  static void replaceColors({required String key, required Color dark, required Color light, bool allowInsert = false}) =>
-      replaceThemeColors(ThemeColors(dark: dark, light: light), forKey: key, allowInsert: allowInsert);
+  static initThemeColors(ThemeColors themeColors, {required String forKey}) => (!colorsExists(forKey: forKey)) ? addThemeColors(themeColors, forKey: forKey) : null;
+
+  // static void replaceColors({required String key, required Color dark, required Color light, bool allowInsert = false}) =>
+  //     replaceThemeColors(ThemeColors(dark: dark, light: light), forKey: key, allowInsert: allowInsert);
 
   static void replaceThemeColors(ThemeColors colors, {required String forKey, bool allowInsert = false}) {
     if (!allowInsert && _lookupThemeColors(forKey, allowNull: true) == null) {

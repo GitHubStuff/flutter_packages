@@ -18,7 +18,7 @@ import 'widgets/theme_icons.dart';
 part '../src/hive/hive.dart';
 
 class ThemeManager {
-  static ThemeManager get singleton => _instance ?? ThemeManager();
+  //static ThemeManager get singleton => _instance ?? ThemeManager();
 
   static final ThemeCubit _themeCubit = ThemeCubit();
 
@@ -42,17 +42,18 @@ class ThemeManager {
     _themeCubit.emit(UpdateThemeMode(mode));
   }
 
-  factory ThemeManager([
+  factory ThemeManager({
     ThemeData? darkTheme,
     ThemeData? lightTheme,
     ThemeIcons? themeIcons,
     Map<String, ThemeColors>? colorMap,
-  ]) {
+  }) {
     _instance = ThemeManager._internal(
       darkTheme ?? DefaultThemes.defaultDarkThemeData,
       lightTheme ?? DefaultThemes.defaultLightThemeData,
       themeIcons ?? DefaultThemeIcons(),
     );
+    colorMap?.forEach((key, value) => ThemeColorsManager.replaceThemeColors(value, forKey: key, allowInsert: true));
     return _instance!;
   }
 
@@ -63,6 +64,11 @@ class ThemeManager {
     _themeIcons = themeIcons;
     _instance = this;
   }
+
+  static void defaultThemeColors(ThemeColors themeColors, {required String forKey}) => ThemeColorsManager.initThemeColors(
+        themeColors,
+        forKey: forKey,
+      );
 
   static void addThemeColors(ThemeColors colors, {required String forKey, bool allowOverwrite = false}) => ThemeColorsManager.addThemeColors(
         colors,
@@ -75,12 +81,9 @@ class ThemeManager {
 
   static setup() async => await _Hive.setup();
 
-  static Widget themeModeIcon(BuildContext context) => _Hive._getThemeMode().getIcon(
-        context: context,
-        usingThemeIcons: themeIcons,
-      );
+  static Widget themeModeIcon(BuildContext context) => _Hive._getThemeMode().getIcon(context: context);
 
   static ThemeState themeState(BuildContext context) => _Hive._themeState(context);
 
-  static bool missingColors({required String forKey}) => !ThemeColorsManager.colorsExists(forKey: forKey);
+  //static bool missingColors({required String forKey}) => !ThemeColorsManager.colorsExists(forKey: forKey);
 }
