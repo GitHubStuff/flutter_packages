@@ -64,9 +64,9 @@ class DateTimePickerConstants {
     ThemeColors textColors = ThemeColors(dark: Colors.white70, light: Colors.black87);
     ThemeColors dateWidget = ThemeColors(dark: Color(0xff0047ab), light: Color(0xffcccccc));
     ThemeColors timeWidget = ThemeColors(dark: Color(0xff5a77e3), light: Color(0xffeeeeee));
-    if (ThemeManager.missingColors(forKey: captionColors)) ThemeManager.addThemeColors(captionWidget, forKey: captionColors);
-    if (ThemeManager.missingColors(forKey: characterColors)) ThemeManager.addThemeColors(textColors, forKey: characterColors);
-    if (ThemeManager.missingColors(forKey: dateColors)) ThemeManager.addThemeColors(dateWidget, forKey: dateColors);
-    if (ThemeManager.missingColors(forKey: timeColors)) ThemeManager.addThemeColors(timeWidget, forKey: timeColors);
+    ThemeManager.defaultThemeColors(captionWidget, forKey: captionColors);
+    ThemeManager.defaultThemeColors(textColors, forKey: characterColors);
+    ThemeManager.defaultThemeColors(dateWidget, forKey: dateColors);
+    ThemeManager.defaultThemeColors(timeWidget, forKey: timeColors);
   }
 }
