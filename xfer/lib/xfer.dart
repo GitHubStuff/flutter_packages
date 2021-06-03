@@ -9,6 +9,7 @@ import 'package:tracers_package/tracers.dart';
 import 'package:xfer/src/xfer_hive.dart';
 
 import 'src/xfer_asset.dart';
+import 'src/xfer_cached.dart';
 import 'src/xfer_failure.dart';
 import 'src/xfer_http.dart';
 import 'src/xfer_protocol_extension.dart';
@@ -28,16 +29,18 @@ enum XferException {
   assetArguementError,
   assetReadError,
   headerMissingContentType,
+  headersMissing,
+  headersMissingRequiredValues,
   headerUnknownContentType,
+  http400BadRequest,
+  http401UnauthorizedException,
+  http403UnauthorizedException,
+  http500FetchDataException,
   httpArguementError,
   httpSocketException, // Device not connected to internet, or permissions not set.
   httpUndefinedGETMethod,
   httpUndefinedPOSTMethod,
   httpUndefinedPUTMethod,
-  http400BadRequest,
-  http401UnauthorizedException,
-  http403UnauthorizedException,
-  http500FetchDataException,
   invalidXferRequest,
   preferenceMissingData,
   preferenceMissingKey,
@@ -53,6 +56,7 @@ enum XferProtocol {
   https,
   pref,
   preference,
+  cachedImage,
 }
 
 /// Standard http.post for actual HTTP calls (the library/package used eg: package:http/http.dart')
@@ -83,6 +87,10 @@ class Xfer {
     try {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
+        case XferProtocol.cachedImage:
+          Either<XferFailure, XferResponse> cachedResponse = await cachedGet(url, headers: headers);
+          tm?.show('$url');
+          return cachedResponse;
         case XferProtocol.asset:
           Either<XferFailure, XferResponse> assetResponse = await assetGet(url, headers: headers);
           tm?.show('$url');
@@ -129,6 +137,8 @@ class Xfer {
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
+        case XferProtocol.cachedImage:
+          return get(url, headers: headers, value: value);
         case XferProtocol.asset:
           return assetPost(url, headers: headers);
         case XferProtocol.http:
@@ -172,6 +182,8 @@ class Xfer {
       }
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
+        case XferProtocol.cachedImage:
+          return get(url, headers: headers, value: value);
         case XferProtocol.asset:
           return Left(XferFailure(XferException.invalidXferRequest, code: 'Put not available for asset://'));
         case XferProtocol.http:

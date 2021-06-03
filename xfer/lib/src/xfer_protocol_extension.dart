@@ -10,7 +10,7 @@ extension XferProtocolExtension on XferProtocol {
     List<String> elements = onUrl.split('://');
     if (elements.length < 2) throw XferFailure(XferException.urlMissingProtocol);
     for (XferProtocol value in XferProtocol.values) {
-      if (value.toText == elements[0].toLowerCase()) return value;
+      if (value.toText.toLowerCase() == elements[0].toLowerCase()) return value;
     }
     throw XferFailure(XferException.urlUnknownProtocol);
   }
