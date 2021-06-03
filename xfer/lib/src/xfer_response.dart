@@ -6,7 +6,7 @@ class XferResponse {
   final XferProtocol protocol;
   final dynamic body;
   final int statusCode;
-  final Object? response;
+  final dynamic response;
   XferResponse(
     this.body,
     this.statusCode, {

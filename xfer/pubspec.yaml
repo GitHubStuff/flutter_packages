@@ -1,6 +1,6 @@
 name: xfer
 description: Does http calls, and call to asset, and local files with various protocols
-version: 0.1.1+1
+version: 0.2.0+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -32,3 +32,4 @@ flutter:
   uses-material-design: true
   assets:
     - onboarding/
+    - onboarding/bird.png

@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:tracers_package/tracers.dart';
+
+import '../xfer.dart';
 
 class CachedHeader {
   static final String _placeholderKey = 'placeholderName';
@@ -10,36 +13,39 @@ class CachedHeader {
   static final String _height = "height";
 
   final String placeholderAssetName;
-  final String? placeholderPackage;
+  final String placeholderPackage;
   final String errorAssetName;
-  final String? errorPackage;
-  final String? width;
-  final String? height;
+  final String errorPackage;
+  final String width;
+  final String height;
 
   CachedHeader({
-    required this.placeholderAssetName,
-    this.placeholderPackage,
-    required this.errorAssetName,
-    this.errorPackage,
-    this.width,
-    this.height,
+    this.placeholderAssetName = '',
+    this.placeholderPackage = '',
+    this.errorAssetName = '',
+    this.errorPackage = '',
+    this.width = '',
+    this.height = '',
   });
 
-  static CachedHeader? fromHeader(Map<String, String?> header) {
+  bool get usePlaceholder => placeholderAssetName.isNotEmpty;
+  bool get useErrorAsset => errorAssetName.isNotEmpty;
+
+  static CachedHeader? fromHeader(Map<String, String> header) {
     if (header[_placeholderKey] == null) return null;
     if (header[_errorKey] == null) return null;
     return CachedHeader(
       placeholderAssetName: header[_placeholderKey]!,
-      placeholderPackage: header[_placeholderPackageKey],
+      placeholderPackage: header[_placeholderPackageKey] ?? '',
       errorAssetName: header[_errorKey]!,
-      errorPackage: header[_errorPackageKey],
-      width: header[_width],
-      height: header[_height],
+      errorPackage: header[_errorPackageKey] ?? '',
+      width: header[_width] ?? '',
+      height: header[_height] ?? '',
     );
   }
 
-  Map<String, String?> asHeader() {
-    Map<String, String?> result = {};
+  Map<String, String> asHeader() {
+    Map<String, String> result = {};
     result[_placeholderKey] = placeholderAssetName;
     result[_placeholderPackageKey] = placeholderPackage;
     result[_errorKey] = errorAssetName;
@@ -49,13 +55,26 @@ class CachedHeader {
     return result;
   }
 
-  CachedNetworkImage cachedNetworkImage({required String url}) {
-    double? doubleWidth = (width == null) ? null : double.parse(width!);
-    double? doubleHeight = (height == null) ? null : double.parse(height!);
+  CachedNetworkImage cachedNetworkImage({required String url, CachedImageError? cachedImageError}) {
+    List<String> elements = url.split('://');
+    final String path = 'https://${elements[1]}';
+    double? doubleWidth = (width.isEmpty) ? null : double.parse(width);
+    double? doubleHeight = (height.isEmpty) ? null : double.parse(height);
+    String? holder = (placeholderPackage.isEmpty) ? null : placeholderPackage;
+    String? err = (errorPackage.isEmpty) ? null : errorPackage;
     return CachedNetworkImage(
-      imageUrl: 'https://$url',
-      placeholder: (context, url) => Image(image: AssetImage(placeholderAssetName, package: placeholderPackage)),
-      errorWidget: (context, url, error) => Image(image: AssetImage(errorAssetName, package: errorPackage)),
+      imageUrl: '$path',
+      progressIndicatorBuilder: usePlaceholder
+          ? null
+          : (context, path, loaded) => CircularProgressIndicator(
+                value: loaded.progress,
+              ),
+      placeholder: usePlaceholder ? (context, url) => Image(image: AssetImage(placeholderAssetName, package: holder)) : null,
+      errorWidget: (context, url, error) {
+        Log.F('CachedNetworkImage error: ${error.toString()}');
+        if (cachedImageError != null) cachedImageError(error);
+        return useErrorAsset ? Image(image: AssetImage(errorAssetName, package: err)) : Icon(Icons.error_outline_sharp);
+      },
       width: doubleWidth,
       height: doubleHeight,
     );

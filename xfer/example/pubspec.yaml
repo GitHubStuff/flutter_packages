@@ -1,7 +1,7 @@
 name: xfer_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.3
+version: 0.0.5
 
 environment:
   sdk: ">=2.12.0 <3.0.0" #Dart SDK 9-Mar-2021
@@ -15,6 +15,7 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: tracers_package
+  cached_network_image: ^3.1.0-alpha.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.0-nullsafety.2
   http: ^0.13.0
@@ -25,4 +26,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/
+    - images/brand.png
+    - images/theme.png

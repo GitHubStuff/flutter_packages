@@ -15,7 +15,7 @@ import 'src/xfer_http.dart';
 import 'src/xfer_protocol_extension.dart';
 import 'src/xfer_response.dart';
 
-export 'src/xfer_asset.dart';
+export 'src/cached_header.dart';
 export 'src/xfer_failure.dart';
 export 'src/xfer_response.dart';
 
@@ -64,6 +64,8 @@ typedef Future<Response> Post(Uri url, {Map<String, String>? headers, Object? bo
 typedef Future<Response> Put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
 typedef Future<Response> Get(Uri url, {Map<String, String>? headers});
 
+typedef void CachedImageError(dynamic message);
+
 class Xfer {
   final Post? httpPostFuture;
   final Put? httpPutFuture;
@@ -71,6 +73,10 @@ class Xfer {
   final bool trace;
   // NOTE: Constructor
   const Xfer({this.httpPostFuture, this.httpPutFuture, this.httpGetFuture, this.trace = false});
+
+  // Non-async get for cachedImages
+  Either<XferFailure, XferResponse> fetch(String url, {required Map<String, String> headers, Object? imageError}) =>
+      cachedGet(url, headers: headers, cachedImageError: imageError == null ? null : imageError as CachedImageError);
 
   /// GET
   Future<Either<XferFailure, XferResponse>> get(
@@ -88,7 +94,7 @@ class Xfer {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.cachedImage:
-          Either<XferFailure, XferResponse> cachedResponse = await cachedGet(url, headers: headers);
+          Either<XferFailure, XferResponse> cachedResponse = fetch(url, headers: headers!, imageError: value);
           tm?.show('$url');
           return cachedResponse;
         case XferProtocol.asset:
@@ -138,7 +144,7 @@ class Xfer {
       XferProtocol protocol = XferProtocolExtension.protocol(url);
       switch (protocol) {
         case XferProtocol.cachedImage:
-          return get(url, headers: headers, value: value);
+          return fetch(url, headers: headers!, imageError: value);
         case XferProtocol.asset:
           return assetPost(url, headers: headers);
         case XferProtocol.http:

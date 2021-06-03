@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dartz/dartz.dart' as D;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -66,6 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              child: _lookup(),
+              height: 175,
+              width: 175,
+            ),
+            Container(
               child: Image(image: assetImage!),
               height: 175,
               width: 175,
@@ -107,7 +114,19 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('P')),
           FloatingActionButton(
               onPressed: () async {
-                final result = Xfer().get('pref://myKey');
+                final result = Xfer().post('pref://myKey', body: 11);
+                debugPrint('$result');
+              },
+              child: Text('C')),
+          FloatingActionButton(
+              onPressed: () async {
+                final cacheHeader = CachedHeader(
+                  placeholderAssetName: 'images/brand.png',
+                  placeholderPackage: 'xfer_app',
+                  errorAssetName: 'images/theme.png',
+                  errorPackage: 'xfer_app',
+                );
+                final result = await Xfer().get('cachedImage://picsum.photos/500', headers: cacheHeader.asHeader());
                 debugPrint('$result');
               },
               child: Text('G')),
@@ -166,5 +185,20 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
     );
+  }
+
+  Widget _lookup() {
+    final cacheHeader = CachedHeader(
+      placeholderAssetName: '', //'onboarding/bird.png',
+      placeholderPackage: 'xfer',
+      errorAssetName: '', //'images/brand.png',
+    );
+    final idx = Random().nextInt(50) + 1000;
+    final result = Xfer().fetch('cachedImage://picsum.photos/id/$idx/200', headers: cacheHeader.asHeader(), imageError: null);
+    return result.fold((l) => Text('Error $l'), (r) {
+      final widget = r.body as CachedNetworkImage;
+      if (r.response != null) debugPrint('RESPONSE: ${r.response.toString()}');
+      return widget;
+    });
   }
 }
