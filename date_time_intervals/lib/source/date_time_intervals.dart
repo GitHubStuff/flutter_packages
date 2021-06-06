@@ -26,16 +26,15 @@ class DateTimeIntervals {
   DateTimeIntervals({
     Set<CalendarItem?> setOfCalendarItems = AllCalendarItems,
     @required DateTime? startEvent,
-    @required DateTime? endEvent,
+    DateTime? endEvent,
   }) {
     if (setOfCalendarItems.isEmpty) throw FlutterError('Cannot have empty/null setOfCalendarItems');
     if (startEvent == null) throw FlutterError('Cannot have null startEvent');
-    if (endEvent == null) throw FlutterError('Cannot have null endEvent');
     DateTime startingDateTime = _timeWrapper(startEvent);
-    DateTime endingDateTime = _timeWrapper(endEvent);
+    DateTime endingDateTime = _timeWrapper(endEvent ?? DateTime.now());
     _direction = startingDateTime.compareTo(endingDateTime) > 0 ? CalendarDirection.sinceEnd : CalendarDirection.untilEnd;
     if (_direction == CalendarDirection.sinceEnd) {
-      startingDateTime = _timeWrapper(endEvent);
+      startingDateTime = _timeWrapper(endingDateTime);
       endingDateTime = _timeWrapper(startEvent);
     }
     _direction = CalendarDirection.between;
@@ -125,7 +124,7 @@ class DateTimeIntervals {
   }
 
   void _approximateInterval(Set<CalendarItem?> setOfCalendarItems, DateTime startingDateTime, DateTime endingDateTime) {
-    int getTotalMonths(DateTime startEvent, DateTime endEvent) {
+    int _getTotalMonths(DateTime startEvent, DateTime endEvent) {
       int months = 0;
       while (DateTime(
             startEvent.year,
@@ -141,12 +140,12 @@ class DateTimeIntervals {
       return months;
     }
 
-    int totalMonths = getTotalMonths(startingDateTime, endingDateTime);
-    _years = !setOfCalendarItems.contains(CalendarItem.years) ? null : totalMonths ~/ _MONTHS_PER_YEAR;
-    _months = !setOfCalendarItems.contains(CalendarItem.months) ? null : totalMonths - ((_years ?? 0) * _MONTHS_PER_YEAR);
+    int _totalMonths = _getTotalMonths(startingDateTime, endingDateTime);
+    _years = !setOfCalendarItems.contains(CalendarItem.years) ? null : _totalMonths ~/ _MONTHS_PER_YEAR;
+    _months = !setOfCalendarItems.contains(CalendarItem.months) ? null : _totalMonths - ((_years ?? 0) * _MONTHS_PER_YEAR);
     DateTime adjustedEvent = DateTime(
       startingDateTime.year,
-      startingDateTime.month + totalMonths,
+      startingDateTime.month + _totalMonths,
       startingDateTime.day,
       startingDateTime.hour,
       startingDateTime.minute,

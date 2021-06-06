@@ -1,7 +1,11 @@
 // Copyright 2021 LTMM, LLC. All rights reserved.
 import 'package:enum_to_string/enum_to_string.dart';
 
-enum CalendarDirection { between, sinceEnd, untilEnd }
+enum CalendarDirection {
+  between,
+  sinceEnd,
+  untilEnd,
+}
 
 enum CalendarItem {
   years,
