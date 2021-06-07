@@ -7,7 +7,6 @@ class Transition {
   final Transitions transition;
   final Duration duration;
   const Transition(this.transition, {required this.duration});
-  CustomTransition get transition => {}
 }
 
 CustomTransition get myCustomTransition => CustomTransition(

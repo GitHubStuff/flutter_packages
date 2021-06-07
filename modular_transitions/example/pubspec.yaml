@@ -9,13 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  theme_management_package:
+  theme_manager:
     git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: theme_management_package
+      url: https://github.com/GitHubStuff/theme_manager.git
   cupertino_icons: ^1.0.3
-  flutter_bloc: ^7.0.0
-  flutter_modular: 3.2.2+1
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.2.2+1
 
 dev_dependencies:
   test: ^1.17.4

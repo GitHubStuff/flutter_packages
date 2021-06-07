@@ -1,6 +1,6 @@
 name: modular_transitions
 description: Template for Flutter Package project.
-version: 0.0.1+1
+version: 0.0.1+2
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -12,10 +12,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  observing_stateful_widget:
+  flutter_extras:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
-      path: observing_stateful_widget
+      path: flutter_extras
   flutter_modular: ^3.2.2+1
 
 dev_dependencies:
