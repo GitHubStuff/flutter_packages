@@ -50,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   AssetImage? assetImage;
   String message = 'Data without context';
+  Widget fetched = Text('Fetch');
 
   @override
   void initState() {
@@ -68,9 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
+              child: fetched,
+              height: 100,
+              width: 100,
+            ),
+            Container(
               child: _lookup(),
-              height: 175,
-              width: 175,
+              height: 75,
+              width: 75,
             ),
             Container(
               child: Image(image: assetImage!),
@@ -121,15 +127,26 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
               onPressed: () async {
                 final cacheHeader = CachedHeader(
-                  placeholderAssetName: 'images/brand.png',
-                  placeholderPackage: 'xfer_app',
-                  errorAssetName: 'images/theme.png',
-                  errorPackage: 'xfer_app',
+                  placeholderAssetName: '', //'onboarding/bird.png',
+                  placeholderPackage: 'xfer',
+                  errorAssetName: '', //'images/brand.png',
                 );
                 final result = await Xfer().get('cachedImage://picsum.photos/500', headers: cacheHeader.asHeader());
+                result.fold(
+                  (l) {
+                    setState(() {
+                      fetched = Text('${l.toString()}');
+                    });
+                  },
+                  (r) {
+                    setState(() {
+                      fetched = r.body as CachedNetworkImage;
+                    });
+                  },
+                );
                 debugPrint('$result');
               },
-              child: Text('G')),
+              child: Text('GP')),
           FloatingActionButton(
             onPressed: () {
               setState(() {

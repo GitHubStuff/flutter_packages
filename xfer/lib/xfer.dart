@@ -18,6 +18,7 @@ import 'src/xfer_response.dart';
 export 'src/cached_header.dart';
 export 'src/xfer_failure.dart';
 export 'src/xfer_response.dart';
+export 'src/xfer_uri_dto.dart';
 
 enum HttpVerb {
   GET,
