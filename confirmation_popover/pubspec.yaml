@@ -1,13 +1,13 @@
 name: confirmation_popover
 description: Displays 2-button popover to confirm an action of widget.
-version: 0.1.0+2
+version: 0.1.1+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
   sdk: ">=2.13.1 <3.0.0" #Dart SDK 1-JUN-2021
-  flutter: ">=1.22.5"
+  flutter: ">=2.2.1"
 
 dependencies:
   flutter:
