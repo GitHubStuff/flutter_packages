@@ -27,9 +27,17 @@ typedef LanguageTable = Map<String, String>;
 
 class LanguageDto {
   final WordList catalog;
+  List<String> keys;
   String _language = 'en';
 
-  LanguageDto(this.catalog);
+  LanguageDto(this.catalog, {required this.keys}) {
+    catalog.forEach((key, value) {
+      LanguageTable language = catalog[key]!;
+      for (String token in keys) {
+        assert(language[token] != null, 'Missing translation for $token in language:$key');
+      }
+    });
+  }
 
   set language(String newLanguage) {
     assert(catalog.containsKey(newLanguage), 'Locale: <$newLanguage> is not in catalog');
