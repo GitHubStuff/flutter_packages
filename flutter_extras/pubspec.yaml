@@ -1,12 +1,12 @@
 name: flutter_extras
 description: Add features to BuildContext
-version: 0.0.7+0
+version: 0.0.7+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.12.3 <3.0.0" #Dart SDK 7-MAY-2021
+  sdk: ">=2.13.0 <3.0.0" #Dart SDK 8-Jun-2021
   flutter: ">=1.22.5"
 
 dependencies:

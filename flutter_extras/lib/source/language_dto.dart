@@ -22,8 +22,11 @@ LanguageDto _words = LanguageDto({
 /// By design asserts are thrown for any missing languages, or translations to catch issues in development, in
 /// production it will just return the 'key' value used for lookups.
 
+typedef WordList = Map<String, Map<String, String>>;
+typedef LanguageTable = Map<String, String>;
+
 class LanguageDto {
-  final Map<String, Map<String, String>> catalog;
+  final WordList catalog;
   String _language = 'en';
 
   LanguageDto(this.catalog);
@@ -35,7 +38,7 @@ class LanguageDto {
 
   String word(String key) {
     assert(catalog.containsKey(_language), 'Locale: <$_language> is not in catalog');
-    Map<String, String> wordList = catalog[_language]!;
+    LanguageTable wordList = catalog[_language]!;
     assert(wordList[key] != null, 'No lookup for [$key]');
     return wordList[key] ?? key;
   }
