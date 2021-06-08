@@ -8,7 +8,7 @@ class PromptDto extends LanguageDto {
   final String _confirm = 'confirm';
   final String _cancel = 'cancel';
 
-  PromptDto(Map<String, Map<String, String>> wordList) : super(wordList) {
+  PromptDto(WordList wordList) : super(wordList) {
     wordList.forEach((key, value) {
       assert(value[_confirmChange] != null, 'Missing $_confirmChange');
       assert(value[_caption] != null, 'Missing $_caption');
