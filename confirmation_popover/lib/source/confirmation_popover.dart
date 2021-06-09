@@ -33,6 +33,7 @@ class ConfirmationPopover extends StatelessWidget {
   final ThemeColors? cardColors;
   final Widget? leadingWidget;
   final Widget? trailingWidget;
+  final Duration transistionDuration;
   ConfirmationPopover(
     this.parent, {
     Key? key,
@@ -43,6 +44,7 @@ class ConfirmationPopover extends StatelessWidget {
     this.cardColors,
     this.leadingWidget,
     this.trailingWidget,
+    this.transistionDuration = const Duration(milliseconds: 250),
   }) : super(key: key);
 
   /// Wraps the 'parent' widget in a gesture detector that, on-tap, will showPopover.
@@ -67,6 +69,7 @@ class ConfirmationPopover extends StatelessWidget {
             return _card(context);
           },
           direction: PopoverDirection.top,
+          transitionDuration: transistionDuration,
           context: context,
           barrierDismissible: false,
           backgroundColor: backgroundColor,
@@ -84,7 +87,7 @@ class ConfirmationPopover extends StatelessWidget {
   /// any optional leading/trailing widgets
   Widget _card(BuildContext context) {
     LanguageDto wordsDto = (languageDto ?? _words);
-    
+
     final cardColor = (cardColors ??
             ThemeColors(
               dark: Colors.grey.shade900,
@@ -113,7 +116,9 @@ class ConfirmationPopover extends StatelessWidget {
                 TextButton(
                   child: Text('${wordsDto.word(_confirm)}'),
                   onPressed: () {
-                    confirmCallback();
+                    Future.delayed(transistionDuration, () {
+                      confirmCallback();
+                    });
                     Navigator.of(context).pop();
                   },
                 ),
