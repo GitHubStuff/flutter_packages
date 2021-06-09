@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:confirmation_popover/conformation_popover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
@@ -95,7 +97,7 @@ class ConfirmationPopover extends StatelessWidget {
             ))
         .of(context: context);
     return SizedBox(
-      width: context.width < 500.0 ? context.width * 0.80 : 500.0,
+      width: min(context.width * 0.80, 500.0),
       child: Card(
         color: cardColor,
         child: Column(
