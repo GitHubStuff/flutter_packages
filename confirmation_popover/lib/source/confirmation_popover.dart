@@ -118,7 +118,7 @@ class ConfirmationPopover extends StatelessWidget {
                 TextButton(
                   child: Text('${wordsDto.word(_confirm)}'),
                   onPressed: () {
-                    Future.delayed(transistionDuration, () {
+                    Future.delayed(transistionDuration.add(Duration(milliseconds: 5)), () {
                       confirmCallback();
                     });
                     Navigator.of(context).pop();
