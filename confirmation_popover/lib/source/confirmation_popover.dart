@@ -8,6 +8,12 @@ import 'package:theme_manager/theme_manager.dart';
 
 import '../conformation_popover.dart';
 
+/// The colors that appears below the popover and obscures the screen beneath (low alpha transparency)
+const ThemeColors _defaultBarrierColors = ThemeColors(
+  dark: const Color(0x40ffffff),
+  light: const Color(0x80000000),
+);
+
 /// Space between buttons, text body, etc
 const double _defaultSpacing = 8.0;
 
@@ -17,26 +23,26 @@ const Duration _defaultTransition = const Duration(milliseconds: 250);
 /// Max width a popover can be (A percentage of width on smaller devices)
 const double _maxPoints = 350.0;
 
-/// When the popover is dismissed there needs to be a delay before any callback is made to make sure the UIThread is cleaned up
+/// When the popover is dismissed there needs to be a delay before any callback is made to make sure the UIThread is cleaned up.
+/// This is small millisecond delay.
 const int _millisecondsAddedToTransitionOut = 5;
 
 ///For screens smaller thatn 350 the widget is multipled by this value
 const double _screenWidthFactor = 0.8;
 
-ThemeColors _defaultCardColors = ThemeColors(
-  dark: Colors.grey.shade900,
-  light: Colors.white,
-);
+/// Default colors for popover border
 ThemeColors _defaultBackgroundColors = ThemeColors(
   dark: Colors.white54,
   light: Colors.black87,
 );
 
-const ThemeColors _defaultBarrierColors = ThemeColors(
-  dark: const Color(0x40ffffff),
-  light: const Color(0x80000000),
+/// The color of the popover
+ThemeColors _defaultCardColors = ThemeColors(
+  dark: Colors.grey.shade900,
+  light: Colors.white,
 );
 
+/// This Language DTO provides default text for all the popover text: title, caption, and buttons for supported languages
 PromptDto _words = PromptDto({
   'en': {
     PromptDto.confirmChange: 'Confirm Change',
@@ -109,14 +115,33 @@ class ConfirmationPopover extends StatelessWidget {
   }) : super(key: key);
 
   Widget build(BuildContext context) {
-    return _wrapped(context);
+    return _gestureDetector(context);
+  }
+
+  /// Wraps the 'parent' widget in a gesture detector that, on-tap, will showPopover.
+  Widget _gestureDetector(BuildContext context) {
+    final backgroundColor = (backgroundColors ?? _defaultBackgroundColors).of(context: context);
+    final barrierColor = (barrierColors ?? _defaultBarrierColors).of(context: context);
+    return GestureDetector(
+      child: parent,
+      onTap: () {
+        showPopover(
+          bodyBuilder: (context) => _popoverContent(context),
+          direction: direction,
+          transitionDuration: transistionDuration,
+          context: context,
+          barrierDismissible: false,
+          backgroundColor: backgroundColor,
+          barrierColor: barrierColor,
+        );
+      },
+    );
   }
 
   /// Card widget that is the body of the popover. The card displays the header, subtitle, two buttons (confirm/cancel), and
   /// any optional leading/trailing widgets
-  Widget _card(BuildContext context) {
+  Widget _popoverContent(BuildContext context) {
     LanguageDto wordsDto = (languageDto ?? _words);
-
     final cardColor = (cardColors ?? _defaultCardColors).of(context: context);
     return SizedBox(
       width: min(context.width * _screenWidthFactor, _maxPoints),
@@ -129,10 +154,15 @@ class ConfirmationPopover extends StatelessWidget {
               leading: leadingWidget,
               trailing: trailingWidget,
               title: Padding(
-                padding: EdgeInsets.all(_defaultSpacing),
-                child: Text('${wordsDto.word(PromptDto.confirmChange)}'),
+                padding: const EdgeInsets.only(left: _defaultSpacing, right: _defaultSpacing, bottom: _defaultSpacing * 1.3),
+                child: Center(
+                  child: Text(
+                    '${wordsDto.word(PromptDto.confirmChange)}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
-              subtitle: Text('${wordsDto.word(PromptDto.caption)}'),
+              subtitle: Center(child: Text('${wordsDto.word(PromptDto.caption)}')),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -176,28 +206,6 @@ class ConfirmationPopover extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  /// Wraps the 'parent' widget in a gesture detector that, on-tap, will showPopover.
-  Widget _wrapped(BuildContext context) {
-    final backgroundColor = (backgroundColors ?? _defaultBackgroundColors).of(context: context);
-    final barrierColor = (barrierColors ?? _defaultBarrierColors).of(context: context);
-    return GestureDetector(
-      child: parent,
-      onTap: () {
-        showPopover(
-          bodyBuilder: (context) {
-            return _card(context);
-          },
-          direction: direction,
-          transitionDuration: transistionDuration,
-          context: context,
-          barrierDismissible: false,
-          backgroundColor: backgroundColor,
-          barrierColor: barrierColor,
-        );
-      },
     );
   }
 }

@@ -1,6 +1,9 @@
 # confirmation_popover
 
-Popover widget that forces the user to 'Confirm' or 'Cancel' an option. It's annoying feature from the Window's World where you're treated like a moron and you have to confirm everything.
+Popover widget that forces the user to 'Confirm' or 'Cancel' an option. It's annoying quirk from the Microsoft Window's World where you're treated like a moron and you have to confirm everything.
+
+
+It also has "Third" button option as well for three choices.
 
 ## Getting Started
 
@@ -8,47 +11,49 @@ Popover widget that forces the user to 'Confirm' or 'Cancel' an option. It's ann
 import 'package:confirmation_popover/conformation_popover.dart';
 
 
-class ConfirmationPopover extends StatelessWidget {
-  final Widget parent;
-  final Function confirmCallback;
-  final LanguageDto? languageDto;
-  final ThemeColors? backgroundColors;
-  final ThemeColors? barrierColors;
-  final ThemeColors? cardColors;
-  final Widget? leadingWidget;
-  final Widget? trailingWidget;
-  ConfirmationPopover(
+ConfirmationPopover(
     this.parent, {
     Key? key,
     required this.confirmCallback,
-    this.languageDto,
     this.backgroundColors,
     this.barrierColors,
+    this.cancelCallback,
     this.cardColors,
+    this.languageDto,
     this.leadingWidget,
+    this.secondButtonCallBack,
     this.trailingWidget,
-  }) : super(key: key);
-
+    this.transistionDuration = const Duration(milliseconds: 250),
+    this.direction = PopoverDirection.top,
+  })
 ```
 
-where:
+#### Two Button Popover
 
-- parent : The widget that the popover will hover over
-- comfirmCallback : zero argument function that is called if the user selects the 'Confirm' option.
-- languageDto : holds all the prompts used in the dialog
-- backgroundColors : dark/light mode colors for the border of the popover
-- barrierColors : dark/light mode colors that obscure the screen when the popover appears
-- cardColros : dart/light mode colors for the background color of the card
-- leadingWidget : widget that appears to the far left of the card
-- trailingWidget : widget that appears to the far right of the card
-- key: flutter key
+To have a two-button popover just leave 'secondButtonCallBack' = null.
 
-## HELPER
+#### Three Button Popover
+
+To have a three button callback provided a non-null value to 'secondButtonCallBack'
+
+### INFO
+
+- There are 'okay' default colors for dark/light themes for the popover border, the barrier color, and popover background
+
+- barrier colors should have a low alpha (<= 0.5) to let some of the lower view below the popover appear.
+
+- The default prompts are 'okay' => "Confirm Change", "Please confirm your choice", "Confirm", "Cancel", "Clear"
+
+### REQUIRED
 
 To insure that all the key/value pairs are in place for each locale the **LanguageDto** can be created with **PromptDto**
 
 ```dart
-PromptDto(Map<String, Map<String, String>> wordList) : extends LanguageDto and 'asserts' if any keys are missing.
+typedef WordList = Map<String, Map<String, String>>;
+
+PromptDto(WordList wordList) : extends LanguageDto and 'asserts' if any keys are missing.
+
+factory PromptDto.threeButtons(WordList wordList) : checks to make sure there is a third button text caption
 ```
 
 ## Final Note

@@ -43,21 +43,29 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          SizedBox(height: 20),
           ConfirmationPopover(
             Text('Hosting the popover?', style: TextStyle(fontSize: 28)),
             confirmCallback: () {
               debugPrint('Confirmed');
             },
+            cancelCallback: () {
+              debugPrint('🙀 Canceled');
+            },
+            leadingWidget: Icon(Icons.access_alarm_rounded),
+            trailingWidget: Icon(Icons.calendar_today_outlined),
           ),
+          Spacer(),
           ConfirmationPopover(
               Text(
                 'Got 3 choices',
-                style: TextStyle(fontSize: 48),
+                style: TextStyle(fontSize: 28),
               ), confirmCallback: () {
             debugPrint('👍🏼 confirmed');
           }, secondButtonCallBack: () {
             debugPrint('Door #3');
           }),
+          Spacer(),
           Text(
             message,
           ),
@@ -75,6 +83,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
+          Spacer(),
         ],
       ),
     );
