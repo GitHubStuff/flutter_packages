@@ -7,6 +7,13 @@ class PromptDto extends LanguageDto {
   static final String caption = 'caption';
   static final String confirm = 'confirm';
   static final String cancel = 'cancel';
+  static final String thirdOption = 'thirdOption';
 
   PromptDto(WordList wordList) : super(wordList, keys: [confirmChange, caption, confirm, cancel]);
+
+  factory PromptDto.threeButtons(WordList wordList) {
+    LanguageDto(wordList, keys: [confirmChange, caption, confirm, cancel, thirdOption]);
+    PromptDto result = PromptDto(wordList);
+    return result;
+  }
 }

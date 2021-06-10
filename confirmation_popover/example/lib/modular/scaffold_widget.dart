@@ -44,11 +44,20 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           ConfirmationPopover(
-            Text('Hosting the popover?'),
+            Text('Hosting the popover?', style: TextStyle(fontSize: 28)),
             confirmCallback: () {
               debugPrint('Confirmed');
             },
           ),
+          ConfirmationPopover(
+              Text(
+                'Got 3 choices',
+                style: TextStyle(fontSize: 48),
+              ), confirmCallback: () {
+            debugPrint('👍🏼 confirmed');
+          }, secondButtonCallBack: () {
+            debugPrint('Door #3');
+          }),
           Text(
             message,
           ),
