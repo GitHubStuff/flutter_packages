@@ -1,8 +1,8 @@
 // Copyright 2021, LTMM LLC.
-// Wrap a widget in 'WidgetSize' and get call backs when the widget is built or size changes
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+/// Wrap a widget in 'WidgetSize' and get call backs when the widget is built or size changes
 class WidgetSize extends StatefulWidget {
   final Widget child;
   final Function onChange;
