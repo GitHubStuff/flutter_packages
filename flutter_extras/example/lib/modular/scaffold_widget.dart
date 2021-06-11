@@ -1,6 +1,5 @@
-import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 class ScaffoldWidget extends StatefulWidget {
@@ -18,14 +17,11 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   bool isFirst = true;
   @override
   Widget build(BuildContext context) {
-    final themeCubit = Modular.get<ThemeCubit>();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
-          ThemeControlWidget(
-            themeCubit: themeCubit,
-          ),
+          ThemeControlWidget(),
         ],
       ),
       body: Center(

@@ -10,11 +10,16 @@ extension StringExtensions on String {
 
   ThemeMode asThemeMode() {
     ThemeMode? themeType = EnumToString.fromString<ThemeMode>(ThemeMode.values, this.toLowerCase());
-    if (themeType == null) throw CannotReadThemeMode('Cannot read/parse "$this" as ThemeMode {system, light, dark}', 801);
+    if (themeType == null) throw CannotParseThemeModeFromString('Cannot read/parse "$this" as ThemeMode {system, light, dark}', 801);
     return themeType;
   }
 }
 
-class CannotReadThemeMode extends AppException {
-  CannotReadThemeMode([String message = 'Invalid String', int code = 796]) : super(message, 'Cannot Read ThemeMode', code);
+class CannotParseThemeModeFromString extends AppException {
+  CannotParseThemeModeFromString([String message = 'Invalid String', int code = 796])
+      : super(
+          message,
+          'Cannot Read ThemeMode',
+          code,
+        );
 }

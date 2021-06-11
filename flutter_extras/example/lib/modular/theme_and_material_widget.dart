@@ -10,12 +10,12 @@ class ThemeAndMaterialWidget extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeCubitState>(
         bloc: themeCubit,
         builder: (_, state) {
-          ThemeMode themeMode = ThemeCubit.themeMode;
+          ThemeMode themeMode = ThemeManager.themeMode;
           if (state is UpdateThemeMode) {}
           return MaterialApp(
             title: 'Flutter Demo',
-            theme: themeCubit.lightTheme,
-            darkTheme: themeCubit.darkTheme,
+            theme: ThemeManager.lightTheme,
+            darkTheme: ThemeManager.darkTheme,
             themeMode: themeMode,
             initialRoute: '/',
           ).modular();

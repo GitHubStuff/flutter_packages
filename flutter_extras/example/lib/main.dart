@@ -14,7 +14,7 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
 
   /// Enable theme changes/monitoring by creating a 'hive' object to persist information
-  await ThemeCubit.setup();
+  await ThemeManager.setup();
 
   runApp(ModularApp(
     module: AppModule(),
