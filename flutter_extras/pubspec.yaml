@@ -1,6 +1,6 @@
 name: flutter_extras
 description: Collection of common extensions and helper objects
-version: 0.0.9+2
+version: 0.0.10+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -22,9 +22,10 @@ dependencies:
       path: tracers_package
   enum_to_string: ^2.0.1
   flutter_bloc: ^7.0.1
+  uuid: ^3.0.4
 
 dev_dependencies:
-  test: ^1.17.5
+  test: ^1.17.7
 
 flutter:
   uses-material-design: true

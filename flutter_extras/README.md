@@ -21,7 +21,8 @@ A collection of useable extensions and classes that are useful helpers in most p
 
 - abstract class ObservingStatefulWidget<T extends StatefulWidget> extends State<T> with WidgetsBindingObserver - Used as the suffix for StatefulWidget (eg ...extends State<X> use ...extends ObservingStatefulWidget<X>. This adds addition features and callbacks: ***afterFirstLayout, reportTextScaleFactor, didChangePlatformBrightness, didChageAppLifecycleState, didChangeTextScaleFactor***
 
-- extension DateTimeExtension on String - aids in convert strings to other property types: asThemeMode() => converts 'system','light','dark' case insensitive. "2001-01-10T10:15:27.456Z".sqlite => parses a time string (typically a time-stamp within sqlite) and returns DateTime
+- extension DateTimeExtension on String - aids in convert strings to other property types: asThemeMode() => converts 'system','light','dark' case insensitive. "2001-01-10T10:15:27.456Z".sqlite => parses a time string (typically a time-stamp within sqlite) and returns DateTime;
+String.uniqueKey returns a {hopefully} unique UUID.
 
 - extension WidgetExtensions on Widget - removed(bool state): removes a widget from the tree (replaces the widget as SizedBox(height:1). hide(bool state): changes opacitity on the widget to hide it.
 

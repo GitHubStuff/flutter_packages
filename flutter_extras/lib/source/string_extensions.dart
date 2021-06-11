@@ -1,8 +1,11 @@
 import 'package:app_exception/app_exception.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 extension DateTimeExtension on String {
+  static String get uniqueKey => Uuid().v4();
+
   DateTime get sqlite => DateTime.parse(this);
 
   ThemeMode asThemeMode() {
