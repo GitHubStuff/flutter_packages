@@ -1,6 +1,6 @@
-import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:theme_manager/theme_manager.dart';
 

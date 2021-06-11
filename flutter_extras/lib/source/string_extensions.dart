@@ -3,7 +3,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-extension StringExtension on String {
+extension StringExtensions on String {
   static String get uniqueKey => Uuid().v4();
 
   DateTime get sqlite => DateTime.parse(this);
