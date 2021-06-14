@@ -11,7 +11,7 @@ Create/Display TimeMarker()
 * Establish logging level
 
 ```dart
-await Log.setTrace(LogLevel baseLevel);
+await Log.setTrace({LogLevel baseLevel});
 
 //Where LogLevel:
 enum LogLevel {
