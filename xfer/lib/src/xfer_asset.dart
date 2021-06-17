@@ -6,14 +6,6 @@ import '../xfer.dart';
 import 'xfer_content_type.dart';
 
 Future<Either<XferFailure, XferResponse>> assetGet(String url, {Map<String, String>? headers}) async {
-  return assetPost(url, headers: headers, successCode: 200);
-}
-
-Future<Either<XferFailure, XferResponse>> assetPost(
-  String url, {
-  Map<String, String>? headers,
-  int successCode = 201,
-}) async {
   if (headers == null || headers.isEmpty) return Left(XferFailure(XferException.headerUnknownContentType));
 
   final String path = url.split('://').last;
@@ -29,14 +21,14 @@ Future<Either<XferFailure, XferResponse>> assetPost(
         case XferContentType.textPlain:
           try {
             final contents = await rootBundle.loadString(path);
-            return Right(XferResponse(contents, successCode, protocol: XferProtocol.asset));
+            return Right(XferResponse(contents, 200, protocol: XferProtocol.asset));
           } catch (error) {
             return Left(XferFailure(XferException.assetReadError));
           }
         case XferContentType.image:
           try {
             final assetImage = AssetImage(path);
-            return Right(XferResponse(assetImage, successCode, protocol: XferProtocol.asset));
+            return Right(XferResponse(assetImage, 200, protocol: XferProtocol.asset));
           } catch (error) {
             return Left(XferFailure(XferException.assetReadError));
           }

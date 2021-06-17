@@ -29,6 +29,7 @@ enum HttpVerb {
 enum XferException {
   assetArguementError,
   assetReadError,
+  assetWriteError,
   headerMissingContentType,
   headersMissing,
   headersMissingRequiredValues,
@@ -73,9 +74,14 @@ class Xfer {
   final Get? httpGetFuture;
   final bool trace;
   // NOTE: Constructor
-  const Xfer({this.httpPostFuture, this.httpPutFuture, this.httpGetFuture, this.trace = false});
+  const Xfer({
+    this.httpGetFuture,
+    this.httpPostFuture,
+    this.httpPutFuture,
+    this.trace = false,
+  });
 
-  // Non-async get for cachedImages
+  // FETCH - Non-async GET for cachedImages
   Either<XferFailure, XferResponse> fetch(String url, {required Map<String, String> headers, Object? imageError}) =>
       cachedGet(url, headers: headers, cachedImageError: imageError == null ? null : imageError as CachedImageError);
 
@@ -147,7 +153,7 @@ class Xfer {
         case XferProtocol.cachedImage:
           return fetch(url, headers: headers!, imageError: value);
         case XferProtocol.asset:
-          return assetPost(url, headers: headers);
+          return Left(XferFailure(XferException.invalidXferRequest, code: 'POST not available for asset://'));
         case XferProtocol.http:
         case XferProtocol.https:
           if (httpPostFuture == null) throw XferException.httpUndefinedPOSTMethod;
@@ -170,7 +176,7 @@ class Xfer {
     }
   }
 
-  /// POST
+  /// PUT
   Future<Either<XferFailure, XferResponse>> put(
     String url, {
     Map<String, String>? headers,
@@ -192,7 +198,7 @@ class Xfer {
         case XferProtocol.cachedImage:
           return get(url, headers: headers, value: value);
         case XferProtocol.asset:
-          return Left(XferFailure(XferException.invalidXferRequest, code: 'Put not available for asset://'));
+          return Left(XferFailure(XferException.invalidXferRequest, code: 'PUT not available for asset://'));
         case XferProtocol.http:
         case XferProtocol.https:
           if (httpPutFuture == null) throw XferException.httpUndefinedPUTMethod;

@@ -114,13 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('PNG')),
           FloatingActionButton(
               onPressed: () async {
-                final result = Xfer().post('pref://myKey', body: 11);
+                final result = Xfer().post('pref://myKey', value: 11);
                 debugPrint('$result');
               },
               child: Text('P')),
           FloatingActionButton(
               onPressed: () async {
-                final result = Xfer().post('pref://myKey', body: 11);
+                final result = Xfer().post('pref://myKey', value: 11);
                 debugPrint('$result');
               },
               child: Text('C')),
