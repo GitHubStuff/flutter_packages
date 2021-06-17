@@ -16,20 +16,30 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
   required dynamic method,
   required Map<String, String>? headers,
   required XferProtocol protocol,
+  required bool trace,
 }) async {
   final Uri uri = Uri.parse(url);
   try {
     http.Response? response;
+    String traceMessage;
     switch (verb) {
       case HttpVerb.GET:
+        traceMessage = 'GET $url';
         response = await (method as Get)(uri, headers: headers);
         break;
       case HttpVerb.POST:
+        traceMessage = 'POST $url';
         response = await (method as Post)(uri, headers: headers, body: body, encoding: encoding);
         break;
       case HttpVerb.PUT:
+        traceMessage = 'PUT $url';
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
+    }
+    final String responseInPlainText = '${response.statusCode} ${response.body}';
+    if (trace) {
+      debugPrint('🔍🔍 $traceMessage');
+      debugPrint('🔭🔭 $responseInPlainText');
     }
     switch (response.statusCode) {
       case 200:
@@ -42,13 +52,13 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         );
         return Right(result);
       case 400:
-        return Left(XferFailure(XferException.http400BadRequest));
+        return Left(XferFailure(XferException.http400BadRequest, code: responseInPlainText));
       case 401:
-        return Left(XferFailure(XferException.http401UnauthorizedException));
+        return Left(XferFailure(XferException.http401UnauthorizedException, code: responseInPlainText));
       case 403:
-        return Left(XferFailure(XferException.http403UnauthorizedException));
+        return Left(XferFailure(XferException.http403UnauthorizedException, code: responseInPlainText));
       default:
-        return Left(XferFailure(XferException.http500FetchDataException, code: response.statusCode));
+        return Left(XferFailure(XferException.http500FetchDataException, code: responseInPlainText));
     }
   } on ArgumentError {
     return Left(XferFailure(XferException.httpArguementError));
@@ -67,8 +77,18 @@ Future<Either<XferFailure, XferResponse>> httpGet(
   Map<String, String>? headers,
   required Get getMethod,
   required XferProtocol protocol,
+  required bool trace,
 }) async =>
-    _httpMethod(HttpVerb.GET, url, method: getMethod, protocol: protocol, headers: headers, encoding: null, body: null);
+    _httpMethod(
+      HttpVerb.GET,
+      url,
+      method: getMethod,
+      protocol: protocol,
+      headers: headers,
+      encoding: null,
+      body: null,
+      trace: trace,
+    );
 
 Future<Either<XferFailure, XferResponse>> httpPost(
   String url, {
@@ -77,6 +97,7 @@ Future<Either<XferFailure, XferResponse>> httpPost(
   required Encoding? encoding,
   required Post postMethod,
   required XferProtocol protocol,
+  required bool trace,
 }) async =>
     _httpMethod(
       HttpVerb.POST,
@@ -86,6 +107,7 @@ Future<Either<XferFailure, XferResponse>> httpPost(
       body: body,
       encoding: encoding,
       headers: headers,
+      trace: trace,
     );
 
 Future<Either<XferFailure, XferResponse>> httpPut(
@@ -95,6 +117,7 @@ Future<Either<XferFailure, XferResponse>> httpPut(
   required Encoding? encoding,
   required Put putMethod,
   required XferProtocol protocol,
+  required bool trace,
 }) async =>
     _httpMethod(
       HttpVerb.PUT,
@@ -104,4 +127,5 @@ Future<Either<XferFailure, XferResponse>> httpPut(
       body: body,
       encoding: encoding,
       headers: headers,
+      trace: trace,
     );

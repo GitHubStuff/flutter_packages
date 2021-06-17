@@ -116,6 +116,7 @@ class Xfer {
             headers: headers,
             getMethod: httpGetFuture!,
             protocol: protocol,
+            trace: trace,
           );
           tm?.show('🟠 GOT $url');
           return getResponse;
@@ -164,6 +165,7 @@ class Xfer {
             encoding: encoding,
             postMethod: httpPostFuture!,
             protocol: protocol,
+            trace: trace,
           );
           tm?.show('🟩 POSTED $url');
           return httpResponse;
@@ -209,6 +211,7 @@ class Xfer {
             encoding: encoding,
             putMethod: httpPutFuture!,
             protocol: protocol,
+            trace: trace,
           );
           tm?.show('🟣 PUT $url\n');
           return putResponse;
