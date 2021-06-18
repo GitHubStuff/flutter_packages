@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'exceptions.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -47,9 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        child: Text('ERR'),
+        onPressed: () {
+          throw InvalidText();
+        },
         tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }

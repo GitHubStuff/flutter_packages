@@ -5,13 +5,13 @@ import 'package:equatable/equatable.dart';
 
 abstract class AppException extends Equatable implements Exception {
   final message;
-  final prefix;
+  final title;
   final code;
-  AppException([this.message, this.prefix, this.code]);
+  AppException([this.message, this.title, this.code]);
 
   String toString() {
-    return '{"$prefix" : $message", "code":$code}';
+    return '🛑 $title : $message\n🛑 code : $code';
   }
 
-  List<Object> get props => [message, prefix, code];
+  List<Object> get props => [message, title, code];
 }

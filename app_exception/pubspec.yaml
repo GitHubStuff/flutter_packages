@@ -1,19 +1,19 @@
 name: app_exception
-description: Template for Flutter Package project.
-version: 0.0.3+3
+description: Extends Exception for an enhanced description of an error
+version: 0.0.4+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.22.5"
+  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
+  flutter: ">=2.2.2"
 
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^2.0.0
+  equatable: ^2.0.3
 
-dependency_overrides:
+dependency_overrides: null
 
 dev_dependencies:
   flutter_test:
