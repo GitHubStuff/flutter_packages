@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:xfer/xfer.dart';
 
+typedef void CallBack<T>(T value);
+
 class PersistedCache<T> {
   final String _suffix = '22c8c0e406454373b2ba46f83f0b65ee';
   late String _lookupKey;

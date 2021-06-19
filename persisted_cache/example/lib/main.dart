@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,8 +24,9 @@ void main() async {
   int i = 0;
   Future.delayed(Duration(seconds: 3), () {
     Timer.periodic(Duration(microseconds: 1), (timer) {
-      debugPrint('$i -- adding');
-      cache.value = '$i';
+      final r = Random().nextInt(12) + 2;
+      debugPrint('$r -- adding');
+      cache.value = '$r';
       var _ = cache.value;
       if (++i == 15) {
         timer.cancel();
