@@ -1,13 +1,13 @@
 name: flutter_extras
 description: Collection of common extensions and helper objects
-version: 0.0.10+5
+version: 0.0.11+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.13.1 <3.0.0" #Dart SDK 8-Jun-2021
-  flutter: ">=2.2.1"
+  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
+  flutter: ">=2.2.2"
 
 dependencies:
   flutter:
