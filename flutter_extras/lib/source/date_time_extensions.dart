@@ -2,7 +2,19 @@ import 'package:intl/intl.dart';
 
 import '../flutter_extras.dart';
 
+DateTime? _baseTime;
+
 extension DateTimeExtension on DateTime {
+  static DateTime unique() {
+    DateTime newTime = DateTime.now().toUtc();
+    if (_baseTime != null && newTime.isAtSameMomentAs(_baseTime!)) {
+      _baseTime = _baseTime!.add(Duration(microseconds: 1));
+      return _baseTime!;
+    }
+    _baseTime = newTime;
+    return _baseTime!;
+  }
+
   static String asSqlite([DateTime? dateTime]) => (dateTime ?? DateTime.now()).sqlite;
 
   static int daysInMonth(int month, {required int year}) {

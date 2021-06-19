@@ -16,6 +16,10 @@ void main() async {
   /// Enable theme changes/monitoring by creating a 'hive' object to persist information
   await ThemeManager.setup();
 
+  for (int j = 0; j < 10; j++) {
+    DateTime result = DateTimeExtension.unique();
+    debugPrint('DateTimeExtension.unique: ${result.toIso8601String()}');
+  }
   runApp(ModularApp(
     module: AppModule(),
     child: ThemeAndMaterialWidget(),
