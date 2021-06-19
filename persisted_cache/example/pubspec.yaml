@@ -1,0 +1,34 @@
+name: xample
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 0.0.1
+
+environment:
+  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
+  flutter: ">=2.2.2"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  persisted_cache:
+    path: ../
+  flutter_extras:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: flutter_extras
+  theme_manager:
+    git:
+      url: https://github.com/GitHubStuff/theme_manager.git
+  cupertino_icons: ^1.0.3
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.2.2+1
+  intl: ^0.17.0
+
+dev_dependencies:
+  test: ^1.17.8
+
+flutter:
+  uses-material-design: true
+  generate: true

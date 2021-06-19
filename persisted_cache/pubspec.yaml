@@ -1,0 +1,33 @@
+name: persisted_cache
+description: Template for Flutter Package project.
+version: 0.0.1
+author: Steven Smith
+homepage: http://www.icodeforyou.com
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
+  flutter: ">=2.2.2"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_extras:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: flutter_extras
+  xfer:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: xfer
+  cupertino_icons: ^1.0.3
+  dartz: ^0.10.0-nullsafety.2
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.2.2+1
+  intl: ^0.17.0
+
+dev_dependencies:
+  test: ^1.17.8
+
+flutter:
+  uses-material-design: true
