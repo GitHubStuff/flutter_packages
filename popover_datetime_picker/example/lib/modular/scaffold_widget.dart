@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:persisted_cache/persisted_cache.dart';
+import 'package:popover_datetime_picker/popover_datetime_picker.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 class ScaffoldWidget extends StatefulWidget {
@@ -44,16 +43,17 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(AppLocalizations.of(context)!.helloWorld), //Example of localization
+          PopoverDateTimePicker(
+              includeSeconds: false,
+              onWidget: Text(
+                'Date Picker',
+                style: TextStyle(fontSize: 48.0),
+              ),
+              callback: (newDateTime) {
+                debugPrint('$newDateTime');
+              }),
           Text(
             message,
-          ),
-          CachePopover<String>(
-            cachedWidget: Text(instruction),
-            cachePopoverCallback: (String newValue) {
-              debugPrint('NewValue: $newValue');
-            },
-            cachedItems: ['Dog', 'Cow', 'Anything Bigger than an elephant, is really reallly big'],
           ),
           WidgetSize(
             onChange: (Size size) {

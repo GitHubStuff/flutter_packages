@@ -1,6 +1,6 @@
-name: persisted_cache
+name: popover_datetime_picker
 description: Template for Flutter Package project.
-version: 0.0.1
+version: 0.3.0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -18,16 +18,10 @@ dependencies:
       path: flutter_extras
   theme_manager:
     git:
-      url: https://github.com/GitHubStuff/theme_manager.git
-  xfer:
-    git:
       url: https://github.com/GitHubStuff/flutter_packages.git
-      path: xfer
+      path: theme_manager
   auto_size_text: ^3.0.0-nullsafety.0
-  cupertino_icons: ^1.0.3
-  dartz: ^0.10.0-nullsafety.2
   flutter_bloc: ^7.0.1
-  flutter_modular: ^3.2.2+1
   intl: ^0.17.0
   popover: ^0.2.6+2
 
