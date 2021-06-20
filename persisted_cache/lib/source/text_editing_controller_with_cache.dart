@@ -16,5 +16,8 @@ class TextEditingControllerWithCache extends TextEditingController {
     return super.text;
   }
 
-  set text(String newValue) => 
+  set text(String newValue) {
+    _persistedCache.value = text;
+    super.text = text;
+  }
 }
