@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persisted_cache/persisted_cache.dart';
 import 'package:theme_manager/theme_manager.dart';
 
@@ -13,10 +14,24 @@ class ScaffoldWidget extends StatefulWidget {
 }
 
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
+  TextEditingControllerWithCache textEditingControllerWithCache = TextEditingControllerWithCache(cacheId: 'poke');
+  late final TextField textField;
+  late final Text _text;
   String message = 'Tap for Size';
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
   bool isFirst = true;
+  bool _willShow = false;
+
+  @override
+  initState() {
+    super.initState();
+    textField = TextField(
+      controller: textEditingControllerWithCache,
+    );
+    _text = Text('WHAT IS GOING ON?');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +55,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   }
 
   Widget _body(BuildContext context) {
+    bool show = false;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -48,22 +64,18 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           Text(
             message,
           ),
-          CachePopover<String>(
-            cachedWidget: Text(instruction),
-            emptyCacheWidget: Text('Nothing Cached'),
-            popoverColors: ThemeColors(
-              dark: Colors.green,
-              light: Colors.red.shade100,
-            ),
-            listTileColors: ThemeColors(
-              dark: Colors.purple,
-              light: Colors.white54,
-            ),
-            cachePopoverCallback: (dynamic newValue) {
-              debugPrint('NewValue: $newValue');
-            },
-            cachedItems: [],
-          ),
+          !show
+              ? Container()
+              : CachePopover<String>(
+                  cachedWidget: Text('Does this need to be here?'),
+                  cachePopoverCallback: (newTxt) {
+                    debugPrint('NEW TEXT: $newTxt');
+                  },
+                  cachedItems: [],
+                  emptyCacheWidget: Text('WTF'),
+                  onPop: () {},
+                ),
+
           WidgetSize(
             onChange: (Size size) {
               setState(() {
@@ -78,6 +90,43 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Container(
+              child: Row(
+                children: [
+                  GestureDetector(
+                    child: FaIcon(
+                      FontAwesomeIcons.list,
+                      size: 48.0,
+                    ),
+                    onTap: () {
+                      setState(() {
+                        _willShow = true;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  _willShow
+                      ? CachePopover<String>(
+                          cachedWidget: _text,
+                          cachePopoverCallback: (dynamic newTxt) {
+                            debugPrint('NEW TEXT: $newTxt');
+                            _willShow = false;
+                          },
+                          cachedItems: ['Robot', 'Cynlon'],
+                          emptyCacheWidget: Text('WTF'),
+                          onPop: () {
+                            _willShow = false;
+                          },
+                        )
+                      : _text,
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

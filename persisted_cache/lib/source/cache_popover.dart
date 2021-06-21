@@ -4,6 +4,12 @@ import 'package:flutter_extras/flutter_extras.dart';
 import 'package:popover/popover.dart';
 import 'package:theme_manager/theme_manager.dart';
 
+const dismissDuration = const Duration(microseconds: 100);
+const listEdgeInsets = const EdgeInsets.symmetric(vertical: 2);
+const maximumLines = 2;
+const popoverWidthFactor = 1.5;
+const popoverHeightFactor = 8.5;
+
 typedef void CachePopoverCallback<T>(T item);
 
 class CachePopover<T> extends StatefulWidget {
@@ -13,6 +19,7 @@ class CachePopover<T> extends StatefulWidget {
   final Widget emptyCacheWidget;
   final ThemeColors? popoverColors;
   final ThemeColors? listTileColors;
+  final VoidCallback onPop;
 
   CachePopover({
     Key? key,
@@ -20,6 +27,7 @@ class CachePopover<T> extends StatefulWidget {
     required this.cachePopoverCallback,
     required this.cachedItems,
     required this.emptyCacheWidget,
+    required this.onPop,
     this.popoverColors,
     this.listTileColors,
   }) : super(key: key);
@@ -28,7 +36,7 @@ class CachePopover<T> extends StatefulWidget {
   _CachePopover<T> createState() => _CachePopover<T>();
 }
 
-class _CachePopover<U> extends ObservingStatefulWidget<CachePopover> {
+class _CachePopover<T> extends ObservingStatefulWidget<CachePopover> {
   var _widgetKey = GlobalKey();
 
   @override
@@ -52,17 +60,17 @@ class _CachePopover<U> extends ObservingStatefulWidget<CachePopover> {
     List<Widget> result = [];
     items.forEach((item) => result.add(
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2),
+            padding: listEdgeInsets,
             child: Ink(
               child: ListTile(
                 title: AutoSizeText(
                   item.toString(),
-                  maxLines: 2,
+                  maxLines: maximumLines,
                   overflow: TextOverflow.ellipsis,
                 ),
                 onTap: () {
-                  widget.cachePopoverCallback(item);
-                  Future.delayed(Duration(microseconds: 100), () {
+                  widget.cachePopoverCallback(item as dynamic);
+                  Future.delayed(dismissDuration, () {
                     Navigator.pop(context);
                   });
                 },
@@ -85,35 +93,33 @@ class _CachePopover<U> extends ObservingStatefulWidget<CachePopover> {
 
   void _noCachedItemsPicker(Widget emptyCacheWidget, Size size) {
     Widget content = Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(6.0),
       child: Ink(
         child: ListTile(
-          title: Container(
-            child: emptyCacheWidget,
-            height: size.height,
-            width: size.width,
-          ),
+          title: emptyCacheWidget,
           onTap: () {
-            Future.delayed(Duration(microseconds: 100), () {
+            Future.delayed(dismissDuration, () {
               Navigator.pop(context);
             });
           },
         ),
         color: widget.listTileColors?.of(context: context) ??
             ThemeColors(
-              dark: Color(0xAA000000),
-              light: Color(0xAAffffff),
+              dark: Colors.black,
+              light: Colors.white,
             ).of(context: context),
       ),
     );
     showPopover(
-        context: context,
-        bodyBuilder: (context) => SizedBox(child: content, width: size.width),
-        backgroundColor: widget.popoverColors?.of(context: context) ??
-            ThemeColors(
-              dark: Color(0xff0047ab),
-              light: Colors.black54,
-            ).of(context: context));
+      context: context,
+      bodyBuilder: (context) => SizedBox(child: content, width: size.width),
+      backgroundColor: widget.popoverColors?.of(context: context) ??
+          ThemeColors(
+            dark: Colors.green.shade900,
+            light: Colors.black54,
+          ).of(context: context),
+      onPop: widget.onPop,
+    );
   }
 
   Widget _picker() {
@@ -128,14 +134,16 @@ class _CachePopover<U> extends ObservingStatefulWidget<CachePopover> {
 
   void _showPopover(Widget picker, Size size) {
     showPopover(
-        context: context,
-        bodyBuilder: (context) => picker,
-        width: size.width * 1.10,
-        height: size.height * 8.5,
-        backgroundColor: widget.popoverColors?.of(context: context) ??
-            ThemeColors(
-              dark: Color(0xff0047ab),
-              light: Colors.black54,
-            ).of(context: context));
+      context: context,
+      bodyBuilder: (context) => picker,
+      width: size.width * popoverWidthFactor,
+      height: size.height * popoverHeightFactor,
+      backgroundColor: widget.popoverColors?.of(context: context) ??
+          ThemeColors(
+            dark: Color(0xff0047ab),
+            light: Colors.black54,
+          ).of(context: context),
+      onPop: widget.onPop,
+    );
   }
 }

@@ -10,14 +10,19 @@ class TextEditingControllerWithCache extends TextEditingController {
         super(text: text) {
     _persistedCache = PersistedCache<String>(value: text, limit: limit, cacheId: cacheId);
   }
-
+  @override
   String get text {
-    _persistedCache.value = text;
+    _persistedCache.value = super.text;
+    //_persistedCache.addItem(super.text);
+    //debugPrint('text:$text');
     return super.text;
   }
 
+  @override
   set text(String newValue) {
-    _persistedCache.value = text;
+    debugPrint('text:$text');
     super.text = text;
   }
+
+  List<String> cachedItems() => _persistedCache.cachedItems() as List<String>;
 }

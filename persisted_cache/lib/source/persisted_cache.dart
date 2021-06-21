@@ -26,7 +26,7 @@ class PersistedCache<T> {
   }
 
   T? get value {
-    _add(_value);
+    addItem(_value);
     return _value;
   }
 
@@ -38,7 +38,8 @@ class PersistedCache<T> {
     return result;
   }
 
-  Future _add(T? item) async {
+  Future addItem(T? item) async {
+    debugPrint('addItem $item');
     if (item == null || (item is String && item.isEmpty)) return;
     _checkType(item);
     _cacheMap.removeWhere((key, value) => value == item);
