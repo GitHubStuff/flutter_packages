@@ -10,10 +10,10 @@ const maximumLines = 2;
 const popoverWidthFactor = 1.5;
 const popoverHeightFactor = 8.5;
 
-typedef void CachePopoverCallback<T>(T item);
+typedef void CachePopoverCallback(dynamic item);
 
 class CachePopover<T> extends StatefulWidget {
-  final CachePopoverCallback<T> cachePopoverCallback;
+  final CachePopoverCallback cachePopoverCallback;
   final Widget cachedWidget;
   final List<T> cachedItems;
   final Widget emptyCacheWidget;
@@ -41,6 +41,7 @@ class _CachePopover<T> extends ObservingStatefulWidget<CachePopover> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('BUILD!?');
     return WidgetSize(
       onChange: (Size newSize) {
         _checkForEmptyCache(_picker(), newSize);
@@ -71,7 +72,7 @@ class _CachePopover<T> extends ObservingStatefulWidget<CachePopover> {
                 onTap: () {
                   widget.cachePopoverCallback(item as dynamic);
                   Future.delayed(dismissDuration, () {
-                    Navigator.pop(context);
+                    //Navigator.pop(context);
                   });
                 },
                 trailing: Icon(Icons.arrow_forward_ios,
@@ -118,7 +119,9 @@ class _CachePopover<T> extends ObservingStatefulWidget<CachePopover> {
             dark: Colors.green.shade900,
             light: Colors.black54,
           ).of(context: context),
-      onPop: widget.onPop,
+      onPop: () {
+        debugPrint('No data onPop()');
+      },
     );
   }
 
@@ -143,7 +146,9 @@ class _CachePopover<T> extends ObservingStatefulWidget<CachePopover> {
             dark: Color(0xff0047ab),
             light: Colors.black54,
           ).of(context: context),
-      onPop: widget.onPop,
+      onPop: () {
+        debugPrint('Data returned onPop()');
+      },
     );
   }
 }

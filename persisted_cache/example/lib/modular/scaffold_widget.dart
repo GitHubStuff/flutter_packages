@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persisted_cache/persisted_cache.dart';
 import 'package:theme_manager/theme_manager.dart';
 
@@ -21,7 +20,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
   bool isFirst = true;
-  bool _willShow = false;
 
   @override
   initState() {
@@ -90,43 +88,9 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Container(
-              child: Row(
-                children: [
-                  GestureDetector(
-                    child: FaIcon(
-                      FontAwesomeIcons.list,
-                      size: 48.0,
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _willShow = true;
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  _willShow
-                      ? CachePopover<String>(
-                          cachedWidget: _text,
-                          cachePopoverCallback: (dynamic newTxt) {
-                            debugPrint('NEW TEXT: $newTxt');
-                            _willShow = false;
-                          },
-                          cachedItems: ['Robot', 'Cynlon'],
-                          emptyCacheWidget: Text('WTF'),
-                          onPop: () {
-                            _willShow = false;
-                          },
-                        )
-                      : _text,
-                ],
-              ),
-            ),
-          )
+          CacheWidget(
+            parentWidget: Text('This is the parent!'),
+          ),
         ],
       ),
     );
