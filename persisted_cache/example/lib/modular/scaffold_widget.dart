@@ -50,10 +50,19 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           ),
           CachePopover<String>(
             cachedWidget: Text(instruction),
-            cachePopoverCallback: (String newValue) {
+            emptyCacheWidget: Text('Nothing Cached'),
+            popoverColors: ThemeColors(
+              dark: Colors.green,
+              light: Colors.red.shade100,
+            ),
+            listTileColors: ThemeColors(
+              dark: Colors.purple,
+              light: Colors.white54,
+            ),
+            cachePopoverCallback: (dynamic newValue) {
               debugPrint('NewValue: $newValue');
             },
-            cachedItems: ['Dog', 'Cow', 'Anything Bigger than an elephant, is really reallly big'],
+            cachedItems: [],
           ),
           WidgetSize(
             onChange: (Size size) {
