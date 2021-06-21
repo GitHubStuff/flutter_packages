@@ -15,4 +15,9 @@ extension ContextExtensions on BuildContext {
 
   double get height => mediaQuery.size.height;
   double get width => mediaQuery.size.width;
+
+  void hideKeyboard() {
+    FocusScopeNode currentFocus = FocusScope.of(this);
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
+  }
 }

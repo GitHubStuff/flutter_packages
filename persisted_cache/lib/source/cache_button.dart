@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:persisted_cache/persisted_cache.dart';
 import 'package:popover/popover.dart';
 import 'package:theme_manager/theme_manager.dart';
 
@@ -13,16 +15,17 @@ const _buttonSize = 32.0;
 
 typedef void CachePopoverCallback(dynamic item);
 
-class CacheButton<T> extends StatelessWidget {
+class CacheButton extends StatelessWidget {
+  final TextEditingController _textEditingController = TextEditingController();
   final CachePopoverCallback cachePopoverCallback;
   final String emptyCacheMessage;
-  final List<T> cache;
+  final PersistedCache persistedCache;
   final ThemeColors? listTileColors;
   final ThemeColors? popoverColors;
-  const CacheButton({
+  CacheButton({
     Key? key,
     required this.emptyCacheMessage,
-    required this.cache,
+    required this.persistedCache,
     required this.cachePopoverCallback,
     this.listTileColors,
     this.popoverColors,
@@ -38,8 +41,10 @@ class CacheButton<T> extends StatelessWidget {
             GestureDetector(
               child: FaIcon(FontAwesomeIcons.list, size: _buttonSize),
               onTap: () {
+                SystemSound.play(SystemSoundType.click);
+
                 /// Insure at least one cell for empty cache
-                final double length = max(1.0, cache.length.toDouble());
+                final double length = max(1.0, persistedCache.cachedItems().length.toDouble());
                 showPopover(
                   context: context,
                   bodyBuilder: (cntx) => Container(child: _column(context)),
@@ -55,14 +60,21 @@ class CacheButton<T> extends StatelessWidget {
               },
             ),
             SizedBox(width: 16),
-            Expanded(child: TextField()),
+            Expanded(
+                child: TextField(
+              controller: _textEditingController,
+            )),
             SizedBox(width: 16),
             GestureDetector(
               child: Icon(
                 Icons.move_to_inbox,
                 size: _buttonSize,
               ), //FaIcon(FontAwesomeIcons.voteYea, size: _buttonSize),
-              onTap: () {},
+              onTap: () {
+                SystemSound.play(SystemSoundType.click);
+                persistedCache.addItem(_textEditingController.text);
+                context.hideKeyboard();
+              },
             )
           ],
         ),
@@ -71,6 +83,7 @@ class CacheButton<T> extends StatelessWidget {
   }
 
   Widget _column(BuildContext context) {
+    List<dynamic> cache = persistedCache.cachedItems();
     final List<Widget> result = _listOfListTiles(cache.isEmpty ? [emptyCacheMessage] : cache, context);
     return Container(
       child: SingleChildScrollView(
@@ -97,12 +110,12 @@ class CacheButton<T> extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 onTap: () {
-                  if (cache.isNotEmpty) cachePopoverCallback(item as dynamic);
+                  if (!persistedCache.isEmpty) cachePopoverCallback(item as dynamic);
                   Future.delayed(_dismissDuration, () {
                     Navigator.pop(context);
                   });
                 },
-                trailing: cache.isEmpty
+                trailing: persistedCache.isEmpty
                     ? null
                     : Icon(Icons.arrow_forward_ios,
                         color: ThemeColors(

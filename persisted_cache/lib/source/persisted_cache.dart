@@ -38,6 +38,8 @@ class PersistedCache<T> {
     return result;
   }
 
+  bool get isEmpty => _cacheMap.isEmpty;
+
   Future addItem(T? item) async {
     debugPrint('addItem $item');
     if (item == null || (item is String && item.isEmpty)) return;

@@ -13,6 +13,7 @@ class ScaffoldWidget extends StatefulWidget {
 }
 
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
+  PersistedCache _persistedCache = PersistedCache(cacheId: 'biff');
   TextEditingControllerWithCache textEditingControllerWithCache = TextEditingControllerWithCache(cacheId: 'poke');
   late final TextField textField;
   String message = 'Tap for Size';
@@ -86,7 +87,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
             ),
           ),
           CacheButton(
-            cache: [],
+            persistedCache: _persistedCache,
             emptyCacheMessage: 'Nothing Cached',
             cachePopoverCallback: (data) {
               debugPrint('$data');
