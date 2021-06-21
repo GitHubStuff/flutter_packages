@@ -15,7 +15,6 @@ class ScaffoldWidget extends StatefulWidget {
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   TextEditingControllerWithCache textEditingControllerWithCache = TextEditingControllerWithCache(cacheId: 'poke');
   late final TextField textField;
-  late final Text _text;
   String message = 'Tap for Size';
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
@@ -27,7 +26,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
     textField = TextField(
       controller: textEditingControllerWithCache,
     );
-    _text = Text('WHAT IS GOING ON?');
   }
 
   @override
@@ -53,26 +51,25 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   }
 
   Widget _body(BuildContext context) {
-    bool show = false;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(AppLocalizations.of(context)!.helloWorld), //Example of localization
+          Text(AppLocalizations.of(context)!.helloWorld + ' ${DateTime.now()}'), //Example of localization
           Text(
             message,
           ),
-          !show
-              ? Container()
-              : CachePopover<String>(
-                  cachedWidget: Text('Does this need to be here?'),
-                  cachePopoverCallback: (newTxt) {
-                    debugPrint('NEW TEXT: $newTxt');
-                  },
-                  cachedItems: [],
-                  emptyCacheWidget: Text('WTF'),
-                  onPop: () {},
-                ),
+          // !show
+          //     ? Container()
+          //     : CachePopover<String>(
+          //         cachedWidget: Text('Does this need to be here?'),
+          //         cachePopoverCallback: (newTxt) {
+          //           debugPrint('NEW TEXT: $newTxt');
+          //         },
+          //         cachedItems: [],
+          //         emptyCacheWidget: Text('WTF'),
+          //         onPop: () {},
+          //       ),
 
           WidgetSize(
             onChange: (Size size) {
@@ -88,8 +85,12 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
-          CacheWidget(
-            parentWidget: Text('This is the parent!'),
+          CacheButton(
+            cache: [],
+            emptyCacheMessage: 'Nothing Cached',
+            cachePopoverCallback: (data) {
+              debugPrint('$data');
+            },
           ),
         ],
       ),
