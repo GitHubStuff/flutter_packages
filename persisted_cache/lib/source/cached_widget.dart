@@ -25,10 +25,7 @@ Key _uniqueKey = UniqueKey();
 
 typedef void CachePopoverCallback(dynamic item);
 
-class CachedWidget extends StatelessWidget {
-  final TextEditingController _textEditingController = TextEditingController();
-  final CacheCubit _cacheCubit = CacheCubit();
-
+class CachedWidget extends StatefulWidget {
   /// Callback that will get the value in the TextField when the Submit is tapped
   final CachePopoverCallback cachePopoverCallback;
 
@@ -51,6 +48,19 @@ class CachedWidget extends StatelessWidget {
     this.listTileColors,
     this.popoverColors,
   }) : super(key: key);
+  @override
+  _CachedWidget createState() => _CachedWidget();
+}
+
+class _CachedWidget extends ObservingStatefulWidget<CachedWidget> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final CacheCubit _cacheCubit = CacheCubit();
+
+  @override
+  dispose() {
+    _textEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +88,14 @@ class CachedWidget extends StatelessWidget {
         SystemSound.play(SystemSoundType.click);
 
         /// Insure at least one cell for empty cache
-        final double length = max(1.0, persistedCache.cachedItems().length.toDouble());
+        final double length = max(1.0, widget.persistedCache.cachedItems().length.toDouble());
         showPopover(
           context: context,
           bodyBuilder: (cntx) => Container(child: _column(context)),
           direction: PopoverDirection.bottom,
           height: min(60.0 * length, 60.0 * 3.5), // No more than 3.5 displayed to keep popover compact
           width: min(400.0, context.size!.width * 0.95),
-          backgroundColor: popoverColors?.of(context: context) ??
+          backgroundColor: widget.popoverColors?.of(context: context) ??
               ThemeColors(
                 dark: Color(0xff0047ab),
                 light: Colors.black54,
@@ -97,8 +107,8 @@ class CachedWidget extends StatelessWidget {
 
   /// Gets the list of cached strings and turns them into scrollable list of Widgets containing Text widgets of the Strings
   Widget _column(BuildContext context) {
-    List<dynamic> cache = persistedCache.cachedItems();
-    final List<Widget> result = _listOfListTiles(cache.isEmpty ? [emptyCacheMessage] : cache, context);
+    List<dynamic> cache = widget.persistedCache.cachedItems();
+    final List<Widget> result = _listOfListTiles(cache.isEmpty ? [widget.emptyCacheMessage] : cache, context);
     return Container(
       child: SingleChildScrollView(
         child: Padding(
@@ -125,14 +135,14 @@ class CachedWidget extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 onTap: () {
-                  if (!persistedCache.isEmpty) {
+                  if (!widget.persistedCache.isEmpty) {
                     _cacheCubit.setViewText(item as String);
                   }
                   Future.delayed(_dismissDuration, () {
                     Navigator.pop(context);
                   });
                 },
-                trailing: persistedCache.isEmpty
+                trailing: widget.persistedCache.isEmpty
                     ? null
                     : Icon(Icons.arrow_forward_ios,
                         color: ThemeColors(
@@ -140,7 +150,7 @@ class CachedWidget extends StatelessWidget {
                           light: ThemeManager.lightTheme.textTheme.caption!.color!,
                         ).of(context: context)),
               ),
-              color: listTileColors?.of(context: context) ??
+              color: widget.listTileColors?.of(context: context) ??
                   ThemeColors(
                     dark: Color(0xAA000000),
                     light: Color(0xAAffffff),
@@ -161,8 +171,8 @@ class CachedWidget extends StatelessWidget {
       onTap: () {
         SystemSound.play(SystemSoundType.click);
         _cachedString = _textEditingController.text;
-        cachePopoverCallback(_cachedString);
-        persistedCache.addItem(_textEditingController.text);
+        widget.cachePopoverCallback(_cachedString);
+        widget.persistedCache.addItem(_textEditingController.text);
         context.hideKeyboard();
       },
     );
@@ -190,7 +200,7 @@ class CachedWidget extends StatelessWidget {
             controller: _textEditingController..text = _cachedString,
             onTap: () {},
             onSubmitted: (String value) {
-              persistedCache.addItem(value);
+              widget.persistedCache.addItem(value);
             },
           );
         },
