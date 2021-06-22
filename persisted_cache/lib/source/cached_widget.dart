@@ -56,6 +56,8 @@ class _CachedWidget extends ObservingStatefulWidget<CachedWidget> {
   final TextEditingController _textEditingController = TextEditingController();
   final CacheCubit _cacheCubit = CacheCubit();
 
+  void clear() => _textEditingController.clear();
+
   @override
   dispose() {
     _textEditingController.dispose();
@@ -168,6 +170,9 @@ class _CachedWidget extends ObservingStatefulWidget<CachedWidget> {
         Icons.move_to_inbox,
         size: _buttonSize,
       ),
+      onDoubleTap: () {
+        _textEditingController.clear();
+      },
       onTap: () {
         SystemSound.play(SystemSoundType.click);
         _cachedString = _textEditingController.text;
