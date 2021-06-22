@@ -52,24 +52,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(AppLocalizations.of(context)!.helloWorld + ' ${DateTime.now()}'), //Example of localization
-          // Text(
-          //   message,
-          // ),
-
-          // WidgetSize(
-          //   onChange: (Size size) {
-          //     setState(() {
-          //       final height = context.height;
-          //       final width = context.width;
-          //       debugPrint('height: $height, width: $width $isFirst');
-          //       message = 'Size - $size';
-          //     });
-          //   },
-          //   child: Text(
-          //     isFirst ? instruction : instruction2,
-          //     style: Theme.of(context).textTheme.headline4,
-          //   ),
-          // ),
           CachedWidget(
             persistedCache: _persistedCache,
             emptyCacheMessage: 'Nothing Cached',
