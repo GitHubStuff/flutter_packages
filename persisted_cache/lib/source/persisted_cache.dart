@@ -1,22 +1,39 @@
+// Copyright 2021, LTMM LLC.
+// Enables the use of storing a selection of <T> items in system prefs, that can be recalled for use later.
+// NOTE: Items are cached ONLY after they are read for the first time (eg: var x = persistedCache.value).
+// If a cached value is not appearing in the list, could be because it wasn't read.
+// This is to allow the value to be edit/changed before being committed to the cache.
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:xfer/xfer.dart';
 
 typedef void CallBack<T>(T value);
 
 class PersistedCache<T> {
+  /// Special suffix to insure a unique key in prefs
   final String _suffix = '22c8c0e406454373b2ba46f83f0b65ee';
-  late String _lookupKey;
-  int _limit;
-  String _cacheId;
-  T? _value;
-  LinkedHashMap<String, T> _cacheMap = LinkedHashMap();
 
-  PersistedCache({T? value, int limit = 10, required String cacheId})
-      : _value = value,
+  /// Composed URL to preference
+  late String _lookupKey;
+
+  /// The number of items to keep in cache
+  int _limit;
+
+  /// Should be a unique string that is added to the _suffix to create a unique key for pref
+  String _cacheId;
+
+  /// Initial value to place in the cache
+  T? _value;
+
+  /// List of cached items
+  LinkedHashMap<String, T> _cacheMap = LinkedHashMap();
+  PersistedCache({
+    T? value,
+    int limit = 10,
+    required String cacheId,
+  })  : _value = value,
         _limit = limit,
         _cacheId = cacheId,
         assert(limit > 1),
@@ -25,6 +42,7 @@ class PersistedCache<T> {
     _load();
   }
 
+  /// When a value is read, that pushes it into the cache
   T? get value {
     addItem(_value);
     return _value;
@@ -32,6 +50,7 @@ class PersistedCache<T> {
 
   set value(T? newValue) => _value = newValue;
 
+  /// Returns a list of the cached value
   List<T> cachedItems() {
     final List<T> result = [];
     _cacheMap.forEach((key, value) => result.add(value));
@@ -40,8 +59,9 @@ class PersistedCache<T> {
 
   bool get isEmpty => _cacheMap.isEmpty;
 
+  /// Adds an item to the cache list, along with a time stamp to keep the most recent at the top of the
+  /// list, and trims the list if it goes over 'limit'
   Future addItem(T? item) async {
-    debugPrint('addItem $item');
     if (item == null || (item is String && item.isEmpty)) return;
     _checkType(item);
     _cacheMap.removeWhere((key, value) => value == item);
@@ -62,6 +82,7 @@ class PersistedCache<T> {
     await _save();
   }
 
+  /// Data type checker to insure only primative types are saved
   void _checkType(Object object) {
     if (object is bool) return;
     if (object is double) return;
@@ -70,16 +91,15 @@ class PersistedCache<T> {
     assert(false, 'object: ${object.toString()} is not bool, double, int, or string');
   }
 
+  /// Converts the cached items to a string and store is prefs
+  /// This should be so fast that the await will not stutter/slow updates
   Future _save() async {
-    debugPrint('${DateTime.now().toIso8601String()}🟥 Starting SAVE');
     final String data = json.encode(_cacheMap);
-    Xfer().put(_lookupKey, value: data).then((value) {
-      debugPrint('${DateTime.now().toIso8601String()}⏱ Finished SAVE');
-    });
+    await Xfer().put(_lookupKey, value: data);
   }
 
+  /// Reads the cached items from the pref a string that is converted to the List<T>
   Future _load() async {
-    debugPrint('🥸 Starting Load');
     Xfer().get(_lookupKey, value: '').then((result) {
       result.fold((err) {
         assert(false, 'Could not read $_lookupKey : ${err.toString()}');
@@ -90,10 +110,8 @@ class PersistedCache<T> {
           map.forEach((key, value) {
             _cacheMap[key] = value as T;
           });
-          debugPrint('${map.toString()}');
         }
       });
-      debugPrint('🟣 Finished Load ${cachedItems()}');
     });
   }
 }

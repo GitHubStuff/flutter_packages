@@ -14,8 +14,6 @@ class ScaffoldWidget extends StatefulWidget {
 
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   PersistedCache _persistedCache = PersistedCache(cacheId: 'biff');
-  TextEditingControllerWithCache textEditingControllerWithCache = TextEditingControllerWithCache(cacheId: 'poke');
-  late final TextField textField;
   String message = 'Tap for Size';
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
@@ -24,9 +22,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   @override
   initState() {
     super.initState();
-    textField = TextField(
-      controller: textEditingControllerWithCache,
-    );
   }
 
   @override
@@ -57,40 +52,29 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(AppLocalizations.of(context)!.helloWorld + ' ${DateTime.now()}'), //Example of localization
-          Text(
-            message,
-          ),
-          // !show
-          //     ? Container()
-          //     : CachePopover<String>(
-          //         cachedWidget: Text('Does this need to be here?'),
-          //         cachePopoverCallback: (newTxt) {
-          //           debugPrint('NEW TEXT: $newTxt');
-          //         },
-          //         cachedItems: [],
-          //         emptyCacheWidget: Text('WTF'),
-          //         onPop: () {},
-          //       ),
+          // Text(
+          //   message,
+          // ),
 
-          WidgetSize(
-            onChange: (Size size) {
-              setState(() {
-                final height = context.height;
-                final width = context.width;
-                debugPrint('height: $height, width: $width $isFirst');
-                message = 'Size - $size';
-              });
-            },
-            child: Text(
-              isFirst ? instruction : instruction2,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ),
-          CacheButton(
+          // WidgetSize(
+          //   onChange: (Size size) {
+          //     setState(() {
+          //       final height = context.height;
+          //       final width = context.width;
+          //       debugPrint('height: $height, width: $width $isFirst');
+          //       message = 'Size - $size';
+          //     });
+          //   },
+          //   child: Text(
+          //     isFirst ? instruction : instruction2,
+          //     style: Theme.of(context).textTheme.headline4,
+          //   ),
+          // ),
+          CachedWidget(
             persistedCache: _persistedCache,
             emptyCacheMessage: 'Nothing Cached',
             cachePopoverCallback: (data) {
-              debugPrint('$data');
+              debugPrint('${DateTime.now()} DATA: $data');
             },
           ),
         ],

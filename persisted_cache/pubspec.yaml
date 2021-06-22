@@ -1,6 +1,6 @@
 name: persisted_cache
 description: Template for Flutter Package project.
-version: 0.0.1
+version: 0.1.0+0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
