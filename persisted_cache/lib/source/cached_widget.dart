@@ -182,6 +182,10 @@ class CachedWidget extends StatelessWidget {
           }
           debugPrint('Cached String $_cachedString');
           return TextField(
+            textInputAction: TextInputAction.newline,
+            keyboardType: TextInputType.multiline,
+            minLines: null,
+            maxLines: null,
             key: _uniqueKey,
             controller: _textEditingController..text = _cachedString,
             onTap: () {},
