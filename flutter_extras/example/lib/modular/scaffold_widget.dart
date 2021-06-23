@@ -28,6 +28,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SpinnerWidget.text('Spinning!'),
             Text(
               message,
             ),

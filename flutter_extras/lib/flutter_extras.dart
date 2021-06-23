@@ -8,6 +8,7 @@ export 'source/duration_extensions.dart';
 export 'source/int_extensions.dart';
 export 'source/language_dto.dart';
 export 'source/observing_stateful_widget.dart';
+export 'source/spinner_widget.dart';
 export 'source/string_extensions.dart';
 export 'source/widget_extensions.dart';
 export 'source/widget_size.dart';
