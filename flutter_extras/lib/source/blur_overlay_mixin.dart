@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 
@@ -11,8 +12,9 @@ mixin BlurOverlay {
     TextStyle style = const TextStyle(fontSize: 22.0),
   }) {
     showWidgetDialog(context,
-        widget: Text(
+        widget: AutoSizeText(
           message,
+          maxLines: 1,
           style: style,
         ));
   }
