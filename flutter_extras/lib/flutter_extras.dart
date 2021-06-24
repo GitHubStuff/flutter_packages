@@ -1,6 +1,7 @@
 library flutter_extras;
 
 export 'source/bloc_observer_extension.dart';
+export 'source/blur_overlay_mixin.dart';
 export 'source/context_extensions.dart';
 export 'source/date_time_enums.dart';
 export 'source/date_time_extensions.dart';

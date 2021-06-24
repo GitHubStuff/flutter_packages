@@ -7,6 +7,8 @@ A collection of useable extensions and classes that are useful helpers in most p
 ```dart
 - class SimpleBlocObserver - when using 'flutter_bloc' package this can be "attached" to report BLoC events to the console.
 
+- mixin BlurOverlay - overlayDismiss, showTextDialog, showTextSpinner, showWidgetDialog, showWidgetSpinner allow calls to showDialogs with backgrounds (aka barrier) that obscure the content beneath. The Spinner variants include a platform specific spinner.
+
 - extension ContextExtension on BuildContext - provides information about the current context, "textTheme", "primaryTextTheme", "colorScheme", "appTheme", "isKeyboardOpen", "platformBrightness", "height", "width"
 
 - enum DateTimeElement - enum for year, month, day, hour, minute, second, millisecond, microsecond that provides pseudo type safe defination when working with time elements.

@@ -10,7 +10,7 @@ class ScaffoldWidget extends StatefulWidget {
   _ScaffoldWidget createState() => _ScaffoldWidget();
 }
 
-class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
+class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with BlurOverlay {
   String message = 'Tap for Size';
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';

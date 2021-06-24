@@ -32,10 +32,11 @@ class SpinnerWidget extends StatelessWidget {
     ));
   }
 
-  factory SpinnerWidget.text(String text) {
+  factory SpinnerWidget.text(String text, {TextStyle textStyle = const TextStyle(fontSize: 22.0)}) {
     return SpinnerWidget(
         messageWidget: PlatformText(
       text,
+      style: textStyle,
       key: UniqueKey(),
     ));
   }
