@@ -36,7 +36,7 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
     }
-    final String responseInPlainText = '${response.statusCode} ${response.body}';
+    final String responseInPlainText = '${response.statusCode} ${response.body.toString().substring(1, 20)}';
     if (trace) {
       debugPrint('🔍🔍 $traceMessage');
       debugPrint('🔭🔭 $responseInPlainText');

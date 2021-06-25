@@ -1,6 +1,6 @@
 name: xfer
 description: Does http calls, and call to asset, and local files with various protocols
-version: 0.3.3+2
+version: 0.3.4+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -8,7 +8,6 @@ publish_to: 'none'
 environment:
   sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
   flutter: ">=2.2.2"
-
 
 dependencies:
   flutter:
@@ -22,7 +21,7 @@ dependencies:
   enum_to_string: ^2.0.1
   equatable: ^2.0.3
   hive: ^2.0.4
-  hive_flutter: ^1.0.0
+  hive_flutter: ^1.1.0
   http: ^0.13.3
 
 dev_dependencies:
