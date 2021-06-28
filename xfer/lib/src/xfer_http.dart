@@ -48,6 +48,8 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
     switch (response.statusCode) {
       case 200:
       case 201:
+      case 204:
+      case 207:
         final result = XferResponse(
           response.body,
           response.statusCode,
