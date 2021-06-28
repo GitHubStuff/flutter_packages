@@ -21,6 +21,7 @@ export 'src/xfer_response.dart';
 export 'src/xfer_uri_dto.dart';
 
 enum HttpVerb {
+  DELETE,
   GET,
   POST,
   PUT,
@@ -40,6 +41,7 @@ enum XferException {
   http500FetchDataException,
   httpArguementError,
   httpSocketException, // Device not connected to internet, or permissions not set.
+  httpUndefinedDELETEMethod,
   httpUndefinedGETMethod,
   httpUndefinedPOSTMethod,
   httpUndefinedPUTMethod,
@@ -62,6 +64,7 @@ enum XferProtocol {
 }
 
 /// Standard http.post for actual HTTP calls (the library/package used eg: package:http/http.dart')
+typedef Future<Response> Delete(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
 typedef Future<Response> Post(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
 typedef Future<Response> Put(Uri url, {Map<String, String>? headers, Object? body, Encoding? encoding});
 typedef Future<Response> Get(Uri url, {Map<String, String>? headers});
@@ -69,17 +72,60 @@ typedef Future<Response> Get(Uri url, {Map<String, String>? headers});
 typedef void CachedImageError(dynamic message);
 
 class Xfer {
+  final Delete? httpDeleteFuture;
   final Post? httpPostFuture;
   final Put? httpPutFuture;
   final Get? httpGetFuture;
   final bool trace;
   // NOTE: Constructor
   const Xfer({
+    this.httpDeleteFuture,
     this.httpGetFuture,
     this.httpPostFuture,
     this.httpPutFuture,
     this.trace = false,
   });
+
+  Future<Either<XferFailure, XferResponse>> delete(
+    String url, {
+    Map<String, String>? headers,
+    Object? value,
+  }) async {
+    TimeMarker? tm;
+    if (trace) {
+      tm = TimeMarker('☠️ DELETE url: $url');
+      if (headers != null) debugPrint(' ⛓ headers:${headers.toString()}');
+      if (value != null) debugPrint(' 💡 value:${value.toString()}');
+    }
+    try {
+      XferProtocol protocol = XferProtocolExtension.protocol(url);
+      switch (protocol) {
+        case XferProtocol.cachedImage:
+          throw FlutterError('Unsupported!!!');
+        case XferProtocol.asset:
+          throw FlutterError('Unsupported!!!');
+
+        case XferProtocol.http:
+        case XferProtocol.https:
+          if (httpDeleteFuture == null) throw XferException.httpUndefinedDELETEMethod;
+          Either<XferFailure, XferResponse> getResponse = await httpDelete(
+            url,
+            headers: headers,
+            getMethod: httpGetFuture!,
+            protocol: protocol,
+            trace: trace,
+          );
+          tm?.show('🟠 GOT $url');
+          return getResponse;
+
+        case XferProtocol.pref:
+        case XferProtocol.preference:
+          throw FlutterError('Unsupported!!!');
+      }
+    } catch (error) {
+      return Left(error as XferFailure);
+    }
+  }
 
   // FETCH - Non-async GET for cachedImages
   Either<XferFailure, XferResponse> fetch(String url, {required Map<String, String> headers, Object? imageError}) =>

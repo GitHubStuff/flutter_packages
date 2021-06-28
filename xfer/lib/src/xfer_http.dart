@@ -23,6 +23,10 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
     http.Response? response;
     String traceMessage;
     switch (verb) {
+      case HttpVerb.DELETE:
+        traceMessage = 'DELETE $url';
+        response = await (method as Delete)(uri, headers: headers);
+        break;
       case HttpVerb.GET:
         traceMessage = 'GET $url';
         response = await (method as Get)(uri, headers: headers);
@@ -71,6 +75,24 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
     return Left(XferFailure(XferException.httpSocketException, code: e.toString()));
   }
 }
+
+Future<Either<XferFailure, XferResponse>> httpDelete(
+  String url, {
+  Map<String, String>? headers,
+  required Get getMethod,
+  required XferProtocol protocol,
+  required bool trace,
+}) async =>
+    _httpMethod(
+      HttpVerb.DELETE,
+      url,
+      method: getMethod,
+      protocol: protocol,
+      headers: headers,
+      encoding: null,
+      body: null,
+      trace: trace,
+    );
 
 Future<Either<XferFailure, XferResponse>> httpGet(
   String url, {
