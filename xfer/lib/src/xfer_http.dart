@@ -79,14 +79,14 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
 Future<Either<XferFailure, XferResponse>> httpDelete(
   String url, {
   Map<String, String>? headers,
-  required Get getMethod,
+  required Delete deleteMethod,
   required XferProtocol protocol,
   required bool trace,
 }) async =>
     _httpMethod(
       HttpVerb.DELETE,
       url,
-      method: getMethod,
+      method: deleteMethod,
       protocol: protocol,
       headers: headers,
       encoding: null,
