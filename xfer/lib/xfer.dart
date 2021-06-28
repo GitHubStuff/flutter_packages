@@ -111,7 +111,7 @@ class Xfer {
           Either<XferFailure, XferResponse> getResponse = await httpDelete(
             url,
             headers: headers,
-            getMethod: httpGetFuture!,
+            getMethod: httpDeleteFuture!,
             protocol: protocol,
             trace: trace,
           );
