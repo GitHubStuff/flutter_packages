@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,8 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
     }
-    String bodyText = (response.body.isEmpty) ? '' : response.body.toString().substring(1, 20);
+    String bodyText = response.body.toString();
+    bodyText = (bodyText.isEmpty) ? '^empty^' : bodyText.substring(0, min(bodyText.length, 20));
     final String responseInPlainText = '${response.statusCode} $bodyText';
     if (trace) {
       debugPrint('🔍🔍 $traceMessage');
