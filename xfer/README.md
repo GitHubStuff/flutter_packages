@@ -18,7 +18,7 @@ Supported Protocols:
 To read data from the device assets. (No such thing as PUT/POST as flutter assets are non-writeable)
 
 ```dart
-Either<XferFailure, XferResponse> result = await Xfer().get('asset://images/brand.png', headers: 'Content-Type': 'image/png');
+Either<XferFailure, XferResponse> result = await Xfer().get('asset://images/brand.png', headers: {'Content-Type': 'image/png'});
 ```
 
 Content-Type supported:
