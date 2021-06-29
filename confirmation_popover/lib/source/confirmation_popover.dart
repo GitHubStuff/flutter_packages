@@ -47,14 +47,14 @@ PromptDto _words = PromptDto({
   'en': {
     PromptDto.confirmChange: 'Confirm Change',
     PromptDto.caption: 'Please confirm your choice',
-    PromptDto.confirm: 'Confirm',
+    PromptDto.change: 'Change',
     PromptDto.cancel: 'Cancel',
     PromptDto.thirdOption: 'Clear',
   },
   'es': {
     PromptDto.confirmChange: 'Confirmar cambio',
     PromptDto.caption: 'Confirma tu elección',
-    PromptDto.confirm: 'confirmar',
+    PromptDto.change: 'Cambio',
     PromptDto.cancel: 'cancelar',
     PromptDto.thirdOption: 'Borrar',
   }
@@ -168,7 +168,7 @@ class ConfirmationPopover extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  child: Text('${wordsDto.word(PromptDto.confirm)}'),
+                  child: Text('${wordsDto.word(PromptDto.change)}'),
                   onPressed: () {
                     Future.delayed(transistionDuration.add(Duration(milliseconds: _millisecondsAddedToTransitionOut)), () {
                       confirmCallback();

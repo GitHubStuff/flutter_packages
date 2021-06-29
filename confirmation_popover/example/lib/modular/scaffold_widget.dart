@@ -47,7 +47,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           ConfirmationPopover(
             Text('Hosting the popover?', style: TextStyle(fontSize: 28)),
             confirmCallback: () {
-              debugPrint('Confirmed');
+              debugPrint('Changed');
             },
             cancelCallback: () {
               debugPrint('🙀 Canceled');
@@ -61,7 +61,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
                 'Got 3 choices',
                 style: TextStyle(fontSize: 28),
               ), confirmCallback: () {
-            debugPrint('👍🏼 confirmed');
+            debugPrint('👍🏼 change');
           }, secondButtonCallBack: () {
             debugPrint('Door #3');
           }),
