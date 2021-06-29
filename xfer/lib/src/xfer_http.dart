@@ -40,7 +40,7 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         response = await (method as Put)(uri, headers: headers, body: body, encoding: encoding);
         break;
     }
-    String bodyText = (response.body == null) ? '' : response.body.toString().substring(1, 20);
+    String bodyText = (response.body.isEmpty) ? '' : response.body.toString().substring(1, 20);
     final String responseInPlainText = '${response.statusCode} $bodyText';
     if (trace) {
       debugPrint('🔍🔍 $traceMessage');
