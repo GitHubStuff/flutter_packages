@@ -42,6 +42,12 @@ ThemeColors _defaultCardColors = ThemeColors(
   light: Colors.white,
 );
 
+/// The color of the popover
+ThemeColors _defaultButtonColors = ThemeColors(
+  dark: Colors.white60,
+  light: Colors.black54,
+);
+
 /// This Language DTO provides default text for all the popover text: title, caption, and buttons for supported languages
 PromptDto _words = PromptDto({
   'en': {
@@ -84,6 +90,8 @@ class ConfirmationPopover extends StatelessWidget {
   /// The color of the border around the popover
   final ThemeColors? backgroundColors;
 
+  final ThemeColors? buttonColors;
+
   /// When the popover appears the lower view is obscured by this color (usual a color with low alpha for transparency)
   final ThemeColors? barrierColors;
 
@@ -112,6 +120,7 @@ class ConfirmationPopover extends StatelessWidget {
     this.trailingWidget,
     this.transistionDuration = _defaultTransition,
     this.direction = PopoverDirection.top,
+    this.buttonColors,
   }) : super(key: key);
 
   Widget build(BuildContext context) {
@@ -143,6 +152,7 @@ class ConfirmationPopover extends StatelessWidget {
   Widget _popoverContent(BuildContext context) {
     LanguageDto wordsDto = (languageDto ?? _words);
     final cardColor = (cardColors ?? _defaultCardColors).of(context: context);
+    final Color buttonColor = (buttonColors ?? _defaultBarrierColors).of(context: context);
     return SizedBox(
       width: min(context.width * _screenWidthFactor, _maxPoints),
       child: Card(
@@ -168,7 +178,10 @@ class ConfirmationPopover extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  child: Text('${wordsDto.word(PromptDto.change)}'),
+                  child: Text(
+                    '${wordsDto.word(PromptDto.change)}',
+                    style: TextStyle(color: buttonColor),
+                  ),
                   onPressed: () {
                     Future.delayed(transistionDuration.add(Duration(milliseconds: _millisecondsAddedToTransitionOut)), () {
                       confirmCallback();
@@ -180,7 +193,10 @@ class ConfirmationPopover extends StatelessWidget {
                 (secondButtonCallBack == null)
                     ? SizedBox(height: 1)
                     : TextButton(
-                        child: Text('${wordsDto.word(PromptDto.thirdOption)}'),
+                        child: Text(
+                          '${wordsDto.word(PromptDto.thirdOption)}',
+                          style: TextStyle(color: buttonColor),
+                        ),
                         onPressed: () {
                           Future.delayed(transistionDuration.add(Duration(milliseconds: _millisecondsAddedToTransitionOut)), () {
                             secondButtonCallBack!();
@@ -190,7 +206,10 @@ class ConfirmationPopover extends StatelessWidget {
                       ),
                 SizedBox(width: secondButtonCallBack == null ? 1 : _defaultSpacing),
                 TextButton(
-                  child: Text('${wordsDto.word(PromptDto.cancel)}'),
+                  child: Text(
+                    '${wordsDto.word(PromptDto.cancel)}',
+                    style: TextStyle(color: buttonColor),
+                  ),
                   onPressed: () {
                     if (cancelCallback != null) {
                       Future.delayed(transistionDuration.add(Duration(milliseconds: _millisecondsAddedToTransitionOut)), () {

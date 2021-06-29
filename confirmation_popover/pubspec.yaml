@@ -1,6 +1,6 @@
 name: confirmation_popover
 description: Displays two {or three} -button popover to confirm an action of widget.
-version: 0.3.2+0
+version: 0.3.3+0
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
