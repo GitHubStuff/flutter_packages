@@ -1,5 +1,6 @@
 library flutter_extras;
 
+export 'source/alerts.dart';
 export 'source/bloc_observer_extension.dart';
 export 'source/blur_overlay_mixin.dart';
 export 'source/context_extensions.dart';
