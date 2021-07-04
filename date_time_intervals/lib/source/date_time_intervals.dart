@@ -1,5 +1,6 @@
 // Copyright 2021 LTMM, LLC. All rights reserved.
 import 'package:flutter/material.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 import 'package:intl/intl.dart';
 
 import 'calendar_items.dart';
@@ -24,7 +25,7 @@ class DateTimeIntervals {
 
   /// Constructor
   DateTimeIntervals({
-    Set<CalendarItem?> setOfCalendarItems = AllCalendarItems,
+    Set<DateTimeElement?> setOfCalendarItems = SetOfAllCalendarItems,
     @required DateTime? startEvent,
     DateTime? endEvent,
   }) {
@@ -39,7 +40,7 @@ class DateTimeIntervals {
     }
     _direction = CalendarDirection.between;
 
-    if (setOfCalendarItems.contains(CalendarItem.years) || setOfCalendarItems.contains(CalendarItem.months)) {
+    if (setOfCalendarItems.contains(DateTimeElement.year) || setOfCalendarItems.contains(DateTimeElement.month)) {
       _approximateInterval(setOfCalendarItems, startingDateTime, endingDateTime);
     } else {
       _exactInterval(setOfCalendarItems, startingDateTime, endingDateTime);
@@ -48,7 +49,7 @@ class DateTimeIntervals {
 
   /// Factory
   factory DateTimeIntervals.fromCurrentDateTime({
-    Set<CalendarItem?> setOfCalendarItems = AllCalendarItems,
+    Set<DateTimeElement?> setOfCalendarItems = SetOfAllCalendarItems,
     @required DateTime? eventDateTime,
   }) {
     if (setOfCalendarItems.isEmpty) throw FlutterError('Cannot have empty/null setOfCalendarItems');
@@ -123,7 +124,7 @@ class DateTimeIntervals {
     return _result;
   }
 
-  void _approximateInterval(Set<CalendarItem?> setOfCalendarItems, DateTime startingDateTime, DateTime endingDateTime) {
+  void _approximateInterval(Set<DateTimeElement?> setOfCalendarItems, DateTime startingDateTime, DateTime endingDateTime) {
     int _getTotalMonths(DateTime startEvent, DateTime endEvent) {
       int months = 0;
       while (DateTime(
@@ -141,8 +142,8 @@ class DateTimeIntervals {
     }
 
     int _totalMonths = _getTotalMonths(startingDateTime, endingDateTime);
-    _years = !setOfCalendarItems.contains(CalendarItem.years) ? null : _totalMonths ~/ _MONTHS_PER_YEAR;
-    _months = !setOfCalendarItems.contains(CalendarItem.months) ? null : _totalMonths - ((_years ?? 0) * _MONTHS_PER_YEAR);
+    _years = !setOfCalendarItems.contains(DateTimeElement.year) ? null : _totalMonths ~/ _MONTHS_PER_YEAR;
+    _months = !setOfCalendarItems.contains(DateTimeElement.month) ? null : _totalMonths - ((_years ?? 0) * _MONTHS_PER_YEAR);
     DateTime adjustedEvent = DateTime(
       startingDateTime.year,
       startingDateTime.month + _totalMonths,
@@ -152,22 +153,22 @@ class DateTimeIntervals {
       startingDateTime.second,
     );
     final duration = endingDateTime.difference(adjustedEvent);
-    _days = !setOfCalendarItems.contains(CalendarItem.days) ? null : duration.inDays;
-    _hours = !setOfCalendarItems.contains(CalendarItem.hours) ? null : duration.inHours - ((_days ?? 0) * _HOURS_PER_DAY);
-    _minutes = !setOfCalendarItems.contains(CalendarItem.minutes) ? null : duration.inMinutes - ((_hours ?? 0) * _MINUTES_PER_HOUR) - ((_days ?? 0) * _MINUTES_PER_DAY);
-    _seconds = !setOfCalendarItems.contains(CalendarItem.seconds)
+    _days = !setOfCalendarItems.contains(DateTimeElement.day) ? null : duration.inDays;
+    _hours = !setOfCalendarItems.contains(DateTimeElement.hour) ? null : duration.inHours - ((_days ?? 0) * _HOURS_PER_DAY);
+    _minutes = !setOfCalendarItems.contains(DateTimeElement.minute) ? null : duration.inMinutes - ((_hours ?? 0) * _MINUTES_PER_HOUR) - ((_days ?? 0) * _MINUTES_PER_DAY);
+    _seconds = !setOfCalendarItems.contains(DateTimeElement.second)
         ? null
         : duration.inSeconds - ((_days ?? 0) * _SECONDS_PER_DAY) - ((_hours ?? 0) * _SECONDS_PER_HOUR) - ((_minutes ?? 0) * _SECONDS_PER_MINUTE);
   }
 
   //Rebuild DateTime micro and milli seconds set to zero(0)
-  void _exactInterval(Set<CalendarItem?> setOfCalendarItems, DateTime startingDateTime, DateTime endingDateTime) {
-    _days = !setOfCalendarItems.contains(CalendarItem.days) ? null : endingDateTime.difference(startingDateTime).inDays;
-    _hours = !setOfCalendarItems.contains(CalendarItem.hours) ? null : endingDateTime.difference(startingDateTime).inHours - ((_days ?? 0) * _HOURS_PER_DAY);
-    _minutes = !setOfCalendarItems.contains(CalendarItem.minutes)
+  void _exactInterval(Set<DateTimeElement?> setOfCalendarItems, DateTime startingDateTime, DateTime endingDateTime) {
+    _days = !setOfCalendarItems.contains(DateTimeElement.day) ? null : endingDateTime.difference(startingDateTime).inDays;
+    _hours = !setOfCalendarItems.contains(DateTimeElement.hour) ? null : endingDateTime.difference(startingDateTime).inHours - ((_days ?? 0) * _HOURS_PER_DAY);
+    _minutes = !setOfCalendarItems.contains(DateTimeElement.minute)
         ? null
         : endingDateTime.difference(startingDateTime).inMinutes - ((_hours ?? 0) * _MINUTES_PER_HOUR) - ((_days ?? 0) * _MINUTES_PER_DAY);
-    _seconds = !setOfCalendarItems.contains(CalendarItem.seconds)
+    _seconds = !setOfCalendarItems.contains(DateTimeElement.second)
         ? null
         : endingDateTime.difference(startingDateTime).inSeconds - ((_days ?? 0) * _SECONDS_PER_DAY) - ((_hours ?? 0) * _SECONDS_PER_HOUR) - ((_minutes ?? 0) * _SECONDS_PER_MINUTE);
   }

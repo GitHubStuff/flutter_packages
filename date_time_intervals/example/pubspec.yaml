@@ -4,7 +4,8 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.0.1
 
 environment:
-  sdk: ">=2.12.3 <3.0.0" #Dart SDK 7-MAY-2021
+  sdk: ">=2.12.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
 
 dependencies:
   flutter:
@@ -17,15 +18,14 @@ dependencies:
       path: flutter_extras
   theme_manager:
     git:
-      url: https://github.com/GitHubStuff/flutter_packages.git
-      path: theme_manager
+      url: https://github.com/GitHubStuff/theme_manager.git
   auto_size_text: ^3.0.0-nullsafety.0
   cupertino_icons: ^1.0.3
-  flutter_bloc: ^7.0.0
-  flutter_modular: ^3.2.2+1
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.3.0
 
 dev_dependencies:
-  test: ^1.17.4
+  test: ^1.17.9
 
 flutter:
   uses-material-design: true

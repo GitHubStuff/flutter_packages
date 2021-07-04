@@ -6,8 +6,8 @@ homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
-  flutter: ">=2.2.2"
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
 
 dependencies:
   flutter:

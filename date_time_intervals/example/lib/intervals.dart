@@ -1,4 +1,5 @@
 import 'package:date_time_intervals/date_time_intervals.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 
 DateTimeIntervals behind23Hours3minutes10second() {
   final eventDateTime = DateTime.now().toUtc().subtract(Duration(
@@ -9,12 +10,12 @@ DateTimeIntervals behind23Hours3minutes10second() {
   return DateTimeIntervals.fromCurrentDateTime(
     eventDateTime: eventDateTime,
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
@@ -24,12 +25,12 @@ DateTimeIntervals ahead1Month() {
   return DateTimeIntervals.fromCurrentDateTime(
     eventDateTime: eventDateTime,
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
@@ -43,12 +44,12 @@ DateTimeIntervals ahead22Hours5minutes15second() {
   return DateTimeIntervals.fromCurrentDateTime(
     eventDateTime: eventDateTime,
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
@@ -59,12 +60,12 @@ DateTimeIntervals ahead26Hours3minutes() {
     endEvent: eventDateTime,
     startEvent: DateTime.now().toUtc(),
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
@@ -75,12 +76,12 @@ DateTimeIntervals ahead1year26Hours3minutes() {
     endEvent: eventDateTime,
     startEvent: DateTime.now().toUtc(),
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
@@ -91,12 +92,12 @@ DateTimeIntervals ahead16hr14min11se() {
     endEvent: eventDateTime,
     startEvent: DateTime.now().toUtc(),
     setOfCalendarItems: {
-      CalendarItem.years,
-      CalendarItem.months,
-      CalendarItem.days,
-      CalendarItem.hours,
-      CalendarItem.minutes,
-      CalendarItem.seconds,
+      DateTimeElement.year,
+      DateTimeElement.month,
+      DateTimeElement.day,
+      DateTimeElement.hour,
+      DateTimeElement.minute,
+      DateTimeElement.second,
     },
   );
 }
