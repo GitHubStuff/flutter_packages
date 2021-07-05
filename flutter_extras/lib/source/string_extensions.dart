@@ -26,13 +26,13 @@ extension StringExtensions on String {
     assert(this.replaceAll(this, '+').replaceAll(this, '-').isNotEmpty, 'Invalid character is $this');
     Set<DateTimeElement> result = {};
     if (this.substring(0, 1) == '+') result.add(DateTimeElement.year);
-    if (this.substring(1, 1) == '+') result.add(DateTimeElement.month);
-    if (this.substring(2, 1) == '+') result.add(DateTimeElement.day);
-    if (this.substring(3, 1) == '+') result.add(DateTimeElement.hour);
-    if (this.substring(4, 1) == '+') result.add(DateTimeElement.minute);
-    if (this.substring(5, 1) == '+') result.add(DateTimeElement.second);
-    if (this.substring(6, 1) == '+') result.add(DateTimeElement.microsecond);
-    if (this.substring(7, 1) == '+') result.add(DateTimeElement.millisecond);
+    if (this.substring(1, 2) == '+') result.add(DateTimeElement.month);
+    if (this.substring(2, 3) == '+') result.add(DateTimeElement.day);
+    if (this.substring(3, 4) == '+') result.add(DateTimeElement.hour);
+    if (this.substring(4, 5) == '+') result.add(DateTimeElement.minute);
+    if (this.substring(5, 6) == '+') result.add(DateTimeElement.second);
+    if (this.substring(6, 7) == '+') result.add(DateTimeElement.microsecond);
+    if (this.substring(7, 8) == '+') result.add(DateTimeElement.millisecond);
     return result;
   }
 
