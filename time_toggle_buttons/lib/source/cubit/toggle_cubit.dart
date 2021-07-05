@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_extras/flutter_extras.dart';
 import 'package:meta/meta.dart';
 
 part 'toggle_state.dart';
@@ -17,5 +18,16 @@ class ToggleCubit extends Cubit<ToggleState> {
       }
     }
     emit(ToggleInitial(isSelected));
+  }
+
+  Set<DateTimeElement> dateTimeElements() {
+    final Set<DateTimeElement> result = {};
+    if (isSelected[0]) result.add(DateTimeElement.year);
+    if (isSelected[1]) result.add(DateTimeElement.month);
+    if (isSelected[2]) result.add(DateTimeElement.day);
+    if (isSelected[3]) result.add(DateTimeElement.hour);
+    if (isSelected[4]) result.add(DateTimeElement.minute);
+    if (isSelected[5]) result.add(DateTimeElement.second);
+    return result;
   }
 }
