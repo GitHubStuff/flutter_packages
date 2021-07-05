@@ -17,6 +17,8 @@ A collection of useable extensions and classes that are useful helpers in most p
 
 - extension DateTimeExtension on DateTime - short-cut helpers when working with DateTime. There are several simplier helpers, the biggest feature is the ***"next(DateTimeElement, [int delta = 1])"***, where a delta can be allowed to any element and the correct DateTime is returned. {Better then just adding Duration because it handles, months, and years}
 
+- extension ImageExtension on Image - rightRotation, upRotation, bottomRotation, leftRotation
+
 - extension DurationExtension on Duration - add(Duration amount), sub(Duration amount) add/subtract a duration
 
 - extension IntDateTimeExtension on int - Helpers that can use return text for numbers that represent a month (eg 1.asMonth() => 'Jan'), or an int as meridian (eg 14.asMeridian() => 'pm', 10.asMerdian() => 'am'). Any values outside ranges (month on works for 1..12, time 0..23) throws an exception.

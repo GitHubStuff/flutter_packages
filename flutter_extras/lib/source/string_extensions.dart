@@ -6,6 +6,8 @@ import 'package:uuid/uuid.dart';
 import '../flutter_extras.dart';
 
 extension StringExtensions on String {
+  bool get isEmail => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this);
+
   static String composeDateTimeItems(Set<DateTimeElement> items) {
     if (items.isEmpty) return '--------';
     String result = (items.contains(DateTimeElement.year)) ? '+' : '-';

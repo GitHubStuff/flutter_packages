@@ -1,10 +1,12 @@
 name: tracers_app
-description: A new Flutter project.
+description: Runs demo
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.1.0
+version: 0.1.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0" #Dart SDK 9-Mar-2021
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
+
 
 dependencies:
   flutter:

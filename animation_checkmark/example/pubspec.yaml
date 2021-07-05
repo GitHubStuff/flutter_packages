@@ -1,10 +1,11 @@
 name: animated_ballot_package_app
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.0.1
+version: 0.0.2
 
 environment:
-  sdk: ">=2.12.0 <3.0.0" #Dart SDK 9-Mar-2021
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
 
 dependencies:
   flutter:
@@ -14,7 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.3
 
 dev_dependencies:
-  test: ^1.17.3
+  test: ^1.17.9
 
 flutter:
   uses-material-design: true

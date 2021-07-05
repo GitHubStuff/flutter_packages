@@ -1,12 +1,12 @@
 name: app_exception
 description: Extends Exception for an enhanced description of an error
-version: 0.0.4+1
+version: 0.0.4+3
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 
 environment:
-  sdk: ">=2.13.3 <3.0.0" #Dart SDK 18-JUN-2021
-  flutter: ">=2.2.2"
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
 
 dependencies:
   flutter:

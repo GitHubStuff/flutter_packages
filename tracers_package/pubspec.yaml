@@ -1,13 +1,13 @@
 name: tracers_package
 description: Write messages to the console
-version: 1.9.0+3
+version: 1.9.0+4
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.22.5"
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
 
 dependencies:
   flutter:

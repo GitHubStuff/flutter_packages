@@ -7,6 +7,7 @@ export 'source/context_extensions.dart';
 export 'source/date_time_enums.dart';
 export 'source/date_time_extensions.dart';
 export 'source/duration_extensions.dart';
+export 'source/image_extension.dart';
 export 'source/int_extensions.dart';
 export 'source/language_dto.dart';
 export 'source/observing_stateful_widget.dart';
