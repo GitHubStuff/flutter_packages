@@ -20,6 +20,16 @@ class ToggleButtonsCubit extends Cubit<ToggleState> {
     emit(ToggleInitial(isSelected));
   }
 
+  void setSelected({required Set<DateTimeElement> dateTimeElements}) {
+    isSelected[0] = dateTimeElements.contains(DateTimeElement.year);
+    isSelected[1] = dateTimeElements.contains(DateTimeElement.month);
+    isSelected[2] = dateTimeElements.contains(DateTimeElement.day);
+    isSelected[3] = dateTimeElements.contains(DateTimeElement.hour);
+    isSelected[4] = dateTimeElements.contains(DateTimeElement.minute);
+    isSelected[5] = dateTimeElements.contains(DateTimeElement.second);
+    emit(ToggleInitial(isSelected));
+  }
+
   Set<DateTimeElement> dateTimeElements() {
     final Set<DateTimeElement> result = {};
     if (isSelected[0]) result.add(DateTimeElement.year);
