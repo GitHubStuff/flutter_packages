@@ -4,10 +4,10 @@ import 'package:meta/meta.dart';
 
 part 'toggle_state.dart';
 
-class ToggleCubit extends Cubit<ToggleState> {
+class ToggleButtonsCubit extends Cubit<ToggleState> {
   List<bool> isSelected = [true, true, true, true, true, true];
 
-  ToggleCubit() : super(ToggleInitial([true, true, true, true, true, true]));
+  ToggleButtonsCubit() : super(ToggleInitial([true, true, true, true, true, true]));
 
   void onSelected(int index) {
     final isOneSelected = isSelected.where((element) => element).length == 1;

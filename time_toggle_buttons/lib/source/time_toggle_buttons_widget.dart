@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:time_toggle_buttons/source/cubit/toggle_cubit.dart';
+import 'package:time_toggle_buttons/source/cubit/toggle_buttons_cubit.dart';
 
 import 'constants.dart' as K;
 
@@ -34,8 +34,8 @@ class _TimeToggleButtonsState extends State<TimeToggleButtons> {
 
   @override
   Widget build(BuildContext context) {
-    ToggleCubit toggleCubit = Modular.get<ToggleCubit>();
-    return BlocBuilder<ToggleCubit, ToggleState>(
+    ToggleButtonsCubit toggleCubit = Modular.get<ToggleButtonsCubit>();
+    return BlocBuilder<ToggleButtonsCubit, ToggleState>(
         bloc: toggleCubit,
         builder: (contxt, state) {
           if (state is ToggleInitial) {

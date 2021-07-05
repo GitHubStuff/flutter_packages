@@ -10,7 +10,7 @@ class AppModule extends Module {
   @override
   final List<Bind> binds = [
     Bind.singleton((i) => ThemeCubit()),
-    Bind.singleton((i) => ToggleCubit()),
+    Bind.singleton((i) => ToggleButtonsCubit()),
   ];
 
   // Provide all the routes for your module

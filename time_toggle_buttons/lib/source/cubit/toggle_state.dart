@@ -1,4 +1,4 @@
-part of 'toggle_cubit.dart';
+part of 'toggle_buttons_cubit.dart';
 
 @immutable
 abstract class ToggleState {}
