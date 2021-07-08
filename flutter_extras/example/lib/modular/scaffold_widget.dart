@@ -28,6 +28,13 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with BlurO
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SlideSwitch(
+              activeText: 'Dropbox',
+              onChanged: (bool value) {
+                debugPrint('VALUE!');
+              },
+              value: true,
+            ),
             SpinnerWidget.text('Spinning!'),
             Text(
               message,
