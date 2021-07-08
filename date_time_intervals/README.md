@@ -27,25 +27,6 @@ enum CalendarDirection {
   untilEnd,
 }
 
-enum CalendarItem {
-  years,
-  months,
-  days,
-  hours,
-  minutes,
-  seconds,
-}
-
-/// Constant to help when selecting all CalendarItem(s) is needed
-const Set<CalendarItem> AllCalendarItems = {
-  CalendarItem.years,
-  CalendarItem.months,
-  CalendarItem.days,
-  CalendarItem.hours,
-  CalendarItem.minutes,
-  CalendarItem.seconds,
-};
-
 /// Helpers:
 
 // Turns the set of CalendarItem(s) into a String that can be used as a tag in something like SQLite, or MongoDB, etc
@@ -63,14 +44,14 @@ Create an instance:
 
 ```dart
 DateTimeIntervals({
-    Set<CalendarItem?> setOfCalendarItems = AllCalendarItems,
+    Set<DateTimeElement?> setOfCalendarItems = AllCalendarItems,
     @required DateTime? startEvent,
     DateTime? endEvent,
   })
 
 /// Factory
   factory DateTimeIntervals.fromCurrentDateTime({
-    Set<CalendarItem?> setOfCalendarItems = AllCalendarItems,
+    Set<DateTimeElement?> setOfCalendarItems = AllCalendarItems,
     @required DateTime? eventDateTime,
   })
 ```

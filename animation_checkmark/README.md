@@ -1,4 +1,4 @@
-# animated_checkbox
+# animation_checkmark
 
 Collection of three(3) widgets that have an animated check-mark
 
@@ -8,10 +8,19 @@ Collection of three(3) widgets that have an animated check-mark
 
 ## Getting Started
 
+Add to pubspec.yaml
+
+```ymal
+  animation_checkmark:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: animation_checkmark
+```
+
 Import Package:
 
 ```dart
-import 'package:animated_ballot_package/animated_ballot_package.dart';
+import 'package:animation_checkmark/animation_checkmark.dart';
 ```
 
 **AnimatedCheckBox:**
@@ -83,7 +92,6 @@ const AnimatedCheckCircle({
 * double borderWidth - width of the circle
 
 * Duration drawDelay - Wait time before draw begins
-
 
 **AnimatedCheckMark:**
 
