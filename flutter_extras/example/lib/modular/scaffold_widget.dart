@@ -15,6 +15,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with BlurO
   String instruction = 'Tap + to change the text';
   String instruction2 = 'Tap again';
   bool isFirst = true;
+  bool slide = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,11 +30,17 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with BlurO
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SlideSwitch(
-              activeText: 'Dropbox',
+              key: UniqueKey(),
+              activeText: 'DBox',
               onChanged: (bool value) {
-                debugPrint('VALUE!');
+                debugPrint('VALUE! $value');
+                Future.delayed(Duration(seconds: 2), () {
+                  setState(() {
+                    slide = false;
+                  });
+                });
               },
-              value: true,
+              value: slide,
             ),
             SpinnerWidget.text('Spinning!'),
             Text(
@@ -59,7 +66,9 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> with BlurO
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            isFirst = !isFirst;
+            setState(() {
+              slide = false;
+            });
           });
         },
         tooltip: 'Increment',

@@ -24,10 +24,10 @@ class SlideSwitch extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomSwitchState createState() => _CustomSwitchState();
+  _SlideSwitch createState() => _SlideSwitch();
 }
 
-class _CustomSwitchState extends State<SlideSwitch> with SingleTickerProviderStateMixin {
+class _SlideSwitch extends State<SlideSwitch> with SingleTickerProviderStateMixin {
   late Animation _circleAnimation;
   late AnimationController _animationController;
 
