@@ -11,7 +11,7 @@ class SlideSwitch extends StatefulWidget {
   final Color activeTextColor;
   final Color inactiveTextColor;
 
-  const SlideSwitch({
+  SlideSwitch({
     Key? key,
     required this.value,
     required this.onChanged,
