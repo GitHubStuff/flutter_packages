@@ -20,6 +20,10 @@ class ToggleButtonsCubit extends Cubit<ToggleState> {
     emit(ToggleInitial(isSelected));
   }
 
+  void reset() {
+    for (int i = 0; i < isSelected.length; i++) isSelected[i] = true;
+  }
+
   void setSelected({required Set<DateTimeElement> dateTimeElements}) {
     isSelected[0] = dateTimeElements.contains(DateTimeElement.year);
     isSelected[1] = dateTimeElements.contains(DateTimeElement.month);
