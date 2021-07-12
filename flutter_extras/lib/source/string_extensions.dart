@@ -5,6 +5,15 @@ import 'package:uuid/uuid.dart';
 
 import '../flutter_extras.dart';
 
+class CannotParseThemeModeFromString extends AppException {
+  CannotParseThemeModeFromString([String message = 'Invalid String', int code = 796])
+      : super(
+          message,
+          'Cannot Read ThemeMode',
+          code,
+        );
+}
+
 extension StringExtensions on String {
   bool get isEmail => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this);
 
@@ -38,6 +47,13 @@ extension StringExtensions on String {
 
   static String get uniqueKey => Uuid().v4();
 
+  String scrub([String items = ' \t\n', String replace = '']) {
+    List<String> tokens = items.split('');
+    String tmp = this;
+    tokens.forEach((chr) => tmp = tmp.replaceAll(chr, replace));
+    return tmp;
+  }
+
   DateTime get sqlite => DateTime.parse(this);
 
   ThemeMode asThemeMode() {
@@ -45,13 +61,4 @@ extension StringExtensions on String {
     if (themeType == null) throw CannotParseThemeModeFromString('Cannot read/parse "$this" as ThemeMode {system, light, dark}', 801);
     return themeType;
   }
-}
-
-class CannotParseThemeModeFromString extends AppException {
-  CannotParseThemeModeFromString([String message = 'Invalid String', int code = 796])
-      : super(
-          message,
-          'Cannot Read ThemeMode',
-          code,
-        );
 }

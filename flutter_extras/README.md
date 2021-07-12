@@ -29,8 +29,14 @@ A collection of useable extensions and classes that are useful helpers in most p
 
 - class SpinnerWidget - Platform specific spinner with trailing Widget, or SpinnerWidget.text('text') for spinner followed by Text widget with given string
 
-- extension StringExtensions on String - aids in convert strings to other property types: asThemeMode() => converts 'system','light','dark' case insensitive. "2001-01-10T10:15:27.456Z".sqlite => parses a time string (typically a time-stamp within sqlite) and returns DateTime;
-String.uniqueKey returns a {hopefully} unique UUID.
+- extension StringExtensions on String - aids in convert strings to other property types:
+1. bool isEmail
+1. static String compaseDateTimeItems(Set<DateTimeItems> items)
+1. Set<DateTimeElements> get elements
+1. static String get uniqueKey
+1. String scrub([String items = ' \t\n', String replace = ''])
+1. DateTime get sqlite
+1. asThemeMode() => converts 'system','light','dark' case insensitive
 
 - extension WidgetExtensions on Widget - removed(bool state): removes a widget from the tree (replaces the widget as SizedBox(height:1). hide(bool state): changes opacitity on the widget to hide it.
 
