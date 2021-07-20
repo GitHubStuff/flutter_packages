@@ -1,6 +1,6 @@
 name: keypad_popover
 description: Displays a keypad popover
-version: 0.0.1
+version: 0.0.1+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -15,6 +15,10 @@ dependencies:
   theme_manager:
     git:
       url: https://github.com/GitHubStuff/theme_manager
+  flutter_extras:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: flutter_extras
   cupertino_icons: ^1.0.3
   flutter_bloc: ^7.0.1
   flutter_modular: ^3.3.1

@@ -37,7 +37,7 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(AppLocalizations.of(context)!.helloWorld), //Example of localization
-          CalculatorKeypad(),
+          NumberBar(),
         ],
       ),
     );

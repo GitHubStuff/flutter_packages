@@ -1,11 +1,14 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:keypad_popover/keypad_popover.dart';
 
 import 'scaffold_widget.dart';
 
 class AppModule extends Module {
   // Provide a list of dependencies to inject into your project
   @override
-  final List<Bind> binds = [];
+  final List<Bind> binds = [
+    Bind.singleton((i) => KeypadCubit()),
+  ];
 
   // Provide all the routes for your module
   @override

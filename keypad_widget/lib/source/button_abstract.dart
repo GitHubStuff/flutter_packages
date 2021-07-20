@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:keypad_popover/keypad_popover.dart';
 import 'package:keypad_popover/source/constants.dart' as K;
 
 abstract class ButtonAbstract {
   final String text;
+  final K.ButtonContent content;
   bool enabled = true;
-  ButtonAbstract({required this.text});
+  ButtonAbstract({
+    required this.text,
+    this.content = K.ButtonContent.number,
+  });
 
   Widget widget(BuildContext context) {
     return SizedBox(
@@ -19,7 +25,10 @@ abstract class ButtonAbstract {
           ),
           child: TextButton(
             child: Text(text, style: K.textStyle(context)),
-            onPressed: null,
+            onPressed: () {
+              final keypadCubit = Modular.get<KeypadCubit>();
+              keypadCubit.add(text, content);
+            },
             style: TextButton.styleFrom(
               padding: const EdgeInsets.all(K.buttonPadding),
             ),
@@ -71,9 +80,9 @@ class NineButton extends ButtonAbstract {
 }
 
 class DecimalButton extends ButtonAbstract {
-  DecimalButton() : super(text: '.');
+  DecimalButton() : super(text: '.', content: K.ButtonContent.decimal);
 }
 
 class DeleteButton extends ButtonAbstract {
-  DeleteButton() : super(text: '<');
+  DeleteButton() : super(text: '<', content: K.ButtonContent.delete);
 }
