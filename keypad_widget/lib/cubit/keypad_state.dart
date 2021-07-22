@@ -9,3 +9,8 @@ class KeypadValued extends KeypadState {
   final String text;
   KeypadValued(this.text);
 }
+
+class KeypadValueSet extends KeypadState {
+  final String value;
+  KeypadValueSet(this.value);
+}

@@ -18,19 +18,22 @@ class _NumberBar extends ObservingStatefulWidget<NumberBar> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: K.keypadWidth,
-      child: Column(
-        children: [
-          SizedBox(
-            height: K.inputBarHeight,
-            child: Row(
-              children: [
-                _setButton(),
-                _input(),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(
+              height: K.inputBarHeight,
+              child: Row(
+                children: [
+                  _setButton(),
+                  _input(),
+                ],
+              ),
             ),
-          ),
-          CalculatorKeypad(),
-        ],
+            CalculatorKeypad(),
+          ],
+        ),
       ),
     );
   }
@@ -52,28 +55,31 @@ class _NumberBar extends ObservingStatefulWidget<NumberBar> {
                 K.setterButtonText,
                 style: K.setButtonStyle(context),
               ),
-              onPressed: () {}),
+              onPressed: () {
+                Modular.get<KeypadCubit>().setButtonPressed();
+              }),
         ),
       );
 
   Widget _input() {
     return Expanded(
-        child: BlocBuilder<KeypadCubit, KeypadState>(
-      bloc: Modular.get<KeypadCubit>(),
-      builder: (context, state) {
-        if (state is KeypadValued) {
-          _textEditingController.text = state.text;
-        }
-        return TextField(
-          controller: _textEditingController,
-          obscureText: false,
-          textDirection: TextDirection.rtl,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Numbers',
-          ),
-        );
-      },
-    ));
+      child: BlocBuilder<KeypadCubit, KeypadState>(
+        bloc: Modular.get<KeypadCubit>(),
+        builder: (context, state) {
+          if (state is KeypadValued) {
+            _textEditingController.text = state.text;
+          }
+          return TextField(
+            controller: _textEditingController,
+            obscureText: false,
+            textDirection: TextDirection.rtl,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Numbers',
+            ),
+          );
+        },
+      ),
+    );
   }
 }

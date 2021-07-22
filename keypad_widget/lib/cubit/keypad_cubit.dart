@@ -22,6 +22,18 @@ class KeypadCubit extends Cubit<KeypadState> {
     });
   }
 
+  Future setButtonPressed() async {
+    emit(KeypadValueSet(keypadText));
+  }
+
+  void reset() {
+    keypadText = '0';
+    value = 0.0;
+    _decimalDigits = 0;
+    emit(KeypadInitial());
+    _addItem('0');
+  }
+
   Future add(String item, K.ButtonContent content) async {
     if (content == K.ButtonContent.number) return _addNumber(item);
     if (content == K.ButtonContent.decimal) return _addDecimal();
