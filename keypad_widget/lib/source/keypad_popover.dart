@@ -6,7 +6,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:keypad_popover/cubit/keypad_cubit.dart';
 import 'package:keypad_popover/keypad_popover.dart';
 import 'package:popover/popover.dart';
+import 'package:theme_manager/theme_manager.dart';
 
+import 'constants.dart' as K;
 import 'number_bar.dart';
 
 typedef void KeypadCallback(String value);
@@ -17,12 +19,16 @@ class KeypadPopover extends StatefulWidget {
   final Widget onWidget;
   final KeypadCallback callback;
   final bool includeSeconds;
+  final ThemeColors backgroundColors;
+  final ThemeColors buttonColors;
 
   KeypadPopover({
     Key? key,
     required this.onWidget,
     required this.callback,
     this.includeSeconds = true,
+    this.backgroundColors = K.defaultBackgroundColors,
+    this.buttonColors = K.buttonColors,
   }) : super(key: key);
 
   @override
@@ -54,18 +60,10 @@ class _KeypadPopover extends ObservingStatefulWidget<KeypadPopover> {
           child: widget.onWidget,
           onTap: () {
             showPopover(
-              backgroundColor: Colors.grey,
-              //backgroundColor: ThemeManager.color(K.captionColors, context: context),
+              backgroundColor: widget.backgroundColors.of(context: context),
               context: context,
               bodyBuilder: (context) => _picker(),
-              onPop: () {
-                debugPrint('POP!');
-              },
-              // width: K.minimalPopoverSize.width,
-              //height: 500.0,
-              //width: 400.0,
-              // arrowHeight: K.popoverArrowHeight,
-              // arrowWidth: K.popoverArrowWidth,
+              onPop: () {},
             );
           },
         );
@@ -74,6 +72,6 @@ class _KeypadPopover extends ObservingStatefulWidget<KeypadPopover> {
   }
 
   Widget _picker() {
-    return NumberBar();
+    return NumberBar(widget.buttonColors);
   }
 }

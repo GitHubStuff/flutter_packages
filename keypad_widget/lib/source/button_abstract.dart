@@ -21,7 +21,7 @@ abstract class ButtonAbstract {
         padding: const EdgeInsets.all(K.buttonPadding),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: K.buttonColors.of(context: context),
             borderRadius: BorderRadius.circular(K.buttonBody / 2.0),
           ),
           child: TextButton(

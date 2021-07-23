@@ -10,13 +10,18 @@ const double keypadHeight = buttonSize * 4.0;
 const double keypadWidth = (buttonSize * 3.0);
 const setterButtonText = 'Set';
 
-final ThemeColors buttonColors = ThemeColors(
-  dark: Colors.green,
+const ThemeColors defaultBackgroundColors = ThemeColors(
+  dark: Colors.white30,
   light: Colors.white70,
 );
 
+const ThemeColors buttonColors = ThemeColors(
+  dark: Color(0xFF1B5E20),
+  light: Colors.blueAccent,
+);
+
 final ThemeColors textColors = ThemeColors(
-  dark: Colors.yellow,
+  dark: Colors.black,
   light: Colors.black,
 );
 TextStyle setButtonStyle(BuildContext context) => TextStyle(

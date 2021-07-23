@@ -1,13 +1,18 @@
+// Copyright 2021, LTMM LLC.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:keypad_popover/keypad_popover.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import '../source/constants.dart' as K;
 import 'keypads.dart';
 
+/// This displays input square, and the keypad buttons
 class NumberBar extends StatefulWidget {
+  final ThemeColors buttonColors;
+  NumberBar(this.buttonColors);
   _NumberBar createState() => _NumberBar();
 }
 
@@ -47,7 +52,7 @@ class _NumberBar extends ObservingStatefulWidget<NumberBar> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: widget.buttonColors.of(context: context),
             borderRadius: BorderRadius.circular(K.buttonBody / 2.0),
           ),
           child: TextButton(
