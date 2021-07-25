@@ -42,7 +42,7 @@ Future<Either<XferFailure, XferResponse>> _httpMethod(
         break;
     }
     String bodyText = response.body.toString();
-    bodyText = (bodyText.isEmpty) ? '^empty^' : bodyText.substring(0, min(bodyText.length, 20));
+    bodyText = (bodyText.isEmpty) ? '^empty^' : bodyText.substring(0, min(bodyText.length, 200));
     final String responseInPlainText = '${response.statusCode} $bodyText';
     if (trace) {
       debugPrint('🔍🔍 $traceMessage');
