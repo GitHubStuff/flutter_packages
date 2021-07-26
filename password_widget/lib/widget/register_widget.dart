@@ -16,6 +16,7 @@ class RegisterWidget extends StatefulWidget {
 
 class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
   LoginCubit _loginCubit = LoginCubit();
+  bool _enableRegister = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
           child: BlocBuilder<LoginCubit, LoginState>(
               bloc: _loginCubit,
               builder: (contxt, state) {
+                if (state is EnableButton) _enableRegister = state.enable;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -48,10 +50,11 @@ class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
                       height: 14.0,
                     ),
                     SignInButton(
-                      enabled: true,
+                      enabled: _enableRegister,
                       caption: 'Register',
-                      widgetType: K.WidgetType.register,
-                      widgetCallback: (type) {},
+                      widgetCallback: () {
+                        Modular.get<SigninCubit>().register(_loginCubit.email, _loginCubit.password);
+                      },
                     ),
                     SizedBox(
                       height: 14.0,
@@ -59,8 +62,7 @@ class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
                     SignInButton(
                       enabled: true,
                       caption: 'Cancel',
-                      widgetType: K.WidgetType.register,
-                      widgetCallback: (type) {
+                      widgetCallback: () {
                         Modular.get<SigninCubit>().setMode(K.WidgetType.signin);
                       },
                     ),
@@ -74,7 +76,7 @@ class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
 
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(
-      border: Border.all(),
+      border: Border.all(color: K.borderColors.of(context: context)),
     );
   }
 }

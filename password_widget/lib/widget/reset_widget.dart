@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_extras/source/observing_stateful_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:passwordwidget/cubit/signin_cubit.dart';
-import '../constants.dart' as K;
 
+import '../constants.dart' as K;
 import '../cubit/login_cubit.dart';
 import '../source/email_widget.dart';
 import '../source/signin_button.dart';
@@ -15,6 +15,7 @@ class ResetWidget extends StatefulWidget {
 
 class _ResetWidget extends ObservingStatefulWidget<ResetWidget> {
   LoginCubit _loginCubit = LoginCubit();
+  bool _enableReset = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +28,23 @@ class _ResetWidget extends ObservingStatefulWidget<ResetWidget> {
           child: BlocBuilder<LoginCubit, LoginState>(
               bloc: _loginCubit,
               builder: (contxt, state) {
+                if (state is EnableButton) _enableReset = state.enable;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     EmailWidget(
                       callback: (txt) {
-                        _loginCubit.collectEmail(txt);
+                        _loginCubit.collectJustEmail(txt);
+                      },
+                    ),
+                    SizedBox(
+                      height: 14.0,
+                    ),
+                    SignInButton(
+                      enabled: _enableReset,
+                      caption: 'Reset',
+                      widgetCallback: () {
+                        Modular.get<SigninCubit>().reset(_loginCubit.email);
                       },
                     ),
                     SizedBox(
@@ -40,18 +52,8 @@ class _ResetWidget extends ObservingStatefulWidget<ResetWidget> {
                     ),
                     SignInButton(
                       enabled: true,
-                      caption: 'Reset',
-                      widgetType: K.WidgetType.reset,
-                      widgetCallback: (type) {},
-                    ),
-                    SizedBox(
-                      height: 14.0,
-                    ),
-                    SignInButton(
-                      enabled: true,
                       caption: 'Cancel',
-                      widgetType: K.WidgetType.register,
-                      widgetCallback: (type) {
+                      widgetCallback: () {
                         Modular.get<SigninCubit>().setMode(K.WidgetType.signin);
                       },
                     ),
@@ -65,7 +67,7 @@ class _ResetWidget extends ObservingStatefulWidget<ResetWidget> {
 
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(
-      border: Border.all(),
+      border: Border.all(color: K.borderColors.of(context: context)),
     );
   }
 }

@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 
-import '../constants.dart' as K;
-
 class SignInButton extends StatefulWidget {
   final bool enabled;
   final String caption;
-  final K.WidgetType widgetType;
-  final K.WidgetTypeCallback widgetCallback;
+  final VoidCallback widgetCallback;
 
   const SignInButton({
     Key? key,
     this.enabled = true,
     required this.caption,
     required this.widgetCallback,
-    required this.widgetType,
   }) : super(key: key);
 
   @override
@@ -28,7 +24,7 @@ class _SignInButton extends ObservingStatefulWidget<SignInButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: _style,
-      onPressed: widget.enabled ? () => widget.widgetCallback(widget.widgetType) : null,
+      onPressed: widget.enabled ? () => widget.widgetCallback() : null,
       child: Text(widget.caption),
     );
   }

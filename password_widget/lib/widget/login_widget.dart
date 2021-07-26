@@ -52,8 +52,7 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
                     SignInButton(
                       enabled: _enableSignIn,
                       caption: 'Sign In',
-                      widgetType: K.WidgetType.signin,
-                      widgetCallback: (type) {
+                      widgetCallback: () {
                         Modular.get<SigninCubit>().signin(_loginCubit.email, _loginCubit.password);
                       },
                     ),
@@ -65,15 +64,13 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
                       children: [
                         SignInButton(
                           caption: 'Register',
-                          widgetType: K.WidgetType.register,
-                          widgetCallback: (type) {
+                          widgetCallback: () {
                             Modular.get<SigninCubit>().setMode(K.WidgetType.register);
                           },
                         ),
                         SignInButton(
                           caption: 'Reset',
-                          widgetType: K.WidgetType.reset,
-                          widgetCallback: (type) {
+                          widgetCallback: () {
                             Modular.get<SigninCubit>().setMode(K.WidgetType.reset);
                           },
                         ),
@@ -89,7 +86,7 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
 
   BoxDecoration myBoxDecoration() {
     return BoxDecoration(
-      border: Border.all(),
+      border: Border.all(color: K.borderColors.of(context: context)),
     );
   }
 }

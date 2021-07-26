@@ -18,4 +18,9 @@ class LoginCubit extends Cubit<LoginState> {
     email = eMail;
     emit(EnableButton(password.isNotEmpty && email.isNotEmpty));
   }
+
+  void collectJustEmail(String eMail) {
+    email = eMail;
+    emit(EnableButton(email.isNotEmpty));
+  }
 }
