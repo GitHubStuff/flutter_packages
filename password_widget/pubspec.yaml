@@ -1,0 +1,31 @@
+name: passwordwidget
+description: Template for Flutter Password Input Widget
+version: 0.0.1
+author: Steven Smith
+homepage: http://www.icodeforyou.com
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.13.4 <3.0.0" #Dart SDK 1-JUL-2021
+  flutter: ">=2.2.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.3
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.3.1
+  intl: ^0.17.0
+  flutter_extras:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: flutter_extras
+  theme_manager:
+    git:
+      url: https://github.com/GitHubStuff/theme_manager
+      
+dev_dependencies:
+  test: ^1.17.10
+
+flutter:
+  uses-material-design: true
