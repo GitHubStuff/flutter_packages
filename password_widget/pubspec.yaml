@@ -1,6 +1,6 @@
 name: passwordwidget
-description: Template for Flutter Password Input Widget
-version: 0.0.1
+description: Template for Flutter Signin Widget
+version: 0.0.1+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -12,10 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.3
-  flutter_bloc: ^7.0.1
-  flutter_modular: ^3.3.1
-  intl: ^0.17.0
   flutter_extras:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
@@ -23,7 +19,11 @@ dependencies:
   theme_manager:
     git:
       url: https://github.com/GitHubStuff/theme_manager
-      
+  cupertino_icons: ^1.0.3
+  flutter_bloc: ^7.0.1
+  flutter_modular: ^3.3.1
+  intl: ^0.17.0
+
 dev_dependencies:
   test: ^1.17.10
 
