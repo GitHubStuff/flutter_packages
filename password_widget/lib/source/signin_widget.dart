@@ -5,15 +5,15 @@ import 'package:flutter_extras/flutter_extras.dart';
 import '../constants.dart' as K;
 import '../cubit/password_cubit.dart';
 
-class PasswordWidget extends StatefulWidget {
+class Siginwidget extends StatefulWidget {
   final K.TextCallback callback;
 
-  PasswordWidget({Key? key, required this.callback}) : super(key: key);
+  Siginwidget({Key? key, required this.callback}) : super(key: key);
 
-  _PasswordWidget createState() => _PasswordWidget();
+  _Siginwidget createState() => _Siginwidget();
 }
 
-class _PasswordWidget extends ObservingStatefulWidget<PasswordWidget> {
+class _Siginwidget extends ObservingStatefulWidget<Siginwidget> {
   bool _hidePassword = true;
   String _helperText = K.helperText;
 

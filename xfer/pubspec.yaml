@@ -1,6 +1,6 @@
 name: xfer
 description: Does http calls, and call to asset, and local files with various protocols
-version: 0.4.1+8
+version: 0.4.2+1
 author: Steven Smith
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
@@ -16,7 +16,7 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: tracers_package
-  cached_network_image: ^3.1.0-alpha.1
+  cached_network_image: ^3.1.0
   dartz: ^0.10.0-nullsafety.2
   enum_to_string: ^2.0.1
   equatable: ^2.0.3

@@ -16,5 +16,5 @@ class XferFailure extends Equatable implements Exception {
     return 'No Message';
   }
 
-  String toString() => 'code: ${message()}, xferException: ${EnumToString.convertToString(xferException)}';
+  String toString() => 'XFR code: ${message()}, xferException: ${EnumToString.convertToString(xferException)}';
 }

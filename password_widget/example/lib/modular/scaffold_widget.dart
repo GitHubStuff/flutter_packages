@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
-import 'package:passwordwidget/password_widget.dart';
+import 'package:siginwidget/sigin_widget.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 class ScaffoldWidget extends StatefulWidget {

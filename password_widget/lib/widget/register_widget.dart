@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_extras/source/observing_stateful_widget.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:passwordwidget/cubit/signin_cubit.dart';
+import 'package:siginwidget/cubit/signin_cubit.dart';
 
 import '../constants.dart' as K;
 import '../cubit/login_cubit.dart';
 import '../source/email_widget.dart';
-import '../source/password_widget.dart';
+import '../source/sigin_widget.dart';
 import '../source/signin_button.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -41,7 +41,7 @@ class _RegisterWidget extends ObservingStatefulWidget<RegisterWidget> {
                     SizedBox(
                       height: 28.0,
                     ),
-                    PasswordWidget(
+                    Siginwidget(
                       callback: (txt) {
                         _loginCubit.collectPassword(txt);
                       },
