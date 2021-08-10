@@ -14,6 +14,11 @@ const ThemeColors _defaultBarrierColors = ThemeColors(
   light: const Color(0x80000000),
 );
 
+const ThemeColors _defaultButtonColors = ThemeColors(
+  dark: const Color(0xFFFBC02D),
+  light: const Color(0x80000000),
+);
+
 /// Space between buttons, text body, etc
 const double _defaultSpacing = 8.0;
 
@@ -40,12 +45,6 @@ ThemeColors _defaultBackgroundColors = ThemeColors(
 ThemeColors _defaultCardColors = ThemeColors(
   dark: Colors.grey.shade900,
   light: Colors.white,
-);
-
-/// The color of the popover
-ThemeColors _defaultButtonColors = ThemeColors(
-  dark: Colors.white60,
-  light: Colors.black54,
 );
 
 /// This Language DTO provides default text for all the popover text: title, caption, and buttons for supported languages
@@ -152,7 +151,7 @@ class ConfirmationPopover extends StatelessWidget {
   Widget _popoverContent(BuildContext context) {
     LanguageDto wordsDto = (languageDto ?? _words);
     final cardColor = (cardColors ?? _defaultCardColors).of(context: context);
-    final Color buttonColor = (buttonColors ?? _defaultBarrierColors).of(context: context);
+    final Color buttonColor = (buttonColors ?? _defaultButtonColors).of(context: context);
     return SizedBox(
       width: min(context.width * _screenWidthFactor, _maxPoints),
       child: Card(

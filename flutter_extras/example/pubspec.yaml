@@ -8,15 +8,15 @@ environment:
   flutter: ">=2.2.3"
 
 dependencies:
+  cupertino_icons: ^1.0.3
   flutter:
     sdk: flutter
+  flutter_bloc: ^7.1.0
   flutter_extras:
     path: ../
+  flutter_modular: ^3.3.1
   theme_manager:
     git: https://github.com/GitHubStuff/theme_manager.git
-  cupertino_icons: ^1.0.3
-  flutter_bloc: ^7.0.1
-  flutter_modular: ^3.3.1
 
 dev_dependencies:
   test: ^1.17.9
