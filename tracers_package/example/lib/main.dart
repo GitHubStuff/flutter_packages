@@ -8,7 +8,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Log.setTrace(baseLevel: LogLevel.All);
     Log.V('Starting');
+    Log.A('As A');
+    Log.C('As C');
+    Log.D('As D');
+    Log.E('As E');
+    Log.F('As F');
+    Log.I('As I');
+    Log.M('As M');
+    Log.T('As T');
+    Log.V('As V');
+    Log.W('As W');
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
