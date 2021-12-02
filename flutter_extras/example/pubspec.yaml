@@ -8,10 +8,14 @@ environment:
   flutter: ">=2.5.2"
 
 dependencies:
+  app_exception:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: app_exception
   cupertino_icons: ^1.0.3
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.3.0
+  flutter_bloc: ^8.0.0
   flutter_extras:
     path: ../
   flutter_modular: ^4.1.1
@@ -19,8 +23,6 @@ dependencies:
     git: https://github.com/GitHubStuff/theme_manager.git
 
 dependency_overrides:
-  app_exception:
-    git: https://github.com/GitHubStuff/app_exception.git
 
 dev_dependencies:
   test: ^1.18.2

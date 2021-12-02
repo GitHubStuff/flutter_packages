@@ -1,12 +1,12 @@
 name: flutter_extras
 description: Collection of common extensions and helper objects
-version: 0.3.0+1
+version: 0.4.0+1
 homepage: http://www.icodeforyou.com
 publish_to: 'none'
 
 environment:
-  sdk: ">=2.14.3 <3.0.0" #Dart SDK 7-Oct-2021
-  flutter: ">=2.5.2"
+  sdk: ">=2.14.4 <3.0.0" #Dart SDK 2021-10-15
+  flutter: ">=2.5.3"
 
 dependencies:
   app_exception:
@@ -17,7 +17,7 @@ dependencies:
   enum_to_string: ^2.0.1
   flutter:
     sdk: flutter
-  flutter_bloc: ^7.3.0
+  flutter_bloc: ^8.0.0
   flutter_platform_widgets: ^1.9.5
   tracers_package:
     git:
