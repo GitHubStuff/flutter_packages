@@ -97,11 +97,11 @@ class _CachedWidget extends ObservingStatefulWidget<CachedWidget> {
           direction: PopoverDirection.bottom,
           height: min(60.0 * length, 60.0 * 3.5), // No more than 3.5 displayed to keep popover compact
           width: min(400.0, context.size!.width * 0.95),
-          backgroundColor: widget.popoverColors?.of(context: context) ??
+          backgroundColor: widget.popoverColors?.of(context) ??
               ThemeColors(
                 dark: Color(0xff0047ab),
                 light: Colors.black54,
-              ).of(context: context),
+              ).of(context),
         );
       },
     );
@@ -150,13 +150,13 @@ class _CachedWidget extends ObservingStatefulWidget<CachedWidget> {
                         color: ThemeColors(
                           dark: ThemeManager.darkTheme.textTheme.caption!.color!,
                           light: ThemeManager.lightTheme.textTheme.caption!.color!,
-                        ).of(context: context)),
+                        ).of(context)),
               ),
-              color: widget.listTileColors?.of(context: context) ??
+              color: widget.listTileColors?.of(context) ??
                   ThemeColors(
                     dark: Color(0xAA000000),
                     light: Color(0xAAffffff),
-                  ).of(context: context),
+                  ).of(context),
             ),
           ),
         ));
