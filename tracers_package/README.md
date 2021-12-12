@@ -6,6 +6,22 @@ and
 
 Create/Display TimeMarker()
 
+## Install
+
+```dart
+tracers_package:
+    git: 
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: tracers_package
+```
+
+## Import
+
+```dart
+import 'package:tracers_package/tracers.dart';
+
+```
+
 ## Getting Started
 
 * Establish logging level
